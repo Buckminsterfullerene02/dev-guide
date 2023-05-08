@@ -19,6 +19,7 @@
         - [Folder hierarchy](./ModSupport/NativeLoading/FolderHierarchy.md)
     - [Mod managers](./ModSupport/ModManagers.md)
     - [Mod kits/SDKs](./ModSupport/ModKits.md)
+        - [Developer Modkits](./ModSupport/ModKits/DeveloperModkits.md)
         - [Community Modkits](./ModSupport/ModKits/CommunityModkits.md)
 - [Case Studies](./CaseStudies.md)
     - [Satisfactory](./CaseStudies/Satisfactory.md)

@@ -8,8 +8,6 @@ I have seen a couple of indie game studios dismiss mods because they think that 
 
 The most important thing that mods offer a game, is "a second life." If official mod support is enabled for a game, and is easily accessible, it will take a significantly longer time to lose players after development stops, as well as it being more interesting alongside normal updates. The game gets content for free, and in many cases more sales because of certain big mods. I know plenty of people who have bought games because of mods, like flatscreen to VR (Virtual Reality) mods.
 
-*feedback loop diagram maybe?*
-
 One extremely common and ignorant misconception that I see a lot is something like "mods are bad because they allow you to rip our art/audio assets out of our game." Which is just not true – there are plenty of tools – that are not mods – that make it surprisingly easy for anyone to do, so really there is no hope if you want to stop your assets from being ripped. Asset encryption exists, but of course there is another tool and several methods that exist to crack the key anyway. If modding did not exist, the asset ripping problem would not change. By using an engine with source code available to anyone who can make an Epic Games account, you are accepting this risk.
 
 While I agree that ripping assets from games is a big problem, it is extremely useful when making some mods. For example, if a mod wants to make an edit to a model, they can rip the mesh and its skeleton and use them as a template to edit the model rather than having to remake from scratch. But modders should be aware of the terms of use/legal policies for each game, so developers should make them as clear as possible.
@@ -24,5 +22,3 @@ The most obvious thing is what type of game it is. On the one side, if it is a c
 A particularly crucial factor is the engine version that the game runs on. Typically, the "best" engine versions for modding are 4.25/26/27, as they have had plenty of time to mature, thus have the most tools developed for them. Typically, any game 4.19+ is moddable to a high enough standard to make it worthwhile, and any game lower than this will require a significant amount more work from community tool developers. 
 
 If the game makes heavy edits to the engine source, like many games do, it can make it significantly more difficult to mod. 
-
-*Talk about switch between UE4 and UE5 maybe?*
