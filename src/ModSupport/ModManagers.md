@@ -23,12 +23,16 @@ A solid way to implement a system like this is to provide a collection of interf
 
 Here’s an example of a shared mod settings window that modders created for the game Deep Rock Galactic:
 
-[![DRG Mod Hub](../Images/DRGModHub.png)](https://github.com/Unreal-Modding-Library/dev-guide/blob/239c7099066a3009f3b7e926e69cfdffb89e21f9/src/Images/DRGModHub.png)
+[![DRG Mod Hub](../Images/DRGModHub.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1154751633318744084/DRGModHub.png)
 
 *In-game menu for mods*
 
-[![Mod Hub BP](../Images/ModhubBP.png)](https://github.com/Unreal-Modding-Library/dev-guide/blob/17d62210695e540807bac0633460f636067a9a32/src/Images/ModhubBP.png)
+[![Mod Hub BP](../Images/ModhubBP.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1154751679070220298/ModhubBP.png)
 
 *An example mod using the mod hub's interfaces*
 
-I’ve ported this to be game-generic, which means that any modding community can take the source code and edit it slightly to work with whatever mod loading method they are using. You can find the link to its source [here](https://github.com/Unreal-Modding-Library/mod-hub), if you wish to see how exactly it works.
+I’ve ported this to be game-generic, which means that any modding community can take the source code and edit it slightly to work with whatever mod loading method they are using. You can find the link to its source [here](https://github.com/Buckminsterfullerene02/mod-hub), if you wish to see how exactly it works.
+
+The game [Astro Colony](https://store.steampowered.com/app/1614550/Astro_Colony/) has already used this template to create its own mod hub:
+
+[![Astro Colony Mod Hub](../Images/ACModHub.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1154752920278011904/image.png)

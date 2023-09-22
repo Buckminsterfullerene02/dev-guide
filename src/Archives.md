@@ -1,0 +1,2 @@
+# Archived Pages
+These are pages that I have written in the past that I have either not wanted to publish, or have deemed not within the scope of the document. I do not wish to hide information however, so if you wish to read them, they are here.

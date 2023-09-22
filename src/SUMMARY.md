@@ -16,7 +16,6 @@
         - [Pak loader plugin](./ModSupport/NativeLoading/PakLoader.md)
         - [SimpleUGC plugin](./ModSupport/NativeLoading/SimpleUGC.md)
         - [Do it yourself](./ModSupport/NativeLoading/DIY.md)
-        - [Folder hierarchy](./ModSupport/NativeLoading/FolderHierarchy.md)
     - [Mod managers](./ModSupport/ModManagers.md)
     - [Mod kits/SDKs](./ModSupport/ModKits.md)
         - [Developer Modkits](./ModSupport/ModKits/DeveloperModkits.md)
@@ -27,3 +26,5 @@
     - [Deep Rock Galactic](./CaseStudies/DRG.md)
     - [cyubeVR](./CaseStudies/cyubeVR.md)
 - [Final notes](./FinalNotes.md)
+- [Archived Pages](./Archives.md)
+    - [Folder Hierarchy](./Archived/FolderHierarchy.md)

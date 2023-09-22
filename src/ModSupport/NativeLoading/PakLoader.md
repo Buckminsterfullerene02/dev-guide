@@ -3,15 +3,15 @@ The first option that I suggest is using [this Pak loader plugin](https://www.un
 
 The plugin allows you to mount pak files from any file location. You can then spawn specific actors from within the pak file via a bit of blueprint code.
 
-[![Overall Mount Process](../../Images/PakLoader1.png)](https://github.com/Unreal-Modding-Library/dev-guide/blob/17d62210695e540807bac0633460f636067a9a32/src/Images/PakLoader1.png)
+[![Overall Mount Process](../../Images/PakLoader1.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1154755865304383510/PakLoader1.png)
 
 *Example code for the overall mount process*
 
-[![Mounting Pak File](../../Images/PakLoader2.png)](https://github.com/Unreal-Modding-Library/dev-guide/blob/17d62210695e540807bac0633460f636067a9a32/src/Images/PakLoader2.png)
+[![Mounting Pak File](../../Images/PakLoader2.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1154755882001895537/PakLoader2.png)
 
 *Example code for mounting a pak file*
 
-[![Spawning Actor](../../Images/PakLoader3.png)](https://github.com/Unreal-Modding-Library/dev-guide/blob/17d62210695e540807bac0633460f636067a9a32/src/Images/PakLoader3.png)
+[![Spawning Actor](../../Images/PakLoader3.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1154755904021999636/PakLoader3.png)
 
 *Example code for spawning a mod actor of a specified name*
 

@@ -1,4 +1,4 @@
-# Folder hierarchy
+# Folder hierarchy (originally in section 3.1)
 Obviously, you need to be able to assign mod actors to mod names/IDs, so a good folder hierarchy is important. My suggestion is that you put a Mods/ folder inside of `<GameInstallFolder>/<GameName>/` and then inside of that, split up each mod by a folder with the name of the mod. Inside of that folder is the mod files, including the “Init” blueprint actors that you are scanning for to load. 
 
 If you know your game will upgrade to new engine versions and/or make significant code changes in the future, it may be in your best interest to have that includes mod information within it. With this I mean, you could require a "descriptor” .txt/.uplugin file in the mod folder name to inform the game version that it currently works on. 
@@ -9,7 +9,7 @@ Finally, you may want a dedicated location for mod saves to be stored. Since mod
 
 To put all this together, let’s run through an example. Say there are two mods installed. The mod hierarchy could look like this:
 
-[![Folder Hierarchy](../../Images/FolderHierarchy.png)](https://github.com/Unreal-Modding-Library/dev-guide/blob/17d62210695e540807bac0633460f636067a9a32/src/Images/FolderHierarchy.png)
+[![Folder Hierarchy](../../Images/FolderHierarchy.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1154755576149069948/FolderHierarchy.png)
 
 *Example mod folder hierarchy*
 
