@@ -7,6 +7,4 @@ Therefore, the community could heavily expand their mod support capabilities. Th
 
 Additionally, since the mods are plugins, they can interface directly with the UE core C++ API, meaning that they could easily dump all the information about the C++ headers and assets in the game and produce their own [mod kit](https://github.com/mircearoata/satisfactory-modding) for modders.
 
-A downside to this, as discussed, is security. Giving people the ability to upload uncontained C++ that is executed can be very dangerous, which is why all mods uploaded to the site are ran through [VirusTotal](https://www.virustotal.com/gui/home/upload). As far as I am aware, in the last few years, there have not been any incidents.
-
-Although the developers intended on official mod support from the first launch of Early Access, it is clear that the community’s system is so strong that they don’t need to do anything themselves, aside from providing help with internal information, and the changing of the build type to modular obviously.
+A downside to this, as discussed, is security. Giving people the ability to upload uncontained C++ that is executed can be very dangerous, which is why all mods uploaded to the site are ran through [VirusTotal](https://www.virustotal.com/gui/home/upload). As far as I am aware, in the last few years, there has only been one minor incident (that has been caught).
