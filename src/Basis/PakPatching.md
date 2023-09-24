@@ -9,4 +9,4 @@ If this is not already enough, UE has a [built-in system](https://docs.unrealeng
 
 Modders can combine the above two methods, to always make sure that their mods are loaded into the game. Consequently, the basis of modding is replacing existing assets in a game with edited or entirely new ones.
 
-Finally, it is important to know that custom C++ classes cannot be loaded into the game using pak files, since they are only for assets. But that is not such a big deal as you might initially think, which will be explained in the [Blueprints](https://unreal-modding-library.github.io/dev-guide/Basis/Blueprints) section.
+Finally, it is important to know that custom C++ classes cannot be loaded into the game using pak files, since they are only for assets. But that is not such a big deal as you might initially think, which will be explained in the [Blueprints](./Blueprints.md) section.

@@ -33,6 +33,12 @@ Each mod is required to contain a mod config asset, which looks like this:
 
 [![Astro Colony mod config](../../../Images/ACModConfig.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1155439663654383666/ACModConfig.png)
 
+Inside of it, you can:
+- Set game objects you've edited to override the base game objects during packaging
+- Allow modders to add their own data assets to any loading system
+- Set the in-game mod icon to a texture asset
+- Specify details for any extra tabs for the mod hub
+
 ## Create mod
 
 [![Astro Colony mod config](../../../Images/ACCreateMod.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1155439601524158474/ACCreateMod.png)

@@ -9,7 +9,7 @@ The only pre-requisite for modders to use a modkit like this, is the engine inst
 
 ## Why should I provide uncooked content?
 
-As you can read about in the [Community Modkits](https://buckminsterfullerene02.github.io/dev-guide/ModSupport/ModKits/CommunityModkits) section, modders have been able to create tools that can extract data from the cooked files, and convert them into raw, uncooked files within the editor. 
+As you can read about in the [Community Modkits](../CommunityModkits.md) section, modders have been able to create tools that can extract data from the cooked files, and convert them into raw, uncooked files within the editor. 
 
 However, this is a very time consuming process, and can be error prone. If you provide the uncooked content, you are saving modders a lot of time and effort, and by doing this, you are also making it easier for them to create mods.
 
