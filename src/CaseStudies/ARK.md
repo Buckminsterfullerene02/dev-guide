@@ -4,5 +4,3 @@ I’ve never played this game nor modded it, but its modding scene is one of the
 They distribute this by providing a separate ~100GB download for users that own the game.
 
 The mod kit is so special, that it has its own [entire category](https://forums.unrealengine.com/c/development-discussion/modding/ark-survival-evolved/80) on the Unreal Engine forums!
-
-So, this is of course an option for you, but let me tell you, this is in any modders’ wildest dreams, so I feel good for the ARK modders :)

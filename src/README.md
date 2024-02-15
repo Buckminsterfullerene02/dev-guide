@@ -24,4 +24,5 @@ If you are reading this with a bad perception of modding already, I encourage th
 - 0.1.0 - 2023-01-20 - Initial release of first draft
 - 0.1.1 - 2023-01-21 - Markdown pass, rewrote DLL injection section
 - 0.1.2 - 2023-08-05 - Started guide about developer provided modkits
-- 0.1.3 - 2023-09-24 - Added most detail to developer modkit section, reworked parts of the guide to be updated with new information/methods/engine versions 
+- 0.1.3 - 2023-09-24 - Added most detail to developer modkit section, reworked parts of the guide to be updated with new information/methods/engine versions
+- 0.1.4 - 2024-02-15 - Added ContractorsVR case study, added new useful resource links where necessary, fixed some poor wording

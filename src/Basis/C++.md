@@ -5,7 +5,9 @@ To best provide C++ support, there are two methods:
 - Providing an API
 - Building modularly
 
-There already exists a very strong [C++](https://docs.ue4ss.com/cpp-api.html) and [Lua](https://docs.ue4ss.com/lua-api.html) API via a tool called UE4SS that works for any UE4/5 game, which you should be aware of, whether or not you decide to go down this route natively.
+There already exists a very strong [C++](https://docs.ue4ss.com/cpp-api.html) and [Lua](https://docs.ue4ss.com/lua-api.html) API via a tool called UE4SS that works for any UE4/5 game, which you should be aware of, whether or not you decide to go down this route natively. 
+
+Additionally, there is a UE4/5 plugin called [LuaMachine](https://github.com/rdeioris/LuaMachine) that provides a more native approach to Lua scripting.
 
 Later, in the case studies section, I will go over examples from cyubeVR that provided an API and Satisfactory that built modularly.
 

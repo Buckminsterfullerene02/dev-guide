@@ -26,6 +26,7 @@
         - [Community Modkits](./ModSupport/ModKits/CommunityModkits.md)
 - [Case Studies](./CaseStudies.md)
     - [Satisfactory](./CaseStudies/Satisfactory.md)
+    - [ContractorsVR](./CaseStudies/ContractorsVR.md)
     - [ARK: Survival Evolved](./CaseStudies/ARK.md)
     - [Deep Rock Galactic](./CaseStudies/DRG.md)
     - [cyubeVR](./CaseStudies/cyubeVR.md)

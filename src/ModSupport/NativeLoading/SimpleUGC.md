@@ -9,5 +9,6 @@ The need to create a custom game instance makes modding unnecessarily difficult 
 
 But the main reason I do not like this plugin is that it requires the developer to produce a "mod kit" just to allow modders to actually create their mods within UEE. This mod kit is not related to providing any game assets to aid with modding itself, but rather framework files. The best step is no step - it is not ideal as it increases the bar for modders and restricts what can be done. 
 
-The plugin may work for you, but to be honest it’s a lot of extra work than needs to be for both sides and if you do end up modifying it, you’re way more prone to annoying crashes and bugs that makes good mod support harder to reach. 
+The plugin may work for you, but to be honest it’s a lot of extra work than needs to be for both sides and if you do end up modifying it, you’re way more prone to annoying crashes and bugs that makes good mod support harder to reach. Note that the plugin only supports UE4, however there is an existing UE5 port [here](https://github.com/TheHellcat/UE5-SimpleUGC/).
+
 Of course, I recommend that you still explore this option yourself; don’t just take my advice and run with it. 
