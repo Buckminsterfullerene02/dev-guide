@@ -13,10 +13,10 @@ If you are reading this with a bad perception of modding already, I encourage th
 - JonasHR from [Ghost Ship Games](https://ghostship.dk/) for insight into the internal Deep Rock Galactic mod system
 - Daniel from [Minakata Dynamics](https://minakatadynamics.co.jp/) for being an awesome guy to bounce ideas back and forth with
 - [Narknon](https://github.com/narknon) for having almost every 4.15+ engine source downloaded to provide information quickly
-- Members of the Unreal Engine Modding [Discord](https://discord.gg/zVvsE9mEEa) for information tidbits
+- Members of the Unreal Engine Modding [Discord](https://discord.gg/unreal-engine-modding-876613187204685934) for information tidbits
 
 # Where to find me
-- [Discord](https://discord.gg/zVvsE9mEEa) - `buckminsterfullerene` (please join the Discord first so I know where you are coming from)
+- [Discord](https://discord.gg/unreal-engine-modding-876613187204685934) - `buckminsterfullerene` (please join the Discord first so I know where you are coming from)
 - [GitHub](https://github.com/Buckminsterfullerene02)
 - [Epic Games Developer Forums](https://dev.epicgames.com/community/profile/4an3/bobby459001)
 
@@ -27,3 +27,4 @@ If you are reading this with a bad perception of modding already, I encourage th
 - 0.1.3 - 2023-09-24 - Added most detail to developer modkit section, reworked parts of the guide to be updated with new information/methods/engine versions
 - 0.1.4 - 2024-02-15 - Added ContractorsVR case study, added new useful resource links where necessary, fixed some poor wording
 - 0.1.5 - 2024-03-06 - Moved Astro Colony case study to match the format of the document
+- 0.1.6 - 2024-09-25 - Update links
