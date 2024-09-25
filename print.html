@@ -1,0 +1,924 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>A Comprehensive Introduction to Unreal Engine Modding</title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="css/custom.css">
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Home</a></li><li class="chapter-item expanded "><a href="Overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="Basis.html"><strong aria-hidden="true">2.</strong> The Basis of all modding</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Basis/PakPatching.html"><strong aria-hidden="true">2.1.</strong> Pak patching</a></li><li class="chapter-item expanded "><a href="Basis/DealingWithPaks.html"><strong aria-hidden="true">2.2.</strong> Dealing with paks</a></li><li class="chapter-item expanded "><a href="Basis/AssetEditing.html"><strong aria-hidden="true">2.3.</strong> Asset editing</a></li><li class="chapter-item expanded "><a href="Basis/Audio.html"><strong aria-hidden="true">2.4.</strong> Audio</a></li><li class="chapter-item expanded "><a href="Basis/Visual.html"><strong aria-hidden="true">2.5.</strong> Visual</a></li><li class="chapter-item expanded "><a href="Basis/Blueprints.html"><strong aria-hidden="true">2.6.</strong> Blueprints</a></li><li class="chapter-item expanded "><a href="Basis/C++.html"><strong aria-hidden="true">2.7.</strong> C++</a></li><li class="chapter-item expanded "><a href="Basis/DLLInjection.html"><strong aria-hidden="true">2.8.</strong> DLL injection</a></li></ol></li><li class="chapter-item expanded "><a href="ModSupport.html"><strong aria-hidden="true">3.</strong> Mod Support</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ModSupport/NativeLoading.html"><strong aria-hidden="true">3.1.</strong> Natively loading mods</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ModSupport/NativeLoading/PakLoader.html"><strong aria-hidden="true">3.1.1.</strong> Pak loader plugin</a></li><li class="chapter-item expanded "><a href="ModSupport/NativeLoading/SimpleUGC.html"><strong aria-hidden="true">3.1.2.</strong> SimpleUGC plugin</a></li><li class="chapter-item expanded "><a href="ModSupport/NativeLoading/DIY.html"><strong aria-hidden="true">3.1.3.</strong> Do it yourself</a></li></ol></li><li class="chapter-item expanded "><a href="ModSupport/ModManagers.html"><strong aria-hidden="true">3.2.</strong> Mod managers</a></li><li class="chapter-item expanded "><a href="ModSupport/ModKits.html"><strong aria-hidden="true">3.3.</strong> Mod kits/SDKs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ModSupport/ModKits/DeveloperModkits.html"><strong aria-hidden="true">3.3.1.</strong> Developer Modkits</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ModSupport/ModKits/DeveloperModkits/Why.html"><strong aria-hidden="true">3.3.1.1.</strong> Why?</a></li><li class="chapter-item expanded "><a href="ModSupport/ModKits/DeveloperModkits/How.html"><strong aria-hidden="true">3.3.1.2.</strong> How?</a></li><li class="chapter-item expanded "><a href="ModSupport/ModKits/DeveloperModkits/ExtraFeatures.html"><strong aria-hidden="true">3.3.1.3.</strong> Extra features</a></li><li class="chapter-item expanded "><a href="ModSupport/ModKits/DeveloperModkits/Examples.html"><strong aria-hidden="true">3.3.1.4.</strong> Examples</a></li></ol></li><li class="chapter-item expanded "><a href="ModSupport/ModKits/CommunityModkits.html"><strong aria-hidden="true">3.3.2.</strong> Community Modkits</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="CaseStudies.html"><strong aria-hidden="true">4.</strong> Case Studies</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="CaseStudies/Satisfactory.html"><strong aria-hidden="true">4.1.</strong> Satisfactory</a></li><li class="chapter-item expanded "><a href="CaseStudies/ContractorsVR.html"><strong aria-hidden="true">4.2.</strong> ContractorsVR</a></li><li class="chapter-item expanded "><a href="CaseStudies/AstroColony.html"><strong aria-hidden="true">4.3.</strong> Astro Colony</a></li><li class="chapter-item expanded "><a href="CaseStudies/ARK.html"><strong aria-hidden="true">4.4.</strong> ARK: Survival Evolved</a></li><li class="chapter-item expanded "><a href="CaseStudies/DRG.html"><strong aria-hidden="true">4.5.</strong> Deep Rock Galactic</a></li><li class="chapter-item expanded "><a href="CaseStudies/cyubeVR.html"><strong aria-hidden="true">4.6.</strong> cyubeVR</a></li></ol></li><li class="chapter-item expanded "><a href="FinalNotes.html"><strong aria-hidden="true">5.</strong> Final notes</a></li><li class="chapter-item expanded "><a href="Archives.html"><strong aria-hidden="true">6.</strong> Archived Pages</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Archived/FolderHierarchy.html"><strong aria-hidden="true">6.1.</strong> Folder Hierarchy</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">A Comprehensive Introduction to Unreal Engine Modding</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <blockquote>
+<p>Note: The content of this site is still being refined! </p>
+</blockquote>
+<h1 id="what-is-this"><a class="header" href="#what-is-this">What is this?</a></h1>
+<p>When I first started talking to game developers about modding in Unreal Engine, I realised that there are both misconceptions and a complete lack of knowledge of the field. My goal is to inform both developers and modders of all the possibilities that modding can offer. Only known and used methods will be covered, which means that I will not explore potential options that don’t exist yet, such as ones covered in <a href="https://forums.unrealengine.com/t/modding-data-driven-thoughts-how-to-best-accomplish/65495">this post</a>.</p>
+<p>If you are reading this with a bad perception of modding already, I encourage that you keep an open mind and read at least the overview section before the deep dive into everything there is to know. If you know that you want to add mod support, great! Feel free to skip the overview section and go straight on to the good stuff.</p>
+<p><em>- Buckminsterfullerene</em></p>
+<h1 id="credits"><a class="header" href="#credits">Credits</a></h1>
+<ul>
+<li>Sbsce from <a href="https://store.steampowered.com/app/619500/cyubeVR/">Stonebrick Studios</a> for providing cyubeVR’s mod loading code</li>
+<li>Archengius from <a href="https://www.coffeestainstudios.com/">Coffee Stain Studios</a> for explaining modular builds, helping with modkit creation processes, and generally knowing an insane amount about backend UE workings</li>
+<li>JonasHR from <a href="https://ghostship.dk/">Ghost Ship Games</a> for insight into the internal Deep Rock Galactic mod system</li>
+<li>Daniel from <a href="https://minakatadynamics.co.jp/">Minakata Dynamics</a> for being an awesome guy to bounce ideas back and forth with</li>
+<li><a href="https://github.com/narknon">Narknon</a> for having almost every 4.15+ engine source downloaded to provide information quickly</li>
+<li>Members of the Unreal Engine Modding <a href="https://discord.gg/unreal-engine-modding-876613187204685934">Discord</a> for information tidbits</li>
+</ul>
+<h1 id="where-to-find-me"><a class="header" href="#where-to-find-me">Where to find me</a></h1>
+<ul>
+<li><a href="https://discord.gg/unreal-engine-modding-876613187204685934">Discord</a> - <code>buckminsterfullerene</code> (please join the Discord first so I know where you are coming from)</li>
+<li><a href="https://github.com/Buckminsterfullerene02">GitHub</a></li>
+<li><a href="https://dev.epicgames.com/community/profile/4an3/bobby459001">Epic Games Developer Forums</a></li>
+</ul>
+<h1 id="versions"><a class="header" href="#versions">Versions</a></h1>
+<ul>
+<li>0.1.0 - 2023-01-20 - Initial release of first draft</li>
+<li>0.1.1 - 2023-01-21 - Markdown pass, rewrote DLL injection section</li>
+<li>0.1.2 - 2023-08-05 - Started guide about developer provided modkits</li>
+<li>0.1.3 - 2023-09-24 - Added most detail to developer modkit section, reworked parts of the guide to be updated with new information/methods/engine versions</li>
+<li>0.1.4 - 2024-02-15 - Added ContractorsVR case study, added new useful resource links where necessary, fixed some poor wording</li>
+<li>0.1.5 - 2024-03-06 - Moved Astro Colony case study to match the format of the document</li>
+<li>0.1.6 - 2024-09-25 - Update links</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="overview"><a class="header" href="#overview">Overview</a></h1>
+<p>Epic Games have stated in <a href="https://forums.unrealengine.com/t/got-general-modding-questions/34572">this forum post</a>, that &quot;Unreal Engine 4 has been designed with modding in mind&quot;. They then go on to explain that since the engine source is available, and there is great documentation, mods have a lot of potential. While this is certainly true, which you will discover throughout this post, it is evident that even Epic Games have no idea of the true potential of mod support within Unreal Engine games.</p>
+<h2 id="misconceptions"><a class="header" href="#misconceptions">Misconceptions</a></h2>
+<p>&quot;All mods are cheats!&quot; It depends on the type of game, but generally this is a closed-minded way of thinking. You do not have to look far to see thriving modding communities that have completely changed the game in a positive way. Minecraft is the most well-known example. While they are both &quot;modifications,&quot; mods and hacked clients should not be considered the same. I am vehemently against cheating in any game – because like most gamers, I have suffered from games with terrible cheating problems. If mods or methods have any overlap with the potential to be used for malicious purposes, I will discuss it.</p>
+<p>I have seen a couple of indie game studios dismiss mods because they think that modders are trying to undermine them by adding features that fit the game’s style to make them look incompetent for not adding such features themselves. While this does have some reason – players may ask for a feature and the developers see that it does not fit the direction of the game they want to go in, thus making players angry – nobody thinks like that. You have got to think, why would someone spend tens or hundreds of hours of their life to create interesting content for a game? Because they are passionate about the game and want to see if they can improve the experience for others. </p>
+<p>The most important thing that mods offer a game, is &quot;a second life.&quot; If official mod support is enabled for a game, and is easily accessible, it will take a significantly longer time to lose players after development stops, as well as it being more interesting alongside normal updates. The game gets content for free, and in many cases more sales because of certain big mods. There are plenty of people who have bought games because of mods, like flatscreen to VR (Virtual Reality) mods.</p>
+<p>One extremely common and ignorant misconception that I see a lot is something like &quot;mods are bad because they allow you to rip our art/audio assets out of our game.&quot; Which is just not true – there are plenty of tools – that are not mods – that make it surprisingly easy for anyone to do, so really there is no hope if you want to stop your assets from being ripped. Asset encryption exists, but of course there is another tool and several methods that exist to crack the key anyway. If modding did not exist, the asset ripping problem would not change. By using an engine with source code available to anyone who can make an Epic Games account, you are accepting this risk.</p>
+<p>While I agree that ripping assets from games is a big problem, it is extremely useful when making some mods. For example, if a mod wants to make an edit to a model, they can rip the mesh and its skeleton and use them as a template to edit the model rather than having to remake from scratch. But modders should be aware of the terms of use/legal policies for each game, so developers should make them as clear as possible.</p>
+<p>The final thing I want to mention is that there are a few studios that have dismissed modding as an annoyance due to the assumption that players using mods can clog up the crash report stack with mod bugs. This is certainly a problem, which is why it is vital that a system is implemented for differentiating between modded games and vanilla games, in order to filter through crash reports. UE makes the crash reporting system highly configurable, so combined with detecting mods via the mod support system, it is not difficult. In some circumstances, mod crashes have brought light to previously unnoticed, subtle issues with the core game systems, so they can be useful.</p>
+<h2 id="genre-of-game-informs-types-of-modding"><a class="header" href="#genre-of-game-informs-types-of-modding">Genre of game informs types of modding</a></h2>
+<p>There are several factors that informs the type of modding that should be done on a game. </p>
+<p>The most obvious thing is what type of game it is. On the one side, if it is a competitive PvP game, should it support modding at all if it could be easy for a player to gain an advantage over others? And on the other, if it is a singleplayer sandbox game, what reasons are there to not add mod support? </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-basis-of-all-modding"><a class="header" href="#the-basis-of-all-modding">The Basis of all Modding</a></h1>
+<p>Now that the various characteristics of mods have been lightly discussed, I can go into detail about the modding methods that exist, their pros and cons, and how they could be supported. It is vital for the developers to know what the modding pipelines are to best support them.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="pak-patching"><a class="header" href="#pak-patching">Pak patching</a></h1>
+<p>This is the most fundamental part of UE modding because most forms of modding use it. &quot;Pak&quot; refers to the UE <code>.pak</code> file archive format that it uses to store all the cooked assets for the game. It is where mod assets get loaded into the game from.</p>
+<p>Many games will have one monolithic pak file with everything inside of it, but others have &quot;chunks&quot; of files categorised by certain asset types, DLCs, levels etc; whatever the developers decide. This is important to know, because it means that the engine can mount multiple pak files from the <code>Paks/</code> folder. </p>
+<p>So, knowing this, what happens when two or more pak files have assets in the same name and relative path? The pak that is mounted most recently replaces any existing assets. Mount order is decided alphabetically. For example, if we have <code>pak-chunk-0.pak</code> and <code>pak-chunk-1.pak</code> that both contain the asset <code>/Game/BPCharacter.uasset</code>, then the asset in <code>pak-chunk-1.pak</code> will be the asset that is loaded because it &quot;patches&quot; over the top of the asset in <code>pak-chunk-0.pak</code>. </p>
+<p>If this is not already enough, UE has a <a href="https://docs.unrealengine.com/4.26/en-US/SharingAndReleasing/Patching/GeneralPatching/HowToCreatePatch/">built-in system</a> for giving direct mount priority to any pak files that have the suffix <code>_p</code> in their name. </p>
+<p>Modders can combine the above two methods, to always make sure that their mods are loaded into the game. Consequently, the basis of modding is replacing existing assets in a game with edited or entirely new ones.</p>
+<p>Finally, it is important to know that custom C++ classes cannot be loaded into the game using pak files, since they are only for assets. But that is not such a big deal as you might initially think, which will be explained in the <a href="Basis/./Blueprints.html">Blueprints</a> section.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="dealing-with-paks"><a class="header" href="#dealing-with-paks">Dealing with Paks</a></h1>
+<p>To get access to the assets inside of a pak file, modders will need to unpack it. There are <a href="https://github.com/Buckminsterfullerene02/UE-Modding-Tools#packers--unpackers">plenty of tools</a> that can achieve this, although if a modder already has the correct engine version installed (which they can find out by right clicking the game’s binary and looking in the details tab) they can call to the UnrealPak utility by command line or batch script. However, if the game uses IO Store, they must use another tool to obtain a manifest/mappings file that contains special data that allows other tools to then unpack the pak files. </p>
+<p>Once modders have created their edited or new assets, they need to pack only the assets back into a pak file. If the game uses the IO Store format, modders must repack using that same format. If the game uses pak signing, they must copy the existing sig file and rename it to match the name of the mod pak file. </p>
+<p>The quality of the modding experience can differ depending on what packaging settings have been defined in the game’s project, but obviously the people responsible for these settings need to weigh up these settings with their own circumstances:</p>
+<table><thead><tr><th>Name</th><th>Engine versions</th><th>Default</th><th>What ON does</th><th>What OFF does</th><th>Optimal</th></tr></thead><tbody>
+<tr><td>Use IO Store</td><td>4.25+</td><td>OFF for 4.25-4.27, ON for 5.0+</td><td>Produces <code>.ucas</code>/<code>.utoc</code> file types within the pak file, which are less mature formats so requires considerable extra work to work with them like the previous format. There is a tool called <a href="https://github.com/Archengius/ZenTools/">ZenTools</a> that reads the IO Store container files and converts them back to the old format, but it is unstable at best</td><td>Produces <code>.uasset</code>/<code>.uexp</code> files within the pak file, which are the easiest to work with</td><td>OFF</td></tr>
+<tr><td>Un-versioned Assets</td><td>4.25+</td><td>OFF for 4.25-4.27, ON for 5.0+</td><td>Removes version signatures from asset headers. Makes them difficult to mod, as asset parsers depend on reading the versioning information in the headers for deciding on how to parse them</td><td>Keeps version signatures in asset headers</td><td>OFF</td></tr>
+<tr><td>Event Driven Loading</td><td>At least 4.17+</td><td>ON</td><td>Produces both the <code>.uasset</code>/<code>.uexp</code> files and is highly suggested for the best modding experience, as most tools rely on both being there</td><td>Produces only the <code>.uasset</code> files</td><td>ON</td></tr>
+<tr><td>Blueprint Nativization</td><td>At least 4.17+</td><td>OFF</td><td>For any blueprints that are added to the whitelist, and every userdefinedstruct/enum, their code is &quot;decompiled&quot; to C++ rather than bytecode as an asset, which means that the blueprint cannot be &quot;viewed&quot; by modders with any tool</td><td>Cooks blueprints as <code>.uasset</code> files</td><td>OFF</td></tr>
+<tr><td>Generate Chunks</td><td>At least 4.17+</td><td>OFF</td><td>Combined with allow ChunkID assignments asset action being on, it packs assets into specified pak chunks. This makes lives for modders more annoying than anything because having to unpack multiple chunks is a pain and can become messy</td><td>Packs everything into one pak file</td><td>OFF</td></tr>
+<tr><td>Use Pak Encryption</td><td>At least 4.17+</td><td>OFF</td><td>Requires an encryption key to be generated and that key must be provided when unpacking the pak. Modders can use tools and a bit of brute force to obtain these keys, but it can be annoying if a game does not need it (I.e., not a game where mods can be used to gain an advantage over others)</td><td>Pak file will not be encrypted</td><td>OFF</td></tr>
+<tr><td>Use Pak Signing</td><td>4.22+</td><td>OFF</td><td>Requires a signing key to be generated and places a <code>.sig</code> file next to the <code>.pak</code> files in the <code>Paks</code> folder. It is designed to be for anti-tampering but as usual is trvially easy to bypass - simply by passing <code>-fileopenlog</code> in the game's launch parameters</td><td>Pak file will not be signed</td><td>OFF</td></tr>
+<tr><td>PakFileCompressionFormats</td><td>At least 4.17+</td><td>None</td><td>Compresses the Pak file using Oodle and modders have to be extra careful when dealing with reading/writing files inside of compressed pak files</td><td>Pak file will not be compressed</td><td>None</td></tr>
+</tbody></table>
+<p>The files that are stored in the .pak files are cooked. This means that they cannot be copied into a UE project and edited inside of the editor. There are a few exceptions, for example data tables and string tables – and to do that you need a <a href="https://gist.github.com/Buckminsterfullerene02/6dc5256790457cc7d30693bf37d71e3f">couple of configs</a> – but it’s only really useful for basic data mining. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="asset-editing"><a class="header" href="#asset-editing">Asset editing</a></h1>
+<p>As you know, Unreal Engine is open source, meaning that anyone can look at the code to see how certain systems work to try and reverse them. This is precisely what happened with the various cooked asset formats (<code>.uexp</code>, <code>.uasset</code>, <code>.ucas</code>, <code>.utoc</code>, <code>.umap</code> etc.) and <a href="https://github.com/Buckminsterfullerene02/UE-Modding-Tools#asset-editors-parsers--explorers">several tools</a> have been developed to make exploring, parsing, and editing these files as easy as possible. </p>
+<p>The most basic form of asset editing is just changing the default values of primitive variable types like strings, floats and booleans. It can be done on every engine version by all asset editing tools. A typical use case would be changing the damage of a weapon. </p>
+<p>The next level up from that is changing references to classes and objects, for example switching a component on an actor from one asset to another. Asset editing can go much further with super advanced techniques, but you get the point. </p>
+<p>There is also localization editing, where the localisation files, that have the extension <code>.locres</code>, are edited, since that is usually where many of the games’ strings are kept. This is handled by a <a href="https://github.com/Buckminsterfullerene02/UE-Modding-Tools#locres-editors">separate tool</a>.</p>
+<p>Asset editing is the most accessible method as many tools and documentation exist for it, but it is also quite limited without getting really technical.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="audio"><a class="header" href="#audio">Audio</a></h1>
+<p>The quality of audio modding is heavily influenced by the sound system that your game uses. The best system is the default UE sound system that was introduced in UDK (UE3). There are also the FMod and Wwise middleware that many games use, but for modding purposes they aren't idea. They are limited and a pain to mod since they are closed source and use <a href="https://github.com/Buckminsterfullerene02/UE-Modding-Tools#audio">propriety formats</a>. That being said, I do understand why they are used by non-UE games or games developed over the UE sound system - they're cross-platform, have a lot of features, and are easy to use.</p>
+<p>The extent of modding existing games' audio using WWise or FMod is just by directly replacing the audio files. To add new audio, modders can download the FMod or Wwise plugin files for the version the game is using. But again, these cannot be used to edit existing audio. So overall, if you can avoid using these systems, do so.</p>
+<p>Audio modding for games using the UE sound system has a slightly higher bar than asset editing, in that modders need to install the version of Unreal Engine that their game uses. The general pipeline for all audio mods, is recreate the audio asset with the same path and name inside of an Unreal Engine project with the desired changes, then cook and package from UE into the pak file.</p>
+<p>There are 3 methods of audio modding for games using the UE sound system:</p>
+<ul>
+<li>
+<p>Directly replacing sound waves. Modders can import their .wav/.ogg audio file into the same name and location as the original they wish to replace</p>
+</li>
+<li>
+<p>Replacing sound cues. If a modder recreates a sound cue in the same name and location as the original, they can:</p>
+<ul>
+<li>
+<p>Make their own sound cue graph</p>
+</li>
+<li>
+<p>Use as many custom sound waves as they want</p>
+</li>
+<li>
+<p>Use custom attenuation, concurrency or submix settings</p>
+</li>
+<li>
+<p>Recreate other referenced assets in the original, such as sound class, and reference them in their new cue. This is a vital component that modders should follow if they want their mods to be able to be controlled by the game’s audio sliders, ducking and other systems controlled by those assets</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Replacing other audio asset types, like making custom sound class or submix hierarchies, replacing attenuations, sound curves, etc.</p>
+</li>
+</ul>
+<p>If you want to get an idea of any of these methods, you can have a skim through the <a href="https://mod.io/g/drg/r/drg-mods-a-comprehensive-guide-to-audio-modding">audio modding guide</a> for the game Deep Rock Galactic. The examples use that game, but every technique is transferrable to any other using the UE sound system.</p>
+<p>As you can see, all audio modding is, is just replacing existing files. If modders want to use audio in more advanced contexts, like adding entirely new sounds to places that do not already have them, then they must use blueprint modding, explained later. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="visual-textures-models-animations"><a class="header" href="#visual-textures-models-animations">Visual (textures, models, animations)</a></h1>
+<p>This is by far the most popular kind of modding. If a game’s files can be unpacked and mods loaded with normal Pak patching methods, it is almost guaranteed that visual modding can be done on it. They can be low effort or very complex, high effort mods or anything in between. They are also client-side only, which means that they can usually be loaded without the server knowing and thus won’t affect the other players (unless created with malicious intent, e.g., making world models transparent).</p>
+<p>The process for most visual modding for the longest of times is opening <a href="https://www.gildor.org/en/projects/umodel">UE Viewer</a> (also known as UModel) and exporting the texture/model/skeleton/animation from the cooked assets, into a format that can be imported into Blender, 3DSMax or whatever other software that is being used. </p>
+<p>If the modder wishes to import the asset into UE, they will need to use another tool to export from their software of choice into FBX. In order to replace the asset, they must import into UE with the same name and location as the original and then they can cook and package their mod. </p>
+<p>In 2022, there were tools such as <a href="https://github.com/matyalatte/Blender-Uasset-Addon">this Blender Plugin</a> popping up that allows models/animations/skeleton <code>.uasset</code> files to be imported directly into Blender. Modders can then make their edits and export the asset straight back to the <code>.uasset</code> format and replace the original in the game. This is ground-breaking because it no longer requires anyone to install Unreal Engine to make model edits.</p>
+<p>If you wish to know more about visual modding, there are plenty of videos and guides out there that explain the various methods and processes in greater detail.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="blueprints"><a class="header" href="#blueprints">Blueprints</a></h1>
+<p>Blueprint modding is the most accessible form of &quot;advanced&quot; modding, in that modders can create new assets and write code to produce mods that do more complex things. It also happens to be the easiest technique to directly support, which is discussed in the <a href="Basis/../ModSupport.html">Mod Support</a> section. </p>
+<p>Blueprint mods can do everything normal UE blueprints can do, which means that at an absolute minimum, there are a lot of possibilities. There is an exception to this however – any modules of the engine that are stripped from shipping builds of games will not work when accessed by blueprint. For example, the cheat manager object is stripped by default (for obvious reasons), so any calls to the cheat manager will not work.</p>
+<h2 id="references"><a class="header" href="#references">References</a></h2>
+<p>Blueprints can get references to any asset in the game as well as any C++ exposed to blueprints. This is especially important, because references are just strings that point to the package name of an asset or exposed C++, where:</p>
+<ul>
+<li><code>/Game/</code> is an asset inside of the Content folder, e.g., <code>/Game/Blueprints/BPCharacter</code></li>
+<li><code>/Script/</code> is a C++ class, e.g., <code>/Script/ACustomCharacter</code></li>
+</ul>
+<p>Which means that references are persistent when cooking and packaging, therefore allowing &quot;fake&quot; references to be made, and then when the blueprint is loaded into the game, it will reference the real, unchanged asset. </p>
+<p>To make the fake reference, you guessed it, modders can make the asset in the same name, location, and type as in the game and reference it in the blueprint. This is coined as &quot;dummying.&quot; It will work, as long as they do not pack the dummied asset into the mod, otherwise it will replace the original and cause issues. </p>
+<p>With this concept now in mind, faking references can go much further. Modders can dummy properties, functions, delegates, components, and events inside of the dummied asset, which they can then access from their mod blueprints. The following two images show a widget that has had a few properties and events reconstructed so that they can be referenced in a mod blueprint.</p>
+<p><a href="https://cdn.discordapp.com/attachments/1109192354595876944/1154756235707564042/RecontructedWidget.png"><img src="Basis/../Images/RecontructedWidget.png" alt="Reconstructed Widgets" /></a></p>
+<p><em>Reconstructed properties inside of a widget</em></p>
+<p><a href="https://cdn.discordapp.com/attachments/1109192354595876944/1154756242133233735/CallingWidgetReference.png"><img src="Basis/../Images/CallingWidgetReference.png" alt="Calling Widget Reference" /></a></p>
+<p><em>Calling these properties by reference of this asset</em></p>
+<p>But still, this concept can be pushed even further. Can you dummy the blueprint exposed C++ headers that the game has? <strong>Absolutely.</strong> Every single function exposed with <code>UFUNCTION</code>, every property exposed with <code>UPROPERTY</code>, enum with <code>UENUM</code>, struct with <code>USTRUCT</code> and class with <code>UCLASS</code>, can be dummied in the project and accessed from blueprint. </p>
+<p><a href="https://cdn.discordapp.com/attachments/1109192354595876944/1154756261410246686/UHTExampleCode.png"><img src="Basis/../Images/UHTExampleCode.png" alt="Reconstructed Header Code" /></a></p>
+<p><em>Some header code reconstructed for a custom User Widget class</em></p>
+<p>Remember when I said that C++ classes cannot be loaded into the game using pak files, but it is not <strong><em>that</em> big of a deal</strong>? This is why. If you want modders to be able to access as much C++ in your game as possible, expose it all to blueprint! Of course, there is a minor performance impact, and compiling the game takes longer since there is more work for the Unreal Header Tool. So, there is some weighing up to do with code that you care about performance overhead for. </p>
+<p>Not only are your own C++ headers able to be dummied, but so are any plugins that your game uses. So, depending on which plugin options you have enabled, blueprint mods will be able to use any exposed plugin code. While it does not change any functionality, modders could choose to download the plugin’s source, if readily available, and insert it into their projects. Depending on the plugin, and what they are trying to do, they could then test any blueprint code using the plugin, in-editor, saving them from having to cook, package and test in-game. </p>
+<p>So, as you can see, blueprints are extremely powerful tools for creation. Any blueprint code that developers can produce, modders can also produce, if they wanted to. </p>
+<h2 id="force-reflection"><a class="header" href="#force-reflection">Force reflection</a></h2>
+<p>But, unintuitively, modders can access more C++ in their blueprints than developers. This is because the flags that UHT definitions are purely used to control how much data is viewed in the editor. </p>
+<p>Let’s say that a <code>UFUNCTION</code> in the game ‘Z’ has no <code>BlueprintCallable</code> flag. In the Z's UE project, developers will not be able to find the function in the node menu. However, if modders recreate the header for Z in their own project, and give it the <code>BlueprintCallable</code> flag, they will be able to see the function. Most importantly, <strong>the function will work in-game.</strong> </p>
+<table><thead><tr><th>What is set in Z’s actual project</th><th>What modders can do in their recreated project</th></tr></thead><tbody>
+<tr><td><a href="https://cdn.discordapp.com/attachments/1109192354595876944/1154756285691080754/NormalHeader.png"><img src="Basis/../Images/NormalHeader.png" alt="Z's Header" /></a></td><td><a href="https://cdn.discordapp.com/attachments/1109192354595876944/1154756302128562267/RecreatedHeader.png"><img src="Basis/../Images/RecreatedHeader.png" alt="Modder's Header" /></a></td></tr>
+<tr><td><a href="https://cdn.discordapp.com/attachments/1109192354595876944/1154756323204935791/NormalReference.png"><img src="Basis/../Images/NormalReference.png" alt="Z's Reference" /></a></td><td><a href="https://cdn.discordapp.com/attachments/1109192354595876944/1154756338497376277/RecreatedReference.png"><img src="Basis/../Images/RecreatedReference.png" alt="Modder's Reference" /></a></td></tr>
+</tbody></table>
+<p>As a reminder, if the game has no <code>UFUNCTION()</code> macro above something (i.e, it is not reflected), then the modders will not be able to use it at all; this goes the same for any other reflection macros.</p>
+<p>Luckily, there is a tool that dumps all the C++ headers in the game into UHT format with all their corresponding flags and generates a new UE project based off these headers. You can find the repository and wiki page for that <a href="https://docs.ue4ss.com/guides/generating-uht-compatible-headers">here</a>.</p>
+<h2 id="how-blueprints-are-loaded-without-mod-support"><a class="header" href="#how-blueprints-are-loaded-without-mod-support">How blueprints are loaded without mod support</a></h2>
+<p>Without official mod support, it is quite difficult to load blueprint mods. Modders are not able to simply replace any asset with a mod blueprint since it likely needs to be loaded all the time, and they would also have to reconstruct 1-1 the blueprint and its code that they replace so that the game does not crash. Unless the asset is basically empty (thus easy to reconstruct correctly), this is just not possible for most. </p>
+<p>So, how do they do it?</p>
+<p>You have almost certainly heard of a mod loader. There is usually one for any community developed mod support for most games on most engines. They are not the same as a mod manager. A mod loader is as it is named – it loads mods. </p>
+<p>In Unreal Engine, the methods used can vary, depending on each game, their engine versions, engine modifications, etc. Here is a high-level overview of the most common methods, in order of difficulty:</p>
+<ul>
+<li>
+<p>Completely replace an asset that is always loaded and does not do anything important, e.g., a credits widget in the escape menu</p>
+</li>
+<li>
+<p>Using a &quot;game generic&quot; <a href="https://docs.ue4ss.com/feature-overview/blueprint-modloader">mod loader</a> that hooks into a common UE function using DLL injection and loads blueprint actors</p>
+</li>
+<li>
+<p>Edit an asset (using an asset editor) that is loaded at the construction of every level, e.g., a HUD widget or gamemode actor, to <a href="https://github.com/trumank/kismet-analyzer">kismet splice</a> in a custom function that loads a blueprint actor that has all the mod loading code inside of it</p>
+</li>
+</ul>
+<p>Once any blueprint or widget has been loaded with custom code in, the mod loader can then go about loading any other mods that maybe are within a certain folder in the asset content, using normal UE <a href="https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/ProgrammingWithCPP/Assets/Registry/">asset registry</a> functions. </p>
+<p>For example, a mod loader may require blueprint mods to be inside <code>Content/YourModName/ModActor</code>, inside of their UE projects before they cook &amp; create their pak file. That way, in the mod loader's code, they can just check every subfolder in <code>/Game/</code> for the <code>ModActor</code> actor and spawn that.</p>
+<p>As you can tell, the need for natively spawning blueprint mods is top priority. Luckily, it is quite easy, but that is explained in the &quot;Mod support&quot; section.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="c"><a class="header" href="#c">C++</a></h1>
+<p>C++ modding is natively allowing C++ code to be run by the game. While this is by far the most powerful viable way to mod games, it is also dangerous as allowing uncontained C++ could allow malicious code to run. It is not nearly as easy for blueprints to be malicious as they do not have file I/O or web sockets support, unless explicitly provided by the developers or a plugin. You could introduce a special protocol for C++ mods to be uploaded e.g., by running all mods through Virus Total, or requiring that the source code is kept open source, etc. But it’s entirely up to you how you want to handle the risk if you choose to go down this otherwise excellent route.</p>
+<p>To best provide C++ support, there are two methods:</p>
+<ul>
+<li>Providing an API</li>
+<li>Building modularly</li>
+</ul>
+<p>There already exists a very strong <a href="https://docs.ue4ss.com/cpp-api.html">C++</a> and <a href="https://docs.ue4ss.com/lua-api.html">Lua</a> API via a tool called UE4SS that works for any UE4/5 game, which you should be aware of, whether or not you decide to go down this route natively. </p>
+<p>Additionally, there is a UE4/5 plugin called <a href="https://github.com/rdeioris/LuaMachine">LuaMachine</a> that provides a more native approach to Lua scripting.</p>
+<p>Later, in the case studies section, I will go over examples from cyubeVR that provided an API and Satisfactory that built modularly.</p>
+<h2 id="providing-an-api"><a class="header" href="#providing-an-api">Providing an API</a></h2>
+<p>If your game heavily leans on C++ code and exposes very little to blueprint, providing an API could be a good option. The usual method to go about doing this would be to produce a template C++ project with all the functions that the game calls/exposes inside of it. Modders can then add their code inside of the functions, build the DLL and the game will call to the DLL during runtime. For example, the project could have a <code>Tick()</code> function that runs the code inside of it every tick. </p>
+<p>The downside to providing an API, aside from the security issue I mentioned earlier, is that if you want to provide any UE-specific types, you will have to reconstruct them inside of the template C++ project manually. But that may be legally questionable, by the statement of the <a href="https://www.unrealengine.com/en-US/eula/unreal">Unreal Engine EULA</a> section <code>4.a.i</code>. The best method of doing this legally, is to fork the Unreal Engine source code on GitHub, then force push all your template C++ onto the repository. That way, these types are only accessible if modders have access to the original source code.</p>
+<p>This could be extended to providing a general scripting system API, such as Lua, but still has the same downsides.</p>
+<h2 id="building-modularly"><a class="header" href="#building-modularly">Building modularly</a></h2>
+<p>There is a native feature in Unreal Engine that few people know about, called Gameplay Modules. It is where classes sectioned by module are compiled into DLLs, rather than one monolithic binary. I won’t bother condensing what is already explained in the <a href="https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/GameplayArchitecture/Gameplay/">UE documentation</a> for it, since it is already quite short. </p>
+<p>If a game is set to build modularly instead of monolithically, it can then load any other DLL inside of the <code>Plugins/</code> folder, even in shipping builds. A modder can then create a C++ plugin inside of UE, where the entire core UE API is exposed, and they can load it as a &quot;plugin mod&quot; into the game. The plugin can do anything the game’s normal C++ can do – reference, change or create assets. For this reason, this method is by far the most flexible and opportunity-inducing out of any in all of UE mod support.</p>
+<p>There is only one game that I know of that has ever used this method for community mod support – <a href="https://docs.ficsit.app/satisfactory-modding/latest/Development/Cpp/index.html">Satisfactory</a>. Therefore, I was able to ask the developers of this game – Coffee Stain Studios (CSS) about any drawbacks that they observed:</p>
+<ul>
+<li>Increased code size. In fact, executable size is decreased to nothing, but you get quite a lot of relatively small DLL files instead.</li>
+<li>Slightly increased start-up time and memory footprint. Don’t expect any numbers there, but &quot;it’s really insignificant&quot;, according to CSS.</li>
+</ul>
+<p>If you have not made any significant commitments to the engine for your game, the bare minimum you can do to change to modular is changing <code>LinkType = LinkType.Modular</code> in the game target. </p>
+<p>Then future actions depend on the severity of the changes. Changes that are binary compatible with the stock engine do not need to be shared. If there are changes affecting binary compatibility – e.g., adding new properties, changing or adding virtual functions – they need to be shared with modders. The only legal way to share your engine patches is to fork the UE repository on GitHub and commit your changes to the fork. But if your changes are binary compatible, you can potentially skip that. </p>
+<p>If you would like to know more about this method, I highly recommend reaching out to the Satisfactory developers and asking them directly. </p>
+<h2 id="ue4ss"><a class="header" href="#ue4ss">UE4SS</a></h2>
+<p>The Unreal Engine 4/5 Scripting System is a community developed tool that enables strong mod support for any UE4/UE5 game. One of the ways it achieves this is by providing both a C++ and a Lua API for mods to use. While it does not require you to write mods in Unreal Engine itself, its backend includes a mix of core Unreal Engine C++ and its own implementations of Unreal Engine core API functionality and allows modders to call/access/modify any reflected Unreal Engine functions and properties.</p>
+<p>UE4SS itself can be installed simply by placing a couple of DLLs into the Binaries folder and it will inject itself into the game on startup. Depending on engine edits in your game, users may have to find <a href="https://docs.ue4ss.com/guides/fixing-compatibility-problems.html">missing AOBs</a> to allow UE4SS to hook into the game's functions that it needs.</p>
+<p>Since UE4SS also has a built-in blueprint mod loader, modders can also call or modify their mod's blueprint functions and properties from C++ or Lua, just like they can with native engine or game objects. This allows them to create a mod that is a mix of C++, Lua and blueprint, if they wish.</p>
+<p>UE4SS also has a number of built-in utilities such as the <a href="https://docs.ue4ss.com/feature-overview/live-view.html">live viewer</a>, which is a tool that allows users to search, view, edit &amp; watch the properties of every loaded object making it very powerful for debugging mods or figuring out how values are changed during runtime.</p>
+<p>The way that UE4SS handles the toggling of mods, is through a file called <code>mods.txt</code> inside of the game's <code>Binaries/Win64/Mods</code> folder, if the user has installed UE4SS. If you feel like it for whatever reason, you can add a sort of half-baked mod support by checking for this file and showing the user a list of mods in-game that they can toggle on/off by editing the file. While I wouldn't recommend it, it is an option.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="dll-injection"><a class="header" href="#dll-injection">DLL Injection</a></h1>
+<p>This method is used by modding tools rather than mods themselves, with a couple of exceptions. Injection is either done by using a DLL injector or by proxy injection using one of the DirectX xinput DLLs such as <code>xinput1_3.dll</code>. </p>
+<p>In a nutshell, for a program to hook into a game, it needs to find the address of the function it wants to hook into. This is done by searching for an &quot;array of bytes&quot; (AOBs) that is unique to the function. </p>
+<p>However, since games use different engine versions and have their own custom engine implementations, the AOBs that the tool will try to find for a specific function can change. So, it may be up to the user of the tool to locate the AOBs for the game they are trying to inject into.</p>
+<p>Some other things that can cause bytes to change include compiler and compiler version, compiler flags and build mode (debug, shipping, etc).</p>
+<p>There are &quot;mods&quot; or tools that use this method that are specifically designed to enable cheating in games, and I condemn those. However, it is still extremely important for modding tools because these programs can provide so much useful information about the game.</p>
+<p>The types of tools that use DLL injection usually fall into a few categories:</p>
+<ul>
+<li>
+<p>Console unlockers – re-enables the in-game console if it has not been stripped from the game completely and allow unstripped commands to be entered like normal</p>
+</li>
+<li>
+<p>Free camera – allows the player camera to be detached and &quot;flown&quot; around the level</p>
+</li>
+<li>
+<p>Dumping object memory – produces files of internal object information such as reflected C++ headers and blueprint bytecode. This is by far the most useful for tool developers</p>
+</li>
+<li>
+<p>Mod loading – mounts pak files and loads mod blueprint actors </p>
+</li>
+<li>
+<p>Lua or C++ modding - allows the user to run Lua or C++ code in the game. This has been made possible by <a href="https://docs.ue4ss.com">UE4SS</a>.</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="mod-support"><a class="header" href="#mod-support">Mod Support</a></h1>
+<p>Based on what has been discussed, there are 5 major tiers for mod support, in order of increasing difficulty:</p>
+<ol>
+<li>Natively mounting mods during game initialisation</li>
+<li>A mod management system</li>
+<li>Release an SDK/mod kit, document, or information on internal systems to aid modders create more high-quality mods faster</li>
+<li>Providing a scripting API</li>
+<li>Enable plugin modding by changing the game build type to modular</li>
+</ol>
+<p>Since I’ve already covered tiers 4 and 5 earlier, I will now cover tiers 1 – 3 in more detail.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="natively-loading-mods"><a class="header" href="#natively-loading-mods">Natively loading mods</a></h1>
+<p>To natively load mods, there are a few options:</p>
+<ul>
+<li>Using a <a href="https://www.unrealengine.com/marketplace/en-US/product/pak-loader-plugin">marketplace Pak loader plugin</a> (easiest)</li>
+<li>Using the <a href="https://forums.unrealengine.com/t/inside-unreal-adding-mod-support-with-the-simple-ugc-plugin/147657/57">SimpleUGC</a> plugin</li>
+<li>Writing your own system</li>
+</ul>
+<p>You will also need to produce a standard for blueprint names, install folder hierarchy and naming, that you must communicate to modders to conform to, but that will all be up to how you want to do it.</p>
+<p>This does not just apply to blueprint mods. You can still use it to mount and load in assets for the other modding types like audio, asset editing and visual. Since you are mounting every asset inside of the pak file regardless, any asset replacing an existing one will still work in the same way as the normal Pak patching method.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="pak-loader-plugin"><a class="header" href="#pak-loader-plugin">Pak loader plugin</a></h1>
+<p>The first option that I suggest is using <a href="https://www.unrealengine.com/marketplace/en-US/product/pak-loader-plugin">this Pak loader plugin</a> because it does pretty much everything you need to do for you. It only costs roughly $20 but the main reason you may not choose this option is due to it not being supported on your game’s engine version.</p>
+<p>The plugin allows you to mount pak files from any file location. You can then spawn specific actors from within the pak file via a bit of blueprint code.</p>
+<p><a href="https://cdn.discordapp.com/attachments/1109192354595876944/1154755865304383510/PakLoader1.png"><img src="ModSupport/NativeLoading/../../Images/PakLoader1.png" alt="Overall Mount Process" /></a></p>
+<p><em>Example code for the overall mount process</em></p>
+<p><a href="https://cdn.discordapp.com/attachments/1109192354595876944/1154755882001895537/PakLoader2.png"><img src="ModSupport/NativeLoading/../../Images/PakLoader2.png" alt="Mounting Pak File" /></a></p>
+<p><em>Example code for mounting a pak file</em></p>
+<p><a href="https://cdn.discordapp.com/attachments/1109192354595876944/1154755904021999636/PakLoader3.png"><img src="ModSupport/NativeLoading/../../Images/PakLoader3.png" alt="Spawning Actor" /></a></p>
+<p><em>Example code for spawning a mod actor of a specified name</em></p>
+<p>The above images show all of the code responsible for loading mods in the game cyubeVR. The only part that had to be written in C++ was the function <code>Get Mod File Paths</code> which scans the Mods folder for the mod actors that it needs to load. </p>
+<p>So, in order to use this effectively, you should first establish what parameters you will require modders to use to load their blueprint mods.</p>
+<p>Every time a new level is loaded, the game will need to reload the actors anyway, so this is a good opportunity to also reload any mod actors. To give finer control to modders, I suggest that you require a new actor per level to be provided. </p>
+<p>For example, if you have 2 levels – main menu and the world level, you can require modders to have a blueprint actor called <code>InitMenu</code> and an actor called <code>InitWorld</code> to load their mods. If a modder wanted their mod to only load in the world, then they only have to make and put code inside of their <code>InitWorld</code> actor. The &quot;Init&quot; part is just short for &quot;Initialize&quot; - keeping names short saves time and cuts back on potential headaches where spelling mistakes are made.</p>
+<p>The downside is that if your game has a lot of levels, it would be annoying, so another option is to require one actor and provide modders with a C++ reflected blueprint function (so that modders do not need to download any files) that checks for the current level name and continues execution flow if it is a level that a modder wants.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="simpleugc-plugin"><a class="header" href="#simpleugc-plugin">SimpleUGC plugin</a></h1>
+<p>The &quot;Simple User Generator Content&quot; <a href="https://forums.unrealengine.com/t/inside-unreal-adding-mod-support-with-the-simple-ugc-plugin/147657/57">plugin</a> was originally developed by Epic Games for a mod kit for the VR FPS game Robo Recall by Epic Games. I know a couple of games that use it, except that they both had to heavily modify it just to fit their needs, which are mostly met by the marketplace Pak loader plugin I talked about previously. </p>
+<p>SimpleUGC’s way of handling mod files is ignorant of the fact that we can just dummy reflected C++ headers and use them, and you don’t even need to specify the category of &quot;user generated content&quot; in the macro. There’s no point in having it when everyone can use every reflected C++ header in the game regardless of the category or macro flags. </p>
+<p>Additionally, their system with the <code>MakeReplaceableActor</code> component is redundant because modders can replace anything by placing the same asset type in the same name and location as the original asset, as I have explained previously. So, since we can just do it for everything anyway, it will save a ton of work not having to add that component for everything that you &quot;want&quot; to be replaced.</p>
+<p>The need to create a custom game instance makes modding unnecessarily difficult for modders. If something is not loaded by the normal game instance, then it may be on the UGC asset registry, so modders will need to know to do additional checks for that as well. It is a small thing, but yet another cause for potential headaches further down the line.</p>
+<p>But the main reason I do not like this plugin is that it requires the developer to produce a &quot;mod kit&quot; just to allow modders to actually create their mods within UEE. This mod kit is not related to providing any game assets to aid with modding itself, but rather framework files. The best step is no step - it is not ideal as it increases the bar for modders and restricts what can be done. </p>
+<p>The plugin may work for you, but to be honest it’s a lot of extra work than needs to be for both sides and if you do end up modifying it, you’re way more prone to annoying crashes and bugs that makes good mod support harder to reach. Note that the plugin only supports UE4, however there is an existing UE5 port <a href="https://github.com/TheHellcat/UE5-SimpleUGC/">here</a>.</p>
+<p>Of course, I recommend that you still explore this option yourself; don’t just take my advice and run with it. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="do-it-yourself"><a class="header" href="#do-it-yourself">Do it yourself</a></h1>
+<p>Since the engine core API exposes many utilities related with pak mounting and such, it isn’t really all that difficult to implement your own solution. The Pak loader plugin primarily builds upon the <code>FPlatformFile</code> &amp; <code>FileWalk</code> APIs which is a good point to start at.</p>
+<p>If you need something really bespoke, maybe more flexible than the other two methods, this is probably the path you should take. I’ll talk about it in more depth later, but the game Deep Rock Galactic had a requirement for being able to “hot reload” mods during runtime, which is not possible without writing engine modifications yourself. </p>
+<p>Be aware though that any DIY solution is prone to more subtle issues that people may not notice for a long time but may cause a lot of issues. For example, in Deep Rock Galactic, there was a bug in the hot reload system where mods were not always loaded in a consistent order and went undetected for a long time. When it eventually surfaced, modders realised that it was the root cause of other issues they were having that they couldn’t explain. </p>
+<p>There is an absolutely fantastic guide detailing how you may go about achieving this on the Unreal Engine forums <a href="https://forums.unrealengine.com/t/primer-loading-content-and-pak-files-at-runtime/536669/7">here</a>. I highly recommend checking it out as it explains the process in a lot of detail and I completely agree with the way the implementation has been done through the use of plugin content. </p>
+<p>Here's another interesting project that's trying to do it for UE5: <a href="https://github.com/paterron/UE5MMExample">UE5 Mod Manager</a>. Definately some interesting code to look at in there, as the author has done a lot of research into the topic himself.</p>
+<p>There is also the new UE5.3 <a href="https://docs.unrealengine.com/5.3/en-US/game-features-and-modular-gameplay-in-unreal-engine/">&quot;extensible gameplay framework&quot;</a> sytem that's very interesting for mod support. I wonder how much can be done there. But if I were you, I wouldn't try to go too crazy on the new features, as it may go deep into unfamiliar territory and you may end up with a suboptimal mod support solution. But some research into it can never do harm.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="mod-managers"><a class="header" href="#mod-managers">Mod managers</a></h1>
+<p>Arguably, having a good system for users being able to manage mods is just as important as having good mod support systems. </p>
+<p>There are 2 main components of mod managers; the part within the game itself that lets users view their subscribed mods and toggle them on/off, and then the 3rd party webserver that users subscribe/browse mods on. </p>
+<p>The integration can vary greatly depending on the game and there is no one &quot;preferred&quot; method by modders so there is not much to advise upon. I suggest you just do your own research since there is a lot of material and help available around already.</p>
+<h2 id="mod-browsing"><a class="header" href="#mod-browsing">Mod browsing</a></h2>
+<p>While both parts could be integrated into within the game and managed by your studio's own servers, most games stick with keeping the mod browsing to a 3rd party system. </p>
+<p>The most common systems used are Steam Workshop, mod.io and Nexus, although the latter is not recommended for official mod support, since content is moderated not by developers, but by Nexus staff. </p>
+<p>Personally, I really like mod.io because they do a lot of the heavy lifting with moderation tools, a strong API and flexibility for every game, even if they’ve had a rocky last few months with their v2 website.</p>
+<h2 id="managing-mods-in-game"><a class="header" href="#managing-mods-in-game">Managing mods in-game</a></h2>
+<p>Typically, games will have a subcategory in the main menu for managing mods. In this window, the game should display subscribed and/or downloaded mods with their name, description, thumbnail, author and version pulled from either webserver API or a descriptor file within the mod download.</p>
+<h2 id="providing-a-shared-mod-settings-window"><a class="header" href="#providing-a-shared-mod-settings-window">Providing a shared mod settings window</a></h2>
+<p>Something that many games do not have however, is a &quot;shared settings window&quot; for mods. If a blueprint mod wants to be able to get user input with widgets such as buttons, sliders and text boxes, they need to figure out how to create their own widgets and manage the mouse cursor, layering, controls, etc. But if a game can provide a central widget for mods to interface with, settings for each mod can be placed in one shared window that makes sense. Since it is part of the game, developers can make the window fit the style of the game, and work seamlessly with their other menus.</p>
+<p>A solid way to implement a system like this is to provide a collection of interfaces in a folder that could be part of your mod kit, if you have one. Modders can interface their blueprint mods and settings widgets with these interfaces, which once in-game, reference the actual management code for placing the settings widgets into the menu.</p>
+<p>Here’s an example of a shared mod settings window that modders created for the game <a href="https://store.steampowered.com/app/1614550/Astro_Colony/">Astro Colony</a>:</p>
+<p><a href="https://cdn.discordapp.com/attachments/1109192354595876944/1154752920278011904/image.png"><img src="ModSupport/../Images/ACModHub.png" alt="Astro Colony Mod Hub" /></a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="modkitssdks"><a class="header" href="#modkitssdks">Modkits/SDKs</a></h1>
+<p>If you want a thriving mods community, you should provide tools to make things either possible at all, or just easier. While community created tools can cover many bases that developers won’t, it always makes sense for official tools to be created. </p>
+<p>While I create modkits for multiple games, I can see the scenario where I get burnt out and stop maintaining my tools. Even though I try to document as much as possible, if no one picks up the slack, entire modding pipelines can grind to a halt or be reset to square one. If the developers created official modkits, there is an obligation to keep things maintained and documented clearly so that the next developer can continue the work. Modkits may only need to be updated per major update, so if the game is no longer updated, then the final modkit will be in-line with the final game version.</p>
+<p>But what sort of stuff could modders expect in a modkit?</p>
+<ul>
+<li>
+<p>A shipping build of the editor, where C++ is compiled into binaries, and the uncooked assets are there... uncooked. This allows for Play In Editor mod testing, while also not allowing for the underlying C++ to be exposed. This is discussed in more detail in the <a href="ModSupport/../ModSupport/ModKits/DeveloperModkits.html">Developer Modkits</a> section.</p>
+</li>
+<li>
+<p>A &quot;middleware&quot; interface consisting of reflected C++ headers that allow blueprints to interface with an internal C++ system (such as a bespoke tech tree system) or a paid marketplace plugin (such as the voxel pro plugin). This is highly sought after as developers can:</p>
+<ul>
+<li>
+<p>Avoid using C++ modding which may pose a security risk</p>
+</li>
+<li>
+<p>Control exactly which parts of a system mods can access, and how</p>
+</li>
+<li>
+<p>Provide the ability to mod previously &quot;unmoddable&quot; systems e.g. a plugin without reflected headers, so couldn’t be accessed via blueprints</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Code for the game’s engine fork if it has one. The best way to do this would be to have someone make a fork of the UE source code on GitHub and then upload their edits to that as a mirror of their own project’s one. Due to the UE EULA, the engine source MUST be distributed via an Epic Games verified path, such as a fork of the engine or via the marketplace</p>
+</li>
+<li>
+<p>Certain assets (ideally all of them) like blueprints that modders could modify directly in-editor. Modders can technically already obtain these from parsing cooked uasset files, but it is a lot of work and can be error prone</p>
+</li>
+<li>
+<p>Following on from the previous, animation assets such as animation sequence and skeletal mesh. In FBX format, if possible, but as uasset can suffice too. This saves a bunch of time ripping the assets from the game using various tools, which can also be wrong when a game uses a different forward axis for skeleton bones or other things </p>
+</li>
+</ul>
+<h2 id="creating-good-conditions-for-modding-your-game"><a class="header" href="#creating-good-conditions-for-modding-your-game">Creating good &quot;conditions&quot; for modding your game</a></h2>
+<p>Aside from modkits, there are a few ways you can improve the quality of mod support:</p>
+<ul>
+<li>
+<p>C++ enums cannot be edited without help from an external tool, so use user defined enums where possible, or not at all</p>
+</li>
+<li>
+<p>Make as few major engine edits as possible – if you do, and you need to distribute your fork to modders, it doesn’t stop being a huge pain</p>
+</li>
+<li>
+<p>Don’t hardcode values in your C++. This is a bit of a no brainer, but you’d be surprised how much I’ve seen games do this</p>
+</li>
+<li>
+<p>Use data assets where possible – they are very easy to edit/add to/create frameworks from, and they make general project quality clean</p>
+</li>
+<li>
+<p>Add plugins to game project on request, e.g., <code>SteamVR/OpenXR</code> if modders want to make a VR mod</p>
+</li>
+<li>
+<p>Provide nice blueprint functions in C++ blueprint function libraries or base classes such as:</p>
+<ul>
+<li>
+<p>Reading/writing strings from/to files (and making it clear what path roots are)</p>
+<pre><code class="language-cpp">UFUNCTION(BlueprintCallable)
+bool WriteToPlainText(const FString&amp; Filename, const FString&amp; TextContent, FText&amp; OutError, bool Append);
+
+UFUNCTION(BlueprintCallable, BlueprintPure)
+bool ReadFromPlainText(const FString&amp; Filename, FString&amp; OutTextContent);
+</code></pre>
+</li>
+<li>
+<p>Allow adding persistent objects by constructing the object and putting it into an array in the game instance, and then initializing them after construction</p>
+</li>
+<li>
+<p>OnMainMenu and OnLevelStart events that have an out parameter with the level that was loaded</p>
+</li>
+</ul>
+</li>
+<li>
+<p>By extension of the above two, adding a reflected JSON library for blueprints is always amazing to have</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="developer-modkits"><a class="header" href="#developer-modkits">Developer Modkits</a></h1>
+<p>There is a certain way to produce a modkit that trumps every other way and is extremely powerful for modding, while <strong>not</strong> exposing the source code of the game.</p>
+<p>This is an idea that is very obvious in hindsight, yet is something not many games have done before. I really hope that more games in the future will do this!</p>
+<h2 id="extra-credit"><a class="header" href="#extra-credit">Extra credit</a></h2>
+<p>I know I've already mentioned <a href="https://github.com/Archengius/">Archengius</a> in the home page's credits, but I really feel obliged to mention him again here. Most of the information in the <a href="ModSupport/ModKits/./DeveloperModkits/How.html">How?</a> section is from his own research and experience, that he has obtained from:</p>
+<ul>
+<li>Working on the critical tools and community modkit for Satisfactory, then getting hired by Coffee Stain Studios</li>
+<li>Working on the official modkit for Satisfactory (currently unreleased)</li>
+</ul>
+<p>This is why much of the information here is not information you can just find in the documentation - a lot of work by him and myself has been delving into engine code to figure things out ourselves.</p>
+<p>As always, if you have read through this section and are serious about making a modkit for your game, and wish to know more information in more detail, I recommend that you contact him on Discord. You can do that by either joining the Satisfactory Modding or the official Satisfactory Discords and DMing him from there. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="why-produce-a-modkit"><a class="header" href="#why-produce-a-modkit">Why produce a modkit?</a></h1>
+<p>Simply put, you can compile your editor uproject to produce binaries for its modules and its plugin modules. Including the uncooked content files, this allows for a modkit that:</p>
+<ul>
+<li>Allows for modders to test their mods in-game in-editor so do not have to package and boot the game for every test, with the ability to use the editor to create mods</li>
+<li>Does not expose any source code of the game or its plugins (unless you want to)</li>
+<li>Has automation utilities built into it that makes the modding pipeline far less complex, for example a button for packaging a mod, or a button for uploading a mod to a 3rd party mod hosting service</li>
+</ul>
+<p>The only pre-requisite for modders to use a modkit like this, is the engine install for the version that the game uses. If the game uses a custom engine, then you will need to provide the engine fork as well.</p>
+<h2 id="why-should-i-provide-uncooked-content"><a class="header" href="#why-should-i-provide-uncooked-content">Why should I provide uncooked content?</a></h2>
+<p>As you can read about in the <a href="ModSupport/ModKits/DeveloperModkits/../CommunityModkits.html">Community Modkits</a> section, modders have been able to create tools that can extract data from the cooked files, and convert them into raw, uncooked files within the editor. </p>
+<p>However, this is a very time consuming process, and can be error prone. If you provide the uncooked content, you are saving modders a lot of time and effort, and by doing this, you are also making it easier for them to create mods.</p>
+<h2 id="ip-intellectual-property-concerns"><a class="header" href="#ip-intellectual-property-concerns">IP (Intellectual Property) concerns</a></h2>
+<p>It is understandable that you may be concerned about modders being able to access your uncooked content, and potentially illegally use it for other projects. However, by choosing to develop your game on an engine where the source is freely available, you must know the risks of tools coming in to reverse engineer your game assets to essentially be ripped. If people are using your content for things illegally, it won't be from the any community modkit tool suite or your official modkits, but rather from the heap of other varying tools out there that make it trivially easy to do without even installing the engine. </p>
+<p>If you are seriously concerned of uncooked asset stealing for other/competing UE projects, you should therefore invest time into stripping your modkit of certain asset types that you don't wish to be exposed to modders, such as textures, meshes, animations, etc. The technical problem to solve here, is you need to maintain all references between assets. For example, if you strip a texture, any materials that use it will no longer compile. You can solve this by either:</p>
+<ul>
+<li>Providing an empty version of the asset (except animations, which can be stripped to a single frame) with the same package name, so that the references are still valid</li>
+<li>Replacing all references to a stripped asset with an engine default equivalent, such as the world grid material for materials </li>
+</ul>
+<p>If the above problem is too time consuming for you, and you still wish to provide a modkit, you could consider officially allowing modders to produce and distribute a community-made modkit using the community modkit tools, and then you can:</p>
+<ul>
+<li>Provide any source assets of types you don't mind sharing, such as blueprints (their graph are not reconstructed)</li>
+<li>Force modders to generate a &quot;public project&quot; where all texture, material, mesh and animation assets are replaced by the engine default equivalents</li>
+<li>Add your own editor plugins that help with the modding process, such as a button to package a mod, or a button to upload a mod to a 3rd party mod hosting service</li>
+</ul>
+<h2 id="what-if-my-game-contains-paid-plugins-from-the-marketplace"><a class="header" href="#what-if-my-game-contains-paid-plugins-from-the-marketplace">What if my game contains paid plugins from the marketplace?</a></h2>
+<p>If your game contains paid plugins from the marketplace, you may be concerned about modders being able to use them for free. </p>
+<ul>
+<li>If it is a C++ plugin, then you should never include the source files without direct permission from the author, but the binaries are fine to include, as they are in the shipped game build anyway. </li>
+<li>If it is a content only plugin, then you will need to make sure that you have permission from the plugin authors to distribute. If you don't, you will have to strip the plugin content and replace with dummy versions so that references in your game content are still maintained.</li>
+</ul>
+<h2 id="wouldnt-allowing-pie-be-an-issue-where-players-can-play-the-game-for-free"><a class="header" href="#wouldnt-allowing-pie-be-an-issue-where-players-can-play-the-game-for-free">Wouldn't allowing PIE be an issue where players can play the game for free?</a></h2>
+<p>This is a fair concern, but it is fairly easy to deal with this. It's up to you how you want to do it, but here are some ideas:</p>
+<ul>
+<li>Lock the modkit download behind a wall where only people who own the game can access it (e.g. seperate branch on Steam)</li>
+<li>Have a custom editor plugin that is always running, and when the player is in PIE, it will limit the play time per session to only a few minutes, then force close PIE. If they are needing longer, then it is fair to require them to package their mod and test in the actual game</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="how"><a class="header" href="#how">How?</a></h1>
+<p>Everything I describe here can be automated fairly easily using a wrapper batch script, or <a href="https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/BuildTools/AutomationTool/BuildGraph/">BuildGraph</a>, in order to make making new modkits simple for minor or major updates. I also recommend that you experiment with build flags to see what might work better for you.</p>
+<h2 id="building-your-modkit"><a class="header" href="#building-your-modkit">Building your modkit</a></h2>
+<p>The process of building your modkit differs depending on whether or not you are planning on building modularly and allowing modders to link against your game's modules, or if you are planning on shipping a custom engine build.</p>
+<ol>
+<li>
+<p>First, you will likely need to make a copy of your game's project, as you may end up performing optimisations to your content to keep file size down</p>
+</li>
+<li>
+<p>Next, inside of your <code>.uproject</code> file, you must make sure that the engine version set inside it is your version (i.e. custom engine if you have one)</p>
+</li>
+<li>
+<p>Build your project solution. This will make your binaries. You can do it in any configuration, though just the default development editor target is fine. You can also build the binaries for your server targets if you're looking at server mod support too (which I won't cover here, as I don't have experience with it)</p>
+</li>
+<li>
+<p>After you build the editor project, you can look at keeping the file size down, which is discussed <a href="ModSupport/ModKits/DeveloperModkits/How.html#keeping-file-size-down">in detail</a></p>
+</li>
+<li>
+<p>Get the files and folders for your project and prepare them for distribution, according to the following table:</p>
+</li>
+</ol>
+<table><thead><tr><th>Project file/folder</th><th>Do you need it?</th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>Binaries</code></td><td>Yes</td><td>Plus PDBs if you want them</td></tr>
+<tr><td><code>Build</code></td><td>No</td><td>If you have any automation modules that are needed for the build</td></tr>
+<tr><td><code>Config</code></td><td>Yes</td><td>Make sure to not ship crypto/private API keys accidentally</td></tr>
+<tr><td><code>Content</code></td><td>Yes</td><td>Base game content</td></tr>
+<tr><td><code>DerivedDataCache/Compressed.ddp</code></td><td>No, only if you want to</td><td>Discussed <a href="ModSupport/ModKits/DeveloperModkits/How.html#compressed-ddc">here</a></td></tr>
+<tr><td><code>Source/&lt;ModuleNames&gt;/&lt;ProjectName&gt;.Build.cs</code></td><td>No, only if you are shipping with C++ mod support</td><td>Allows the C++ mods to link to the modules</td></tr>
+<tr><td><code>Source/&lt;ModuleNames&gt;/Public</code></td><td>No, only if you are shipping with C++ mod support</td><td>Allows the C++ mods to link to the modules</td></tr>
+<tr><td><code>Plugins/&lt;PluginNames&gt;</code></td><td>Yes</td><td><code>.uplugin</code> file, content &amp; binaries</td></tr>
+<tr><td><code>Plugins/&lt;PluginNames&gt;/Source</code></td><td>No, only if you are shipping with C++ mod support</td><td>Allows the C++ mods to link to the modules</td></tr>
+<tr><td><code>&lt;ProjectName&gt;.uproject</code></td><td>Yes</td><td></td></tr>
+</tbody></table>
+<h3 id="with-custom-engine"><a class="header" href="#with-custom-engine">With custom engine</a></h3>
+<p>If you need to ship your own custom engine, you must <strong>additionally</strong> perform the following steps:</p>
+<ol>
+<li>
+<p>Compile Binaries for all relevant tools (UBT, UHT, UAT, UnrealPak, ShaderCompileWorker, UnrealInsights, LiveCodingConsole, etc)</p>
+</li>
+<li>
+<p>Get the files and folders for your engine and prepare them for distribution. This one is a bit more complicated, and requires a bit more of thoughtful includes - for a decent list you can look into Epic's own <code>Engine/Build/BuildGraph/InstalledBuild.xml</code> and related files, you need a roughly similar list of files. But at a bare minimum, you need:</p>
+</li>
+</ol>
+<table><thead><tr><th>Engine file/folder</th><th>Do you need it?</th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>Binaries</code></td><td>Yes</td><td>Binaries for the relevant tools (UBT, UHT, UAT, UnrealPak etc.), the editor and the game</td></tr>
+<tr><td><code>Build</code></td><td>Yes</td><td>Batch scripts and other things necessary for working with the engine distribution</td></tr>
+<tr><td><code>Config</code></td><td>Yes</td><td>Default engine config files</td></tr>
+<tr><td><code>Content</code></td><td>Yes</td><td>All of it</td></tr>
+<tr><td><code>Source</code></td><td>Yes</td><td>Engine sources, target files etc.</td></tr>
+<tr><td><code>Sources</code></td><td>Yes</td><td>Engine shader source files</td></tr>
+<tr><td><code>Plugins</code></td><td>Yes</td><td>Only the plugins that your project uses</td></tr>
+<tr><td><code>GenerateProjectFiles scripts</code></td><td>Yes</td><td>You also want scripts like this in the root of the engine distribution</td></tr>
+</tbody></table>
+<p>Here's an example of what your directory might look like by the end (minus bits and bobs that you don't need):</p>
+<p><a href="https://cdn.discordapp.com/attachments/1109192354595876944/1154780862773198888/ProjectPlusEngineFiles.png"><img src="ModSupport/ModKits/DeveloperModkits/../../../Images/ProjectPlusEngineFiles.png" alt="Project+Engine Files" /></a></p>
+<h2 id="keeping-file-size-down"><a class="header" href="#keeping-file-size-down">Keeping file size down</a></h2>
+<p>If your modkit is huge (i.e. you have massive amounts of content), you can look at trying a few different ways to keep your filesize down:</p>
+<ul>
+<li>Reducing texture quality</li>
+<li>Removing all mesh LODs except LOD 0 from meshes</li>
+<li>Packing the whole content folder into a <code>.pak</code> file and loading the editor to use the pak file</li>
+<li>Stripping your PDBs using PDBSTRIP</li>
+<li>Priming the DDC with a compressed DDC file</li>
+</ul>
+<h3 id="removing-lods"><a class="header" href="#removing-lods">Removing LODs</a></h3>
+<p>Modders do not typically need multiple LODs on meshes, unless you forsee them doing map modding, in which case it may be beneficial to have these to keep the editor map performant. </p>
+<p>In the editor, you can remove all LODs except LOD 0 (the base LOD) from static meshes and skeletal meshes; this can be done using an asset editor utility script or similar, for example:</p>
+<p><a href="https://cdn.discordapp.com/attachments/1109192354595876944/1154887932235235460/image.png"><img src="ModSupport/ModKits/DeveloperModkits/../../../Images/StripMeshLODs.png" alt="Strip Mesh LODs" /></a></p>
+<h3 id="reducing-texture-quality"><a class="header" href="#reducing-texture-quality">Reducing texture quality</a></h3>
+<p>In the editor, you can increase the LOD bias of a texture in order to reduce the quality of it, thus its filesize. In order to do this in bulk, you can use the bulk editor matrix asset action, or some automation script of your own, or use the pre-existing plugin <a href="https://www.unrealengine.com/marketplace/en-US/product/rdtextools">rdTexTools</a>.</p>
+<h3 id="packing-content-folder"><a class="header" href="#packing-content-folder">Packing content folder</a></h3>
+<p>Instead of distributing your game's content as loose <code>.uasset</code>/<code>.uexp</code> files, you might want to use UnrealPak to package them into a single file instead. This has a few benefits:</p>
+<ul>
+<li>
+<p>If you're using World Partition, the amount of loose files it generates is ridiculous and is definitely not fit to be handled by distribution fronts, so paking it all up is a must-have for you</p>
+</li>
+<li>
+<p>You can compress the resulting pak file with LZ4 or other compression algorithm. In a couple of cases, it has over halved the content size</p>
+</li>
+</ul>
+<p>It <strong>must</strong> be mentioned that this method only works if:</p>
+<ul>
+<li>
+<p>You are distributing your custom engine with the modkit</p>
+</li>
+<li>
+<p>You are not distributing a custom engine version, but you force the modkit files to be placed in the same directory as the files of the engine version your game is using</p>
+</li>
+</ul>
+<p>The reason for this is how the project pak file is mounted. Pak file paths are relative to the base directory, i.e. the one with the executable in it. For the editor, that is the engine binaries directory, so to use paks you need to have the project at a predictable relative path to the engine - usually right next to the Engine directory to mirror the structure of a shipped game. However, you <em>can</em> set the mount point of the pak to some relative path away from the engine, but obviously if each user is putting their modkit projects at different paths, you can't dynamically set the mount point. The whole point of this is to avoid distributing a large number of loose files, so if users are having to do this based on where they put their project, it defeats the whole purpose.</p>
+<p>You can do the same for engine content as well to reduce the distribution size and loose file count, but you need to put it into the separate pak file and not your Project Pak, as engine content is used by the tools/programs that do not read project paks.</p>
+<p>The editor requires the <code>-UsePaks</code> command line switch to use pak files by default, but it's a 1-line engine patch to change the default behavior, so you may as well do that if you're shipping with a custom engine. Otherwise, you'll need to instruct your users to run the editor with a batch script or similar, that includes this flag.</p>
+<p><strong>Paking your game content will prevent people from modifying it</strong> - while they will still be able to see and work with it in the editor, they wouldn't be able to save changes to the file system - but generally, you don't really want modders to be modifying your base game content anyway.</p>
+<h3 id="stripping-your-pdbs"><a class="header" href="#stripping-your-pdbs">Stripping your PDBs</a></h3>
+<p>If you're intending to ship the SDK with PDB debug files, it's generally a good idea to strip them using PDBSTRIP first. This is a tool that comes with Windows, and it's usually located in <code>C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\srcsrv\pdbstr.exe</code>.</p>
+<p>It reduces the size of the PDB files by a magnitude of 100, making them as small as the resulting binaries.</p>
+<p>However, some information from the PDB files, like private symbol names, are lost, but you can't really distribute the non-stripped PDBs because take so much space for multiple targets in multiple configurations.</p>
+<h3 id="compressed-ddc"><a class="header" href="#compressed-ddc">Compressed DDC</a></h3>
+<p>When a user first opens the modkit project, they will likely have tens of thousands of shaders to compile. For some with lower end PCs, this can take many hours. However, you can get around this by providing a compressed <a href="https://docs.unrealengine.com/4.26/en-US/ProductionPipelines/DerivedDataCache/">derived data cache</a> file that contains all of the data for precompiled shaders, and additionally makes cooking the content way faster. </p>
+<p>The following command can be used to create a compressed DDC file:
+<code>UE4Editor.exe ProjectName -run=DerivedDataCache -fill -DDC=CreateInstalledProjectPak</code></p>
+<p>It is recommended that you use <code>CreateInstalledProjectPak</code> instead of the default <code>CreatePak</code> as it is a &quot;compressed&quot; version of the normal DDC pak and is roughly half the size.</p>
+<p>The editor will automatically pick up your <code>Compressed.ddp</code> file if it is in the directory <code>ProjectName/DerivedDataCache/</code>.</p>
+<p>The default configuration settings under <code>[DerivedDataBackendGraph]</code> in <code>DefaultEngine.ini</code> in the project's config settings are good to use as is.</p>
+<h2 id="where-mods-go-in-the-project"><a class="header" href="#where-mods-go-in-the-project">Where mods go (in the project)</a></h2>
+<p>Ideally, when a new mod is created in a modkit, it is created as plugin content (or a C++ plugin with content if you are supporting C++ modding). </p>
+<p>This offers the most flexible way of managing mods within the editor, as you can easily package them seperately from the main game content. Additionally, when distributing updated versions of the modkit's content, you won't have to worry about overwriting any mod content.</p>
+<p>If you are using a pak file for your content, you have to do this, otherwise mods in the ProjectName/Content/ directory will not be recognised by the editor.</p>
+<p>Then, inside each mod, you have any required files responsible for loading the mod, such as the initialization blueprint that the mod loader checks for and spawns, or the mod config file, which will be further discussed in the <a href="ModSupport/ModKits/DeveloperModkits/ExtraFeatures.html#mod-configuration-files">extra features</a> section.</p>
+<h2 id="updating-modkit-versions"><a class="header" href="#updating-modkit-versions">Updating modkit versions</a></h2>
+<p>There are a few solutions you may consider when it comes to updating your modkit versions:</p>
+<ul>
+<li>
+<p>Provide a whole new modkit download every version. This isn't optimal due to the size on disk, and modders having to always migrate their mod content to a new project, which in some cases can be somewhat painful</p>
+</li>
+<li>
+<p>If your modkit is project only, then using a seperate Steam/EGS install could work best as they already contain the utilities needed to patch only the modkit files that have changed </p>
+</li>
+<li>
+<p>If your modkit is project + engine, then you may have to come up with your own solution that combines the engine source being on your custom engine Github fork, the engine dependencies being pulled from your servers using the git dependencies file, and the project files being pulled from elsewhere, and then potentially introducing a patching system onto all of that</p>
+</li>
+<li>
+<p>If you can, negotiate with Epic to allow engine distribution to happen on Steam and/or EGS as a seperate app (this is what the Satisfactory official modkit does)</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="extra-features-that-could-be-provided-within-the-modkit"><a class="header" href="#extra-features-that-could-be-provided-within-the-modkit">Extra features that could be provided within the modkit</a></h1>
+<p>Even if you are not shipping your modkit with C++ modding support, it is still beneficial to include the reflected C++ headers folders for your modules and plugins. This allows for modders to see what they can use for their blueprints, and can additionally be used by UnrealLink to provide a smoother experience for experienced modders.</p>
+<p>Additionally, there are a few other features to consider when producing your modkit:</p>
+<ul>
+<li>Forced reflection of headers</li>
+<li>Create mod utility</li>
+<li>Overriding game content</li>
+<li>Support for modding of data driven loaded content</li>
+<li>Mod configuration files</li>
+<li>Package mod feature</li>
+<li>Upload mod feature</li>
+</ul>
+<h2 id="forced-reflection-of-headers"><a class="header" href="#forced-reflection-of-headers">Forced reflection of headers</a></h2>
+<p>If you recall back to the basis of modding -&gt; blueprints page, there was a section that discussed <a href="ModSupport/ModKits/DeveloperModkits/../../../Basis/Blueprints.html#force-reflection">force reflection</a> where modders can access more C++ than the developers can based on changing the flags of the reflection macros. This is a very powerful feature that can be used to allow modders to do extra cool things, with the only downside being that in their editors they can see a lot of extra context to search through. </p>
+<p>However, in your modkit project, if you are providing a shipped editor build, modders are forced to stick with whatever reflection macros you have set in your project header files. This can be bad in two ways:</p>
+<ul>
+<li>
+<p>It limits what modders can do with blueprints</p>
+</li>
+<li>
+<p>If modders have created mods in a community modkit with forced reflected headers previously, and they migrate to your modkit that don't, they will find themselves with a lot of compile errors and suddenly a lot less flexibility of what they can do</p>
+</li>
+</ul>
+<p>Therefore, it is recommended that you take steps to provide a way for modders to use this feature. There are a few options:</p>
+<ul>
+<li>
+<p>If you are providing an custom engine patch, you can patch out editor visiblility checks for reflection macros and force everything to always be visible</p>
+</li>
+<li>
+<p>You can implement runtime access transforms (a fancy term for hot reloading) which modders can specify in their mod's config files, without modifying the header files. There is an existing system developed for Satisfactory modding, which you can find documentation for <a href="https://docs.ficsit.app/satisfactory-modding/latest/Development/ModLoader/AccessTransformers">here</a></p>
+</li>
+<li>
+<p>Run your own automation that modifies the reflection properties of all of your games' headers to maximum visibility before compiling your modkit project. In the vast majority of cases, this would be iterating through each header file and looking for reflection macros, and setting the flags to the most visible per macro, making sure you don't replace other important flags such as <code>BlueprintAuthorityOnly</code> or <code>NetMulticast</code>. You can see an example of what the &quot;most&quot; visible macros are by looking through <a href="https://github.com/DRG-Modding/FSD-Template/tree/main/Source/FSD/Public">these example forced headers</a></p>
+</li>
+<li>
+<p>Use the <a href="https://docs.ue4ss.com/guides/generating-uht-compatible-headers">UE4SS UHT generator</a> to generate your project's headers with everything forced reflected (tested on and works UE4.22 - UE5.3). This is what community modkits use to get theirs. Then compile for binaries and drop your content into the content folder and continue your modkit development as normal, and then you can ship with C++ source files since they contain no code implementations. However, the big downside is that PIE will not work and it's not the easiest tool to use nor automate</p>
+</li>
+</ul>
+<h2 id="create-mod-utility"><a class="header" href="#create-mod-utility">Create mod utility</a></h2>
+<p>If you are using plugin content to seperate your mods and your game content, you can provide an editor utility that allows modders to create a new mod with the correct folder structure, starting files (such as mod config and initialization blueprints etc.), and typical UE plugin information such as author, version, description etc.</p>
+<h2 id="overriding-game-content"><a class="header" href="#overriding-game-content">Overriding game content</a></h2>
+<p>Although directly modifying base game content is not recommended, it can sometimes be beneficial to provide an easy way to directly override entire assets during runtime, such as model, material or texture replacement mods. This can then bring visual modding away from conventional methods that involve a lot of manual work, into your modkit ecosystem, where mods can be managed by you more easily.</p>
+<p>Modders could be able to add a configuration item in the mod configuration file (if you choose to have one, more about that in <a href="ModSupport/ModKits/DeveloperModkits/ExtraFeatures.html#mod-configuration-files">its section</a>) that specifies game objects to override.</p>
+<p>There are two ways to do this (but of course you could implement your own system if you find a better one) with their own pros and cons:</p>
+<ul>
+<li>
+<p>Overriding the base game asset during packaging/in the mod pak file, by editing the base game asset, and then specifying the assets you have edited in the config file. Then, during packaging, the modkit project can package that asset into the pak file to allow it to override the base game asset like in a normal pak patching mod. An example modkit that uses this is the Astro Colony one, which you can read about more in the <a href="ModSupport/ModKits/DeveloperModkits/./Examples.html#astro-colony">examples page</a>. The downside to this are:</p>
+<ul>
+<li>
+<p>It does not work if you have the packed content as those assets cannot be saved</p>
+</li>
+<li>
+<p>It is confusing for modders to understand that they need to edit the base game asset and specify that they have edited it in the config file</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Add base game objects that they want to override as the first value and the mod object they want to override it with as the second value to a suitable data structure (e.g. pair) in the mod config file. The game can then override the asset during mounting or loading, and has the upside of allowing users to have finer control over what assets get overriden in the case of mod conflicts or similar. The downside is that it is far more work for the game to implement</p>
+</li>
+</ul>
+<h2 id="support-for-modding-of-data-driven-loaded-content"><a class="header" href="#support-for-modding-of-data-driven-loaded-content">Support for modding of data driven loaded content</a></h2>
+<p>Some projects use data driven loading to do stuff such as load tabs in a widget, or load a list of items in a shop. If you can support modding this by allowing modders to add their own data assets to any loading system, it could be very powerful. </p>
+<p>For example, you could have a specific subdirectory in your game content folder that is scanned for data assets with the class <code>AShopItem</code>. In-game, these shop items are loaded into a dynamic widget for the shop. Modders can then add their own shop items by creating a data asset with the class <code>AShopItem</code> and adding it to their mod content. In the mod configuration file, they could specify the game to additionally scan for these shop item data assets in the mod content folder.</p>
+<h2 id="mod-configuration-files"><a class="header" href="#mod-configuration-files">Mod configuration files</a></h2>
+<p>Config files can be used to specify extra mod information related to mod assets. For example, this may include the ability to set game objects to override, scanning for extra data assets to load, setting an in-game mod icon to a texture object, etc. There's a realm of oppurtunity for possible features to add here, depending on what you plan on doing.</p>
+<h2 id="package-mod-feature"><a class="header" href="#package-mod-feature">Package mod feature</a></h2>
+<p>Simply put, this can be a button in the editor that allows the modder to select the mod that they would like to be packaged and the output directory to do so. The implementation depends on what mod configurations you have (e.g. if you are overwriting game objects at package time), your pak settings (e.g. use io store if your game is) etc.</p>
+<h2 id="upload-mod-feature"><a class="header" href="#upload-mod-feature">Upload mod feature</a></h2>
+<p>Like the package mod feature, this can be a button in the editor that allows the modder to directly upload their mod from the editor to your 3rd party mod hosting service of choice. The extra fields to fill out can be specified in this utility, depending on the service you are using. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="examples-of-a-developer-modkit"><a class="header" href="#examples-of-a-developer-modkit">Examples of a developer modkit</a></h1>
+<p><a href="ModSupport/ModKits/DeveloperModkits/../../../CaseStudies/AstroColony.html">Astro Colony</a></p>
+<p><a href="ModSupport/ModKits/DeveloperModkits/../../../CaseStudies/ContractorsVR.html">Contractors VR</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="community-modkits"><a class="header" href="#community-modkits">Community Modkits</a></h1>
+<p>Since the engine source is freely available, it is not unreasonable to expect that modders can reverse a lot of things about the engine. Despite each version producing its own set of new challenges, the work of a handful of people has made a lot more possible. If you don’t want to provide any of your own modkits, it is highly likely that modders will produce one for you regardless of what you want. Of course, it depends on the conditions of modding, such as those settings covered previously, or engine version. </p>
+<h2 id="c-header-template-project"><a class="header" href="#c-header-template-project">C++ Header Template Project</a></h2>
+<p>It is now trivially easy to create a full project of reflected C++ headers. It typically takes me under an hour to create and fix the errors for a C++ project for a new game. </p>
+<p>Here’s an <a href="https://github.com/DRG-Modding/FSD-Template">example</a> for Deep Rock Galactic, another <a href="https://github.com/AstroColony-Modding/AC-Template">example</a> for Astro Colony, and the <a href="https://github.com/UE4SS-RE/RE-UE4SS">source code</a> responsible for generating these.</p>
+<h2 id="full-asset-content-project"><a class="header" href="#full-asset-content-project">Full Asset Content Project</a></h2>
+<p>As you may know, it is not possible to just copy most cooked asset files directly back into the editor as they will cause crashes and you won’t be able to open them. There are a few exceptions where UE has code that &quot;reconstructs&quot; them – sound waves, string tables, data tables, static meshes (partially) and textures. Data assets are only reconstructed by the engine when they are duplicated in-place and then saved, and blueprint hierarchies can be obtained by creating a child BP of a cooked one.</p>
+<p>But what if we could write code that took the serialized data from the cooked assets and generated raw assets in-editor? After all, information about every asset is stored in its cooked format, except for shaders, which is stored separately in the shader cache files. And since we can generate the base C++ classes for these assets, we aren’t limited by that aspect. Modders have been reconstructing assets by hand from reading the same data for a long time, so why not automate it?</p>
+<p>Over the last couple of years, a few people have been working on a tool that can do exactly this. At the time of writing, we can support all the checked asset types:</p>
+<p><a href="https://cdn.discordapp.com/attachments/1109192354595876944/1155451342882623618/SupportedAssets.png"><img src="ModSupport/ModKits/../../Images/SupportedAssets.png" alt="Supported Asset Types" /></a></p>
+<p><em>List of supported asset types that can be reconstructed</em></p>
+<p>&quot;Simple assets&quot; are those with only hard coded values and references, such as data assets, sound classes, and some custom asset types. Any asset types we cannot parse, we produce them empty so that the other assets still get them as references.</p>
+<p>We cannot fully reconstruct materials, since most of the data is stored in the shader cache files, so we just populate with the data we can get, and the rest must be reconstructed by hand if a user wants to. </p>
+<p>Although it is possible, we cannot reconstruct any blueprint graph code currently, as it is extremely difficult.</p>
+<p>Since modders can generate all of these assets on top of a compilable C++ project, the editor can be shipped like a developer modkit can, with all the extra features and file size reduction methods (e.g. compressed DDC) that comes with one. </p>
+<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
+<p>The most complete modkit I've generated is for Deep Rock Galactic, which you can find the repository for <a href="https://github.com/DRG-Modding/Community-Modkit">here</a>. </p>
+<p>It is a modkit project containing tens of thousands of reconstructed assets of varying types from the game files to use for references in blueprint mods. There is a <a href="https://mod.io/g/drg/m/mission-content-randomizer">massive mod</a> the size of an indie game that adds tons of new content to the game by using these references, created in a beta version of the modkit. It really is incredible what people can do with it!</p>
+<p>This has been hundreds if not thousands of collective hours of dev time almost 2 years in the making by myself and others (named in the repository's credits). </p>
+<p>The developers of the game gave me permission to distribute the full modkit to the public, as long as users adhere to their UGC policy.</p>
+<p>Here's the demo video for the project:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/0odKe6elOLQ?si=0610uj27leIQJ9vi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<p>I have generated one for many games now, however I always ask for permission from the developers before distributing. I have been denied distributing for the game <a href="https://store.steampowered.com/app/1106840/Hydroneer/">Hydroneer</a>, which makes sense, because the entire game has just a small handful of C++ classes and the rest is blueprints which may be fully reconstructed at some point in the distant future.</p>
+<p>This tool is <a href="https://github.com/LongerWarrior/UEAssetToolkitGenerator">open source</a>, and we have made extra sure that it does not break the UE EULA - but we won’t be able to stop people from using it to break EULAs for the games they generate assets for. That being said, the tools are not exactly easy to use, as it took me about 3 months just to generate the first batch of assets for DRG, which was still broken in many ways. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="case-studies"><a class="header" href="#case-studies">Case Studies</a></h1>
+<p>Since I have modded and made tools for many games, I think it is important to share what methods specific games have used, what their ups and downs are, and what I have learnt from working with them. Be aware that this section is a bit of a knowledge dump from me so I’m not going to be upset if you decide to skip it. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="satisfactory"><a class="header" href="#satisfactory">Satisfactory</a></h1>
+<p><a href="https://www.satisfactorygame.com/">Satisfactory</a> is a primarily singleplayer automation game. This lends itself to modding. Luckily, the developers recognised this and released the game with PDBs, despite it doubling the download size. The PDBs provided allowed for a community mod launcher to be made very early on. </p>
+<p>In 2021, Satisfactory became the first UE game that I know of, that switched to the modular build type. It was by the modders’ request, and it took them roughly a year to make the switch after internal testing alongside normal development. As discussed previously, it allowed for C++ mods to be loaded as plugins which instantly boosted the possibilities of almost endless to literally endless, while also making the viability of complex mods possible due to the increased efficiency.</p>
+<p>Therefore, the community could heavily expand their mod support capabilities. They created their own 3rd party mod browsing website, which was interfaced by a mod launcher that could manage mods, find new ones, etc. It then installs selected mods ready for the game to be loaded.</p>
+<p>Additionally, since the mods are plugins, they can interface directly with the UE core C++ API, meaning that they could easily dump all the information about the C++ headers and assets in the game and produce their own <a href="https://github.com/mircearoata/satisfactory-modding">mod kit</a> for modders.</p>
+<p>A downside to this, as discussed, is security. Giving people the ability to upload uncontained C++ that is executed can be very dangerous, which is why all mods uploaded to the site are ran through <a href="https://www.virustotal.com/gui/home/upload">VirusTotal</a>. As far as I am aware, in the last few years, there has only been one minor incident (that has been caught).</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="contractors-vr"><a class="header" href="#contractors-vr">Contractors VR</a></h1>
+<p>I only discovered this game after I had written the whole guide, and it surprised me that it contained mod support similar to my own research. </p>
+<p><a href="https://store.steampowered.com/app/963930/Contractors/">Contractors</a> is a VR team-based shooting game built using a custom UE4.27 engine version. The game has incredible mod support that's way ahead of any other non-modular game (so excluding Satisfactory) I've seen (at the time of writing). Mods built for the game include <a href="https://mod.io/g/contractors/m/tf2-vr">Team Fortress VR</a> with 2.3 million downloads and <a href="https://mod.io/g/contractors/m/clonewars">Clone Wars</a> with 3 million downloads. This game would easily be dead by now if it weren't for its mod support, making it a textbook example why mod support is so important to keep games alive. These mods do exactly what you expect, but how have they been done knowing the difficulty of conventional UE modding?</p>
+<h2 id="the-modkit"><a class="header" href="#the-modkit">The modkit</a></h2>
+<p>The developers of Contractors have provided a <a href="https://github.com/kcmonkey1992/ContractorsVRModKit/releases">modkit</a> that is a release of their game UE project on top of their custom engine version. It means that modders can play the game in-editor to test their mods. The modkit is distributed through a GitHub release on a fork of the UnrealEngine respository so that the distribution of the engine is legal. The combined download is 17.6GB which on its own is less than a default install of UE4.27, so they've done a good job of keeping the size down.</p>
+<p>Upon first opening the modkit, modders are loaded into a map that contains a bunch of useful information about each main asset system and how they can be used. It's kind of like a mini-tutorial within the editor where modders can click on the actors and view the code to see how they work in more detail. They also describe how to setup basic systems such as the round timers, game mode, player controllers, game state etc. </p>
+<p><img src="https://github.com/Buckminsterfullerene02/dev-guide/assets/84156063/9e2dc294-de1c-4566-8489-31f3eee783f3" alt="Opening level" /></p>
+<p>You can also see three new buttons in the toolbar:</p>
+<ul>
+<li>Modio</li>
+<li>Create Mod</li>
+<li>Package</li>
+</ul>
+<h3 id="modio"><a class="header" href="#modio">Modio</a></h3>
+<p>The modio button opens a window for modders to log in with their mod.io account. From there, they can upload any mods created and packaged directly to mod.io without having to go into the site itself. In this example since I've not packaged my test mod, it's showing missing file error.</p>
+<p><img src="https://github.com/Buckminsterfullerene02/dev-guide/assets/84156063/b4b21632-8a41-4e0e-b794-d8db9f708315" alt="Modio" /></p>
+<h3 id="create-mod"><a class="header" href="#create-mod">Create Mod</a></h3>
+<p>The create mod button opens a window that asks modders to select the type of mod they'd like to make and the various mod info such as name, author, description etc. Basically an edit of the create plugin window, since the mods are created as plugin content.</p>
+<p><img src="https://github.com/Buckminsterfullerene02/dev-guide/assets/84156063/8cde9428-f93a-4601-b8ad-598257470a93" alt="Create mod" /></p>
+<p>When a mod is created, it is added as a plugin to the project. Depending on the type of mod created, there are a few different assets that are created. As a base, the mods will create a data asset that describes the mod such as the display name of the mod, a thumbnail texture, the custom loadout file or the custom map file.</p>
+<p><img src="https://github.com/Buckminsterfullerene02/dev-guide/assets/84156063/964dcc69-2bc2-430a-9e86-2eadddabe923" alt="Map Mod Data" /></p>
+<p><img src="https://github.com/Buckminsterfullerene02/dev-guide/assets/84156063/8920817f-1050-4e4a-8fd2-17e0bd9af02e" alt="Loadout Mod Data" /></p>
+<h3 id="package"><a class="header" href="#package">Package</a></h3>
+<p>The package button requires modders to select the workspace to package their mods. Then, upon selecting the mod they wish to package, a window will appear that asks them to select their supported platform, and then will package for that platform. I suggest testing out packaging a mod to see how it works - there are commands in the output window and you can see what file structure they've opted to use.</p>
+<p><img src="https://github.com/Buckminsterfullerene02/dev-guide/assets/84156063/d512620a-c35b-4fb7-aab8-c9cc815b235d" alt="Package mod" /></p>
+<p>This is the kind of extra seamless integration that I'd expect all modkits to provide.</p>
+<p>If you want to dig into this modkit yourself, the main plugin responsible for the in-editor features is <code>Zomboy_Plugin</code>, and of course only the Binaries are provided, so you can't see the source code. </p>
+<p>I don't own the game so I can't comment on the in-game mod integration.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="astro-colony"><a class="header" href="#astro-colony">Astro Colony</a></h1>
+<p>The Astro Colony official modkit (and its whole mod support) was developed following my direct advice and guidance, but also contains a few extra handy tricks up its sleeve that is worth mentioning, and has fed back into the creation of the developer modkits section of this guide (as I had not written it yet when I was advising them).</p>
+<p>You can find the documentation for and the google drive download link for the modkit <a href="https://docs.google.com/document/d/1ZDhyMEZzLPiHIUOYyHeiAVVUIPFvbwLul9WAgymHazI">here</a> (you don't need to own the game to download it, despite it having full PIE support).</p>
+<p>The modkit uses plugin content for each mod. Here's an example of the content browser, where each mod folder is coloured beige:</p>
+<p><img src="https://github.com/Buckminsterfullerene02/dev-guide/assets/84156063/15b5630d-4adf-4f0b-bae3-e7a1ff960f1b" alt="Astro Colony content browser" /></p>
+<h2 id="plugins"><a class="header" href="#plugins">Plugins</a></h2>
+<p>Astro Colony contains a number of free, custom and paid plugins. One of the paid plugins is the $350 <a href="https://www.unrealengine.com/marketplace/en-US/product/voxel-plugin-pro">voxel plugin pro</a>. The developer asked for, and got direct permission from the developers of this plugin to ship the binaries and content with the modkit so that PIE works and mods can use the voxel assets/classes. </p>
+<h2 id="main-blueprint-actor"><a class="header" href="#main-blueprint-actor">Main blueprint actor</a></h2>
+<p>Inside of the mod, the main initialization blueprint can be created. There are three events that modders can use to control the game in specific moments:</p>
+<ul>
+<li>Init - should be used to configure game values and adding new recipes</li>
+<li>BeginPlay - when interacting with game actors or spawning new actors</li>
+<li>EndPlay - should be used to clean up the game state when the map is closed</li>
+</ul>
+<h2 id="pie-time-limiter"><a class="header" href="#pie-time-limiter">PIE time limiter</a></h2>
+<p>The modkit has a 20 minute PIE timer per session. However you can also quicksave and quicklod the session to continue it later while debugging mods.</p>
+<p><img src="https://github.com/Buckminsterfullerene02/dev-guide/assets/84156063/720169f4-00c7-4fdb-b3d2-7fa2c1a23b13" alt="PIE limit" /></p>
+<h2 id="mod-config-file"><a class="header" href="#mod-config-file">Mod config file</a></h2>
+<p>Each mod is required to contain a mod config asset, which looks like this:</p>
+<p><img src="https://github.com/Buckminsterfullerene02/dev-guide/assets/84156063/59330bc4-3212-47d7-aafe-42f160a4ec17" alt="Astro Colony mod config" /></p>
+<p>Inside of it, you can:</p>
+<ul>
+<li>Set game objects you've edited to override the base game objects during packaging</li>
+<li>Allow modders to add their own data assets to any loading system</li>
+<li>Set the in-game mod icon to a texture asset</li>
+<li>Specify details for any extra tabs for the mod hub</li>
+</ul>
+<h2 id="create-mod-1"><a class="header" href="#create-mod-1">Create mod</a></h2>
+<p><img src="https://github.com/Buckminsterfullerene02/dev-guide/assets/84156063/303f7ce0-0fbe-4cd2-ac70-c839c4b4b3ea" alt="Astro Colony create mod" /></p>
+<h2 id="package-mod"><a class="header" href="#package-mod">Package mod</a></h2>
+<p><img src="https://github.com/Buckminsterfullerene02/dev-guide/assets/84156063/e026c185-caab-46c2-a070-4134cb71d91d" alt="Astro Colony package mod" /></p>
+<h2 id="upload-mod"><a class="header" href="#upload-mod">Upload mod</a></h2>
+<p><img src="https://github.com/Buckminsterfullerene02/dev-guide/assets/84156063/d132403d-02b1-4476-ac60-2ff1abdd8b23" alt="Astro Colony upload mod" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ark-survival-evolved"><a class="header" href="#ark-survival-evolved">ARK: Survival Evolved</a></h1>
+<p>I’ve never played this game nor modded it, but its modding scene is one of the most “well off” due to the mod kit that the developers provided. Their mod kit is a release of their entire game UE project on top of their custom engine version. It means that modders can play the game in-editor to test their mods. </p>
+<p>They distribute this by providing a separate ~100GB download for users that own the game.</p>
+<p>The mod kit is so special, that it has its own <a href="https://forums.unrealengine.com/c/development-discussion/modding/ark-survival-evolved/80">entire category</a> on the Unreal Engine forums!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="deep-rock-galactic"><a class="header" href="#deep-rock-galactic">Deep Rock Galactic</a></h1>
+<p>Dwarves?! In space?! Shooting bugs?! Getting drunk?! That’s <a href="https://www.deeprockgalactic.com/">DRG</a>, a co-op PvE shooter with a great modding scene. I am slightly biased as I create and maintain the mod kits for the blueprint and audio mods. I don’t make all the tools, since there are some game generic tools that we use, but the <a href="https://github.com/DRG-Modding/FSD-Template">main ones</a> are made by myself. I also wrote and maintain the guides for <a href="https://mod.io/g/drg/r/drg-mods-a-comprehensive-guide-to-audio-modding">audio</a> and <a href="https://mod.io/g/drg/r/how-to-blueprint-mod">blueprint</a> modding.</p>
+<p>When I first started modding this game mid-2021, there was no official mod support. Someone created a blueprint mod loader for the game by replacing the credits widget asset, since it is always loaded and doesn’t have any game-changing functionality (sorry devs). The mod loader also acted as a shared settings window, where blueprint mods with widgets are placed into a common window with tabs for each mod and other information provided. This solution was pretty good for the time, but mods were distributed via README links on a GitHub repository and the mod loader had hardcoded mod slots. </p>
+<p>Around November 2021, official mod support came in the form of native mod spawning, a mod management window in the game with an interface to a 3rd party website (<a href="https://mod.io/">mod.io</a>) where users can browse/subscribe to mods, look at guides, etc.</p>
+<p>The native mod spawning method that they chose to use was the SimpleUGC plugin, but very heavily modified. In fact, they modified it so heavily that it pretty much became its own independent system that mounted pak mods in the same way as the marketplace pak loader plugin. </p>
+<p>The only difference is that they also added hot reload support – meaning that the mods can be unloaded and reloaded without the game having to be closed. This is a big deal for the game because there is a lot of time switching between a private lobby and a multiplayer lobby and having to restart the game every time some mods are enabled/disabled/updated would be a massive put-off for users. I did request for the developer of this system to create an explanation of how it works, since it is a custom engine change, but their contract states that they are not allowed to, so sadly I cannot share this with you.</p>
+<p>There are also many complications with modding categories, since many players expressed concerns that players could use mods to gain levels much faster than they did, thus inflating the “veteran” status of having a high level. So, the developers introduced a system where each mod uploaded to mod.io is assigned one of three categories. Each category limits what can be done in the game, such as using a different player save and turning off achievement progress. This has all added a lot of extra complexity with their own issues.</p>
+<p>Since so much of the system is custom made, there were, and still are, a lot of subtle issues with mods. For example, that inconsistent mod loading order issue I described earlier. Additionally, the integration with the mod.io plugin that pulls mods from the mod.io API is quite broken still because there are bugs where the game redownloads all the mods when you load it up, for no apparent reason. </p>
+<p>The takeaway from this case is once again reinforcing the idea of “no step is the best step”. Unless your game is really complicated, don’t try to make overcomplicated systems like they did. And research all the possible mod loading methods before implementing one! </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="cyubevr"><a class="header" href="#cyubevr">cyubeVR</a></h1>
+<p><a href="https://store.steampowered.com/app/619500/cyubeVR/">cyubeVR</a> was the first game where I took what I learnt from DRG and applied it to a game that wanted mod support. The developer had 7 years of experience with Unreal Engine and many years of being active in the Unreal forums/slack group when I first spoke to him but had literally no clue about modding. This is partially what lead me to writing this document in the first place.</p>
+<p>Since cyubeVR is a voxel game, all the voxel code is bespoke and written in C++ for maximum performance. Therefore, normal blueprint mods cannot manipulate this system. But many of the game’s systems (e.g., weather) still use normal UE assets and reflected C++ so blueprint mods can manipulate those.</p>
+<p>What the developer decided, was to produce support for 3 types of mods:</p>
+<ul>
+<li>Normal UE pak mods (including natively loading mods)</li>
+<li>C++ API for the Voxel system</li>
+<li>Custom blocks</li>
+</ul>
+<p>For native mod loading, he used the marketplace pak loader. It took him less than a day to implement the system, once we had figured out the mod naming/folder hierarchy scheme. To this day, the system works perfectly.</p>
+<p>When working on a mod kit tool, I came across nativized blueprints which caused me a lot of headaches. Since these assets were nativized for important performance gains, the developer just gave me access to a temporary build of the game on Steam with nativization disabled.</p>
+<p>In order to support C++, the developer produced a <a href="https://github.com/sbsce/cyubeVR-VoxelAPI-Modding">template C++ project</a> with all the exposed functions, Enums and properties that can be accessed. Modders can write code inside of certain functions that are then called by the game at runtime. For example, there is a function that is called when a block is hit by a tool, with input parameters such as the type of tool that hits the block, the position of the block and the type of the block. When the mod needs testing, the modder can build the project into the dll and store it in a certain location in the game’s Mods/ folder and the game will call to it.</p>
+<p>The C++ API template does not need to recreate any UE types because the game does all the type conversions on its side, due to it only needing to use basic types such as string and vector. It does however recreate several Enums such as tool type. </p>
+<p>While there have not been any incidents yet, there is no solution currently in place to check C++ mods for malicious code. </p>
+<p>Custom blocks are just providing a format for new blocks with their own textures and recipes. Custom blocks have no functionality other than looks. When a user subscribes to a custom block mod, the block will show up in their block list in-game.
+All mod types can be uploaded to the Steam Workshop via in the in-game mod menu.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="final-notes"><a class="header" href="#final-notes">Final notes</a></h1>
+<p><strong>COMMUNICATION IS KEY!</strong> Keep your communication lines with modders open. Especially with the tool developers for your community. Try to answer technical questions by modders every now and then; it really helps to give the impression that you care.</p>
+<p>Make sure that you are always open-minded to feedback from modders. If you are not, then I can guarantee that you will not be able to make the best modding experience possible.</p>
+<p>If you learnt something from this document, please support me by sharing this with other developers. My only goal is to spread awareness of modding possibilities in the Unreal Engine ecosystem. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="archived-pages"><a class="header" href="#archived-pages">Archived Pages</a></h1>
+<p>These are pages that I have written in the past that I have either not wanted to publish, or have deemed not within the scope of the document. I do not wish to hide information however, so if you wish to read them, they are here.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="folder-hierarchy-originally-in-section-31"><a class="header" href="#folder-hierarchy-originally-in-section-31">Folder hierarchy (originally in section 3.1)</a></h1>
+<p>Obviously, you need to be able to assign mod actors to mod names/IDs, so a good folder hierarchy is important. My suggestion is that you put a Mods/ folder inside of <code>&lt;GameInstallFolder&gt;/&lt;GameName&gt;/</code> and then inside of that, split up each mod by a folder with the name of the mod. Inside of that folder is the mod files, including the “Init” blueprint actors that you are scanning for to load. </p>
+<p>If you know your game will upgrade to new engine versions and/or make significant code changes in the future, it may be in your best interest to have that includes mod information within it. With this I mean, you could require a &quot;descriptor” .txt/.uplugin file in the mod folder name to inform the game version that it currently works on. </p>
+<p>Then your mod mounting system can include reading that for detecting whether a loaded mod will have compatibility with the current version, the mod author, mod version, mod description, etc. All things that you can show in the mod browser in the game. If your game already calls this data from an API when it downloads subscribed mods on a 3rd party site, then you can ignore this step. If you decide to use a system like this, make sure that you communicate what is required with the modders!</p>
+<p>Finally, you may want a dedicated location for mod saves to be stored. Since modders have access to the same “save object to file” blueprint node that you have – where the root directory is <code>&lt;GameName&gt;/Saves/</code> - you can’t really control within that folder they go, unless you write your own function for that. Since you should be communicating everything to your modders anyway, you may choose to require that mod saves are stored in <code>&lt;GameName&gt;/Saves/Mods/&lt;ModName&gt;/</code> although there still isn’t anything stopping modders from not conforming to that. Unless your game is doing something special, it shouldn’t matter if mod saves are all mixed up in one directory.</p>
+<p>To put all this together, let’s run through an example. Say there are two mods installed. The mod hierarchy could look like this:</p>
+<p><a href="https://cdn.discordapp.com/attachments/1109192354595876944/1154755576149069948/FolderHierarchy.png"><img src="Archived/../../Images/FolderHierarchy.png" alt="Folder Hierarchy" /></a></p>
+<p><em>Example mod folder hierarchy</em></p>
+<p>Unless you have changed it, your <code>Saves/</code> folder will be in <code>%appdata%/Local/&lt;GameName&gt;</code>, which of course is also fine. In this example I have chosen to change the Saves folder to the game install location, which some games do.</p>
+<p>In this example I have chosen to use a .uplugin file to store the mod information. You may prefer this, as the format of the <code>.uplugin</code> is JSON which means that a template can be provided for modders to use. Importantly, it almost eliminates the risk of mistakes in the file since it is obvious where information goes. I reiterate that it is indefinitely vital to remove potential points of failure for the lowest bar possible. An example of this could be:</p>
+<pre><code>{
+    &quot;ModName&quot;: &quot;Time Control&quot;,
+    &quot;Description&quot;: &quot;Allows the user to control the global time dilation.&quot;,
+    &quot;Category&quot;: &quot;Gameplay&quot;,
+    &quot;CreatedBy&quot;: &quot;Buckminsterfullerene&quot;,
+    &quot;ThumbnailImage&quot;: &quot;https://3rdartymodmanger.com/GameName/mods/Time%20Control/Thumbnail.png&quot;,
+    &quot;GameVersion&quot;: &quot;1.37&quot;,
+    &quot;ModVersion&quot;: &quot;1.0&quot;,
+    &quot;Dependencies&quot;: 
+    [
+        {
+            &quot;ModName&quot;: &quot;ModLib&quot;,
+            &quot;ModURL&quot;: &quot;https://3rdartymodmanger.com/GameName/mods/ModLib&quot;,
+        }
+    ]
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+    </body>
+</html>

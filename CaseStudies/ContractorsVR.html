@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>ContractorsVR - A Comprehensive Introduction to Unreal Engine Modding</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../css/custom.css">
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Home</a></li><li class="chapter-item expanded "><a href="../Overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../Basis.html"><strong aria-hidden="true">2.</strong> The Basis of all modding</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Basis/PakPatching.html"><strong aria-hidden="true">2.1.</strong> Pak patching</a></li><li class="chapter-item expanded "><a href="../Basis/DealingWithPaks.html"><strong aria-hidden="true">2.2.</strong> Dealing with paks</a></li><li class="chapter-item expanded "><a href="../Basis/AssetEditing.html"><strong aria-hidden="true">2.3.</strong> Asset editing</a></li><li class="chapter-item expanded "><a href="../Basis/Audio.html"><strong aria-hidden="true">2.4.</strong> Audio</a></li><li class="chapter-item expanded "><a href="../Basis/Visual.html"><strong aria-hidden="true">2.5.</strong> Visual</a></li><li class="chapter-item expanded "><a href="../Basis/Blueprints.html"><strong aria-hidden="true">2.6.</strong> Blueprints</a></li><li class="chapter-item expanded "><a href="../Basis/C++.html"><strong aria-hidden="true">2.7.</strong> C++</a></li><li class="chapter-item expanded "><a href="../Basis/DLLInjection.html"><strong aria-hidden="true">2.8.</strong> DLL injection</a></li></ol></li><li class="chapter-item expanded "><a href="../ModSupport.html"><strong aria-hidden="true">3.</strong> Mod Support</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../ModSupport/NativeLoading.html"><strong aria-hidden="true">3.1.</strong> Natively loading mods</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../ModSupport/NativeLoading/PakLoader.html"><strong aria-hidden="true">3.1.1.</strong> Pak loader plugin</a></li><li class="chapter-item expanded "><a href="../ModSupport/NativeLoading/SimpleUGC.html"><strong aria-hidden="true">3.1.2.</strong> SimpleUGC plugin</a></li><li class="chapter-item expanded "><a href="../ModSupport/NativeLoading/DIY.html"><strong aria-hidden="true">3.1.3.</strong> Do it yourself</a></li></ol></li><li class="chapter-item expanded "><a href="../ModSupport/ModManagers.html"><strong aria-hidden="true">3.2.</strong> Mod managers</a></li><li class="chapter-item expanded "><a href="../ModSupport/ModKits.html"><strong aria-hidden="true">3.3.</strong> Mod kits/SDKs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../ModSupport/ModKits/DeveloperModkits.html"><strong aria-hidden="true">3.3.1.</strong> Developer Modkits</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../ModSupport/ModKits/DeveloperModkits/Why.html"><strong aria-hidden="true">3.3.1.1.</strong> Why?</a></li><li class="chapter-item expanded "><a href="../ModSupport/ModKits/DeveloperModkits/How.html"><strong aria-hidden="true">3.3.1.2.</strong> How?</a></li><li class="chapter-item expanded "><a href="../ModSupport/ModKits/DeveloperModkits/ExtraFeatures.html"><strong aria-hidden="true">3.3.1.3.</strong> Extra features</a></li><li class="chapter-item expanded "><a href="../ModSupport/ModKits/DeveloperModkits/Examples.html"><strong aria-hidden="true">3.3.1.4.</strong> Examples</a></li></ol></li><li class="chapter-item expanded "><a href="../ModSupport/ModKits/CommunityModkits.html"><strong aria-hidden="true">3.3.2.</strong> Community Modkits</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../CaseStudies.html"><strong aria-hidden="true">4.</strong> Case Studies</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../CaseStudies/Satisfactory.html"><strong aria-hidden="true">4.1.</strong> Satisfactory</a></li><li class="chapter-item expanded "><a href="../CaseStudies/ContractorsVR.html" class="active"><strong aria-hidden="true">4.2.</strong> ContractorsVR</a></li><li class="chapter-item expanded "><a href="../CaseStudies/AstroColony.html"><strong aria-hidden="true">4.3.</strong> Astro Colony</a></li><li class="chapter-item expanded "><a href="../CaseStudies/ARK.html"><strong aria-hidden="true">4.4.</strong> ARK: Survival Evolved</a></li><li class="chapter-item expanded "><a href="../CaseStudies/DRG.html"><strong aria-hidden="true">4.5.</strong> Deep Rock Galactic</a></li><li class="chapter-item expanded "><a href="../CaseStudies/cyubeVR.html"><strong aria-hidden="true">4.6.</strong> cyubeVR</a></li></ol></li><li class="chapter-item expanded "><a href="../FinalNotes.html"><strong aria-hidden="true">5.</strong> Final notes</a></li><li class="chapter-item expanded "><a href="../Archives.html"><strong aria-hidden="true">6.</strong> Archived Pages</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Archived/FolderHierarchy.html"><strong aria-hidden="true">6.1.</strong> Folder Hierarchy</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">A Comprehensive Introduction to Unreal Engine Modding</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="contractors-vr"><a class="header" href="#contractors-vr">Contractors VR</a></h1>
+<p>I only discovered this game after I had written the whole guide, and it surprised me that it contained mod support similar to my own research. </p>
+<p><a href="https://store.steampowered.com/app/963930/Contractors/">Contractors</a> is a VR team-based shooting game built using a custom UE4.27 engine version. The game has incredible mod support that's way ahead of any other non-modular game (so excluding Satisfactory) I've seen (at the time of writing). Mods built for the game include <a href="https://mod.io/g/contractors/m/tf2-vr">Team Fortress VR</a> with 2.3 million downloads and <a href="https://mod.io/g/contractors/m/clonewars">Clone Wars</a> with 3 million downloads. This game would easily be dead by now if it weren't for its mod support, making it a textbook example why mod support is so important to keep games alive. These mods do exactly what you expect, but how have they been done knowing the difficulty of conventional UE modding?</p>
+<h2 id="the-modkit"><a class="header" href="#the-modkit">The modkit</a></h2>
+<p>The developers of Contractors have provided a <a href="https://github.com/kcmonkey1992/ContractorsVRModKit/releases">modkit</a> that is a release of their game UE project on top of their custom engine version. It means that modders can play the game in-editor to test their mods. The modkit is distributed through a GitHub release on a fork of the UnrealEngine respository so that the distribution of the engine is legal. The combined download is 17.6GB which on its own is less than a default install of UE4.27, so they've done a good job of keeping the size down.</p>
+<p>Upon first opening the modkit, modders are loaded into a map that contains a bunch of useful information about each main asset system and how they can be used. It's kind of like a mini-tutorial within the editor where modders can click on the actors and view the code to see how they work in more detail. They also describe how to setup basic systems such as the round timers, game mode, player controllers, game state etc. </p>
+<p><img src="https://github.com/Buckminsterfullerene02/dev-guide/assets/84156063/9e2dc294-de1c-4566-8489-31f3eee783f3" alt="Opening level" /></p>
+<p>You can also see three new buttons in the toolbar:</p>
+<ul>
+<li>Modio</li>
+<li>Create Mod</li>
+<li>Package</li>
+</ul>
+<h3 id="modio"><a class="header" href="#modio">Modio</a></h3>
+<p>The modio button opens a window for modders to log in with their mod.io account. From there, they can upload any mods created and packaged directly to mod.io without having to go into the site itself. In this example since I've not packaged my test mod, it's showing missing file error.</p>
+<p><img src="https://github.com/Buckminsterfullerene02/dev-guide/assets/84156063/b4b21632-8a41-4e0e-b794-d8db9f708315" alt="Modio" /></p>
+<h3 id="create-mod"><a class="header" href="#create-mod">Create Mod</a></h3>
+<p>The create mod button opens a window that asks modders to select the type of mod they'd like to make and the various mod info such as name, author, description etc. Basically an edit of the create plugin window, since the mods are created as plugin content.</p>
+<p><img src="https://github.com/Buckminsterfullerene02/dev-guide/assets/84156063/8cde9428-f93a-4601-b8ad-598257470a93" alt="Create mod" /></p>
+<p>When a mod is created, it is added as a plugin to the project. Depending on the type of mod created, there are a few different assets that are created. As a base, the mods will create a data asset that describes the mod such as the display name of the mod, a thumbnail texture, the custom loadout file or the custom map file.</p>
+<p><img src="https://github.com/Buckminsterfullerene02/dev-guide/assets/84156063/964dcc69-2bc2-430a-9e86-2eadddabe923" alt="Map Mod Data" /></p>
+<p><img src="https://github.com/Buckminsterfullerene02/dev-guide/assets/84156063/8920817f-1050-4e4a-8fd2-17e0bd9af02e" alt="Loadout Mod Data" /></p>
+<h3 id="package"><a class="header" href="#package">Package</a></h3>
+<p>The package button requires modders to select the workspace to package their mods. Then, upon selecting the mod they wish to package, a window will appear that asks them to select their supported platform, and then will package for that platform. I suggest testing out packaging a mod to see how it works - there are commands in the output window and you can see what file structure they've opted to use.</p>
+<p><img src="https://github.com/Buckminsterfullerene02/dev-guide/assets/84156063/d512620a-c35b-4fb7-aab8-c9cc815b235d" alt="Package mod" /></p>
+<p>This is the kind of extra seamless integration that I'd expect all modkits to provide.</p>
+<p>If you want to dig into this modkit yourself, the main plugin responsible for the in-editor features is <code>Zomboy_Plugin</code>, and of course only the Binaries are provided, so you can't see the source code. </p>
+<p>I don't own the game so I can't comment on the in-game mod integration.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../CaseStudies/Satisfactory.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../CaseStudies/AstroColony.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../CaseStudies/Satisfactory.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../CaseStudies/AstroColony.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>
