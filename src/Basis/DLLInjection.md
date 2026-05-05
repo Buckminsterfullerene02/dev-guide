@@ -1,5 +1,5 @@
 # DLL Injection
-This method is used by modding tools rather than mods themselves, with a couple of exceptions. Injection is either done by using a DLL injector or by proxy injection using one of the DirectX xinput DLLs such as `xinput1_3.dll`. 
+This method is used by modding tools rather than mods themselves, with a couple of exceptions. Injection is either done by using a DLL injector or by proxy injection for example by using one of the DirectX xinput DLLs like `xinput1_3.dll`. 
 
 In a nutshell, for a program to hook into a game, it needs to find the address of the function it wants to hook into. This is done by searching for an "array of bytes" (AOBs) that is unique to the function. 
 
