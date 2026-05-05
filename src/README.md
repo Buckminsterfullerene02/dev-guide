@@ -23,11 +23,11 @@ If you are reading this with a bad perception of modding already, I encourage th
 - [Epic Games Developer Forums](https://dev.epicgames.com/community/profile/4an3/bobby459001)
 
 # Versions
-- 0.1.0 - 2023-01-20 - Initial release of first draft
-- 0.1.1 - 2023-01-21 - Markdown pass, rewrote DLL injection section
-- 0.1.2 - 2023-08-05 - Started guide about developer provided modkits
-- 0.1.3 - 2023-09-24 - Added most detail to developer modkit section, reworked parts of the guide to be updated with new information/methods/engine versions
-- 0.1.4 - 2024-02-15 - Added ContractorsVR case study, added new useful resource links where necessary, fixed some poor wording
-- 0.1.5 - 2024-03-06 - Moved Astro Colony case study to match the format of the document
-- 0.1.6 - 2024-09-25 - Update links
-- 0.1.7 - 2026-05-05 - Don't recommend turning off `Use IoStore` setting for UE5 (because community tooling to mod IoStore files exist now), changes to the basics since last edits, added Whiskerwood case study, added Captain of Industry case study
+- 0.1 - 2023-01-20 - Initial release of first draft
+- 0.2 - 2023-01-21 - Markdown pass, rewrote DLL injection section
+- 0.3 - 2023-08-05 - Started guide about developer provided modkits
+- 1.0 - 2023-09-24 - Added most detail to developer modkit section, reworked parts of the guide to be updated with new information/methods/engine versions
+- 1.1 - 2024-02-15 - Added ContractorsVR case study, added new useful resource links where necessary, fixed some poor wording
+- 1.2 - 2024-03-06 - Moved Astro Colony case study to match the format of the document
+- 1.3 - 2024-09-25 - Update links
+- 1.4 - 2026-05-05 - Don't recommend turning off `Use IoStore` setting for UE5 (because community tooling to mod IoStore files exist now), changes to the basics since last edits, added Whiskerwood case study, added Captain of Industry case study
