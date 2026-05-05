@@ -26,3 +26,4 @@ If you are reading this with a bad perception of modding already, I encourage th
 - 0.1.4 - 2024-02-15 - Added ContractorsVR case study, added new useful resource links where necessary, fixed some poor wording
 - 0.1.5 - 2024-03-06 - Moved Astro Colony case study to match the format of the document
 - 0.1.6 - 2024-09-25 - Update links
+- 0.1.7 - 2026-05-05 - Don't recommend turning off `Use IoStore` setting for UE5, changes to the basics since last edits
