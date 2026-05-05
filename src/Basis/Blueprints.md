@@ -48,6 +48,14 @@ As a reminder, if the game has no `UFUNCTION()` macro above something (i.e, it i
 
 Luckily, there is a tool that dumps all the C++ headers in the game into UHT format with all their corresponding flags and generates a new UE project based off these headers. You can find the repository and wiki page for that [here](https://docs.ue4ss.com/guides/generating-uht-compatible-headers).
 
+## Template objects
+
+Blueprint mods can also do some very clever things that game developers never need to do - modify class default objects (CDOs), component templates & default subobjects at runtime. These tricks can be used to unlock what would otherwise be a major downside of blueprint modding over asset replacement - being able to modify the "default values" of blueprints and components which then get copied into any instances created after the modification. 
+
+I wrote a comprehensive guide on this technique [here](https://github.com/Dmgvol/UE_Modding/blob/main/BPModding%2FDefaultObjects.md). Please give it a read as it will widen your understanding of how Unreal Engine creates instanced objects.
+
+If you reached the end of the guide where it talks about the use of the referenced objects array to keep the object defaults from being garbage collected between levels, you would see that in UE5, it is not able to be used. To maximise support of this technique with minimal effort, the only thing you need to do is to add a blueprint callable C++ function to allow adding objects to this array.
+
 ## How blueprints are loaded without mod support
 Without official mod support, it is quite difficult to load blueprint mods. Modders are not able to simply replace any asset with a mod blueprint since it likely needs to be loaded all the time, and they would also have to reconstruct 1-1 the blueprint and its code that they replace so that the game does not crash. Unless the asset is basically empty (thus easy to reconstruct correctly), this is just not possible for most. 
 

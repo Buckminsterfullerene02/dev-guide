@@ -28,6 +28,7 @@
     - [Satisfactory](./CaseStudies/Satisfactory.md)
     - [ContractorsVR](./CaseStudies/ContractorsVR.md)
     - [Astro Colony](./CaseStudies/AstroColony.md)
+    - [Whiskerwood](./CaseStudies/Whiskerwood.md)
     - [ARK: Survival Evolved](./CaseStudies/ARK.md)
     - [Deep Rock Galactic](./CaseStudies/DRG.md)
     - [cyubeVR](./CaseStudies/cyubeVR.md)

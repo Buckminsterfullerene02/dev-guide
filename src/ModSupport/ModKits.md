@@ -22,11 +22,11 @@ But what sort of stuff could modders expect in a modkit?
 ## Creating good "conditions" for modding your game
 Aside from modkits, there are a few ways you can improve the quality of mod support:
 
-- C++ enums cannot be edited without help from an external tool, so use user defined enums where possible, or not at all
-
-- Make as few major engine edits as possible – if you do, and you need to distribute your fork to modders, it doesn’t stop being a huge pain
-
 - Don’t hardcode values in your C++. This is a bit of a no brainer, but you’d be surprised how much I’ve seen games do this
+
+- Use [data driven gameplay](https://dev.epicgames.com/documentation/unreal-engine/data-driven-gameplay-elements-in-unreal-engine) programming style with data tables and other assets for providing values, as it is much easier to find and modify values than if they are scattered around the project, or worse, hardcoded in C++
+
+- Provide `.pdb` files that provide modders with full stack traces and an easier time reversing game code to find out how it works
 
 - Use data assets where possible – they are very easy to edit/add to/create frameworks from, and they make general project quality clean
 
@@ -43,7 +43,10 @@ Aside from modkits, there are a few ways you can improve the quality of mod supp
         bool ReadFromPlainText(const FString& Filename, FString& OutTextContent);
         ```
 
+    - Data table modification functions (reading on data tables, adding new rows, modifying existing rows etc.)
     - Allow adding persistent objects by constructing the object and putting it into an array in the game instance, and then initializing them after construction
     - OnMainMenu and OnLevelStart events that have an out parameter with the level that was loaded
 
-- By extension of the above two, adding a reflected JSON library for blueprints is always amazing to have
+- Provide delegates that fire when certain game events happen that you think mods would like to use
+
+- Provide getters to references of central game systems if they don't already exist 
