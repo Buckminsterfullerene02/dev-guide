@@ -7,7 +7,7 @@ If you are reading this with a bad perception of modding already, I encourage th
 
 2026 update: I would like to draw your attention to this excellent talk by the head of engineering at [mod.io](https://mod.io/) which discusses many of the points covered in this guide and their own insights.
 
-[![mod.io mod support talk](https://img.youtube.com/vi/qb0_ypUqnxE/default.jpg)](https://youtu.be/qb0_ypUqnxE)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qb0_ypUqnxE?si=U8jqfws3jGdTrRww" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 # Credits
 - Sbsce from [Stonebrick Studios](https://store.steampowered.com/app/619500/cyubeVR/) for providing cyubeVR’s mod loading code
