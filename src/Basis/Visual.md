@@ -7,4 +7,6 @@ If the modder wishes to import the asset into UE, they will need to use another 
 
 In 2022, there were tools such as [this Blender Plugin](https://github.com/matyalatte/Blender-Uasset-Addon) popping up that allows models/animations/skeleton `.uasset` files to be imported directly into Blender. Modders can then make their edits and export the asset straight back to the `.uasset` format and replace the original in the game. This is ground-breaking because it no longer requires anyone to install Unreal Engine to make model edits.
 
+In 2026, [FModel](https://fmodel.app/) is now the go-to tool for viewing and exporting visual assets in the game as it now comes with various built-in tools for viewing visual assets like 3D models. It also supports exporting to several file formats including its own new [`.ueformat`](https://github.com/h4lfheart/UEFormat) extension that supports animations and models and comes with a Blender plugin to import the file format into Blender.
+
 If you wish to know more about visual modding, there are plenty of videos and guides out there that explain the various methods and processes in greater detail.

@@ -31,6 +31,8 @@
     - [ARK: Survival Evolved](./CaseStudies/ARK.md)
     - [Deep Rock Galactic](./CaseStudies/DRG.md)
     - [cyubeVR](./CaseStudies/cyubeVR.md)
+    - [Whiskerwood](./CaseStudies/Whiskerwood.md)
+    - [Captain of Industry](./CaseStudies/COI.md)
 - [Final notes](./FinalNotes.md)
 - [Archived Pages](./Archives.md)
     - [Folder Hierarchy](./Archived/FolderHierarchy.md)
