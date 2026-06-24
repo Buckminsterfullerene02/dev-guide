@@ -1,5 +1,5 @@
 # Asset editing
-As you know, Unreal Engine is open source, meaning that anyone can look at the code to see how certain systems work to try and reverse them. This is precisely what happened with the various cooked asset formats (`.uexp`, `.uasset`, `.ucas`, `.utoc`, `.umap` etc.) and [several tools](https://github.com/Buckminsterfullerene02/UE-Modding-Tools#asset-editors-parsers--explorers) have been developed to make exploring, parsing, and editing these files as easy as possible. 
+As you know, Unreal Engine source is freely available, meaning that anyone can look at the code to see how certain systems work to try and reverse them. This is precisely what happened with the various cooked asset formats (`.uexp`, `.uasset`, `.ucas`, `.utoc`, `.umap` etc.) and [several tools](https://github.com/Buckminsterfullerene02/UE-Modding-Tools#asset-editors-parsers--explorers) have been developed to make exploring, parsing, and editing these files as easy as possible. 
 
 The most basic form of asset editing is just changing the default values of primitive variable types like strings, floats and booleans. It can be done on every engine version by all asset editing tools. A typical use case would be changing the damage of a weapon. 
 
@@ -7,4 +7,6 @@ The next level up from that is changing references to classes and objects, for e
 
 There is also localization editing, where the localisation files, that have the extension `.locres`, are edited, since that is usually where many of the games’ strings are kept. This is handled by a [separate tool](https://github.com/Buckminsterfullerene02/UE-Modding-Tools#locres-editors).
 
-Asset editing is the most accessible method as many tools and documentation exist for it, but it is also quite limited without getting really technical.
+Asset editing is the most accessible method as many tools and documentation exist for it, but it is also quite limited and has big downsides:
+- If the game updates the asset, it is very likely that the edit will be impacted due to the offset changing
+- This method requires replacing the _entire_ asset, which makes conflicting with other mods or even the game itself much more likely - even if the mod is changing one value out of hundreds in the asset.

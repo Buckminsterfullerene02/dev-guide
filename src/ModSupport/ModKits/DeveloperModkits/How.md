@@ -132,4 +132,4 @@ There are a few solutions you may consider when it comes to updating your modkit
 
 - If your modkit is project + engine, then you may have to come up with your own solution that combines the engine source being on your custom engine Github fork, the engine dependencies being pulled from your servers using the git dependencies file, and the project files being pulled from elsewhere, and then potentially introducing a patching system onto all of that
 
-- If you can, negotiate with Epic to allow engine distribution to happen on Steam and/or EGS as a seperate app (this is what the Satisfactory official modkit does)
+- If you can, negotiate with Epic to allow engine distribution to happen on Steam and/or EGS as a seperate app

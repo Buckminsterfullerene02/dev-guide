@@ -1,7 +1,7 @@
 # Audio
-The quality of audio modding is heavily influenced by the sound system that your game uses. The best system is the default UE sound system that was introduced in UDK (UE3). There are also the FMod and Wwise middleware that many games use, but for modding purposes they aren't idea. They are limited and a pain to mod since they are closed source and use [propriety formats](https://github.com/Buckminsterfullerene02/UE-Modding-Tools#audio). That being said, I do understand why they are used by non-UE games or games developed over the UE sound system - they're cross-platform, have a lot of features, and are easy to use.
+The quality of audio modding is heavily influenced by the sound system that your game uses. The easiest system to mod is the default UE sound system that was introduced in UDK (UE3), as it doesn't require extra plugins or toolsets to mod - everything can be done in the base engine. The extent of modding existing games' audio using WWise or FMod is just by directly replacing the audio files. To add new audio, modders can download the FMod or Wwise plugin files for the version the game is using.
 
-The extent of modding existing games' audio using WWise or FMod is just by directly replacing the audio files. To add new audio, modders can download the FMod or Wwise plugin files for the version the game is using. But again, these cannot be used to edit existing audio. So overall, if you can avoid using these systems, do so.
+## Modding the UE sound system
 
 Audio modding for games using the UE sound system has a slightly higher bar than asset editing, in that modders need to install the version of Unreal Engine that their game uses. The general pipeline for all audio mods, is recreate the audio asset with the same path and name inside of an Unreal Engine project with the desired changes, then cook and package from UE into the pak file.
 
