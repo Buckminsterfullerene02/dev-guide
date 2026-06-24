@@ -14,16 +14,17 @@ Due to the existence of UEFN, Epic Games have invested a lot into making the edi
 
 With a few small engine changes, cooked content can act similarly to uncooked content in the editor - and importantly, still allows all references to exist in blueprints, widgets, animations, materials etc. 
 
-I will go into a lot more detail about cooked editor in the `How` page but using cooked content is very beneficial because:
+I will go into a lot more detail about cooked editor in the `How to create a cooked editor modkit` page but using cooked content is very beneficial because:
 - It keeps game content read-only - mods should not be directly modifiying game content as a general rule
 - It keeps the project content size minimal - if you set up the editor to directly mount the cooked content from the game install files, there is no need for duplicate data on disk
 - No compiling shaders required during editor startup or on cook, as it directly uses the compiled shader files when rendering materials - also means no need to create & distribute a shared DDC pak
-- Since you are using the very same cooked content from the game install, there is no need to worry about IP concerns if you are using marketplace assets - distribution as cooked content already has to be allowed by the licenses, and you aren't breaking that
+- If you're using World Partition levels, the amount of loose files it generates is ridiculous and is not really fit to be handled by distribution fronts, so having it as part of the cooked content is nice
+- Since you are using the very same cooked content from the game install, there is no need to worry about IP concerns if you are using marketplace assets/plugins - distribution as cooked content already has to be allowed by the licenses, and you aren't breaking that
 - Your legal team (if applicable) would have a harder time justifying why not to allow a modkit to be created - no uncooked/source content, no source code, mounting content from game install (thus needing to own the game to use it)
 
 ## What if I want to include uncooked (source) content?
 
-No problem! Please do, and the editor is even easier to setup with uncooked content than cooked content, but is simply not a popular choice among studios due to IP/legal issues, hence why I am suggesting cooked editor as a more likely choice. 
+No problem! Please do, and the editor is even easier to setup with uncooked content than cooked content, but is simply not a popular choice among studios due to IP/legal issues, hence why I am suggesting cooked editor as a more likely choice. I go into detail about making an uncooked editor in `How to create an uncooked editor modkit` page.
 
 Uncooked content has the following benefits over cooked content:
 - Content is not read-only (but still shouldn't really be edited directly by mods) and can be copied into mod content and edited to fit the mods' needs (cooked content can be done like this with some caveats I will get into later)

@@ -14,17 +14,17 @@ To make the fake reference, you guessed it, modders can make the asset in the sa
 
 With this concept now in mind, faking references can go much further. Modders can dummy properties, functions, delegates, components, and events inside of the dummied asset, which they can then access from their mod blueprints. The following two images show a widget that has had a few properties and events reconstructed so that they can be referenced in a mod blueprint.
 
-[![Reconstructed Widgets](../Images/RecontructedWidget.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1154756235707564042/RecontructedWidget.png)
+![Reconstructed Widgets](../Images/RecontructedWidget.png)
 
 *Reconstructed properties inside of a widget*
 
-[![Calling Widget Reference](../Images/CallingWidgetReference.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1154756242133233735/CallingWidgetReference.png)
+![Calling Widget Reference](../Images/CallingWidgetReference.png)
 
 *Calling these properties by reference of this asset*
 
 But still, this concept can be pushed even further. Can you dummy the blueprint exposed C++ headers that the game has? **Absolutely.** Every single function exposed with `UFUNCTION`, every property exposed with `UPROPERTY`, enum with `UENUM`, struct with `USTRUCT` and class with `UCLASS`, can be dummied in the project and accessed from blueprint. 
 
-[![Reconstructed Header Code](../Images/UHTExampleCode.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1154756261410246686/UHTExampleCode.png)
+![Reconstructed Header Code](../Images/UHTExampleCode.png)
 
 *Some header code reconstructed for a custom User Widget class*
 
@@ -41,8 +41,8 @@ Let’s say that a `UFUNCTION` in the game ‘Z’ has no `BlueprintCallable` fl
 
 What is set in Z’s actual project | What modders can do in their recreated project
 ----------------------------------|--------------------------------------------
-[![Z's Header](../Images/NormalHeader.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1154756285691080754/NormalHeader.png) | [![Modder's Header](../Images/RecreatedHeader.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1154756302128562267/RecreatedHeader.png)
-[![Z's Reference](../Images/NormalReference.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1154756323204935791/NormalReference.png) | [![Modder's Reference](../Images/RecreatedReference.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1154756338497376277/RecreatedReference.png)
+![Z's Header](../Images/NormalHeader.png) | ![Modder's Header](../Images/RecreatedHeader.png)
+![Z's Reference](../Images/NormalReference.png) | ![Modder's Reference](../Images/RecreatedReference.png)
 
 As a reminder, if the game has no `UFUNCTION()` macro above something (i.e, it is not reflected), then the modders will not be able to use it at all; this goes the same for any other reflection macros.
 

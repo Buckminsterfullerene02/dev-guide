@@ -1,7 +1,7 @@
 # What is this?
 When I first started talking to game developers about modding in Unreal Engine, I realised that there are both misconceptions and a complete lack of knowledge of the field. My goal is to inform both developers and modders of all the possibilities that modding can offer. Only known and used methods will be covered, which means that I will not explore potential options that don’t exist yet, such as ones covered in [this post](https://forums.unrealengine.com/t/modding-data-driven-thoughts-how-to-best-accomplish/65495).
 
-If you are reading this with a bad perception of modding already, I encourage that you keep an open mind and read at least the overview section before the deep dive into everything there is to know. If you know that you want to add mod support, great! Feel free to skip the overview section and go straight on to the good stuff.
+If you are reading this with a negative perspective of modding, I encourage that you keep an open mind and read at least the overview section before the deep dive into everything there is to know. If you know that you want to add mod support, great! Feel free to skip the overview section and go straight on to the good stuff.
 
 *\- Buckminsterfullerene*
 
@@ -31,3 +31,6 @@ If you are reading this with a bad perception of modding already, I encourage th
 - 1.2 - 2024-03-06 - Moved Astro Colony case study to match the format of the document
 - 1.3 - 2024-09-25 - Update links
 - 1.4 - 2026-05-05 - Don't recommend turning off `Use IoStore` setting for UE5 (because community tooling to mod IoStore files exist now), changes to the basics since last edits, added Whiskerwood case study, added Captain of Industry case study
+- 1.5 - 2026-06-24 - Overhaul guides related to modkits - write about cooked editor
+
+*No AI was used in the writing of this document*

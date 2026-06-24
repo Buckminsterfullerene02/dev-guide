@@ -1,4 +1,4 @@
-_Archived on 2026/06/24_
+_Archived on 2026-06-24_
 
 ## Full Asset Content Project
 
@@ -8,7 +8,7 @@ But what if we could write code that took the serialized data from the cooked as
 
 Over the last couple of years, a few people have been working on a tool that can do exactly this. At the time of writing, we can support all the checked asset types:
 
-[![Supported Asset Types](../../Images/SupportedAssets.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1155451342882623618/SupportedAssets.png)
+![Supported Asset Types](../../Images/SupportedAssets.png)
 
 *List of supported asset types that can be reconstructed*
 

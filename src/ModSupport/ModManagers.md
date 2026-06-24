@@ -11,7 +11,7 @@ While both parts could be integrated into within the game and managed by your st
 
 The most common systems used are Steam Workshop, mod.io and Nexus, although the latter is not recommended for official mod support, since content is moderated not by developers, but by Nexus staff. 
 
-Personally, I really like mod.io because they do a lot of the heavy lifting with moderation tools, a strong API and flexibility for every game, even if they’ve had a rocky last few months with their v2 website.
+Personally, I really like mod.io because they do a lot of the heavy lifting with moderation tools, a strong API and flexibility for every game.
 
 ## Managing mods in-game
 Typically, games will have a subcategory in the main menu for managing mods. In this window, the game should display subscribed and/or downloaded mods with their name, description, thumbnail, author and version pulled from either webserver API or a descriptor file within the mod download.
@@ -23,4 +23,4 @@ A solid way to implement a system like this is to provide a collection of interf
 
 Here’s an example of a shared mod settings window that modders created for the game [Astro Colony](https://store.steampowered.com/app/1614550/Astro_Colony/):
 
-[![Astro Colony Mod Hub](../Images/ACModHub.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1154752920278011904/image.png)
+![Astro Colony Mod Hub](../Images/ACModHub.png)

@@ -1,4 +1,4 @@
-# How?
+# How to create an uncooked editor modkit
 
 Everything I describe here can be automated fairly easily using a wrapper batch script, or [BuildGraph](https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/BuildTools/AutomationTool/BuildGraph/), in order to make making new modkits simple for minor or major updates. I also recommend that you experiment with build flags to see what might work better for you.
 
@@ -34,7 +34,7 @@ If you need to ship your own custom engine, you must **additionally** perform th
 
 1. Compile Binaries for all relevant tools (UBT, UHT, UAT, UnrealPak, ShaderCompileWorker, UnrealInsights, LiveCodingConsole, etc)
 
-2. Get the files and folders for your engine and prepare them for distribution. This one is a bit more complicated, and requires a bit more of thoughtful includes - for a decent list you can look into Epic's own `Engine/Build/BuildGraph/InstalledBuild.xml` and related files, you need a roughly similar list of files. But at a bare minimum, you need:
+2. Create an installed engine build. Get the files and folders for your engine and prepare them for distribution. This one is a bit more complicated, and requires a bit more of thoughtful includes - for a decent list you can look into Epic's own `Engine/Build/BuildGraph/InstalledBuild.xml` and related files, you need a roughly similar list of files. But at a bare minimum, you need:
 
 Engine file/folder | Do you need it? | Notes
 --------------------|-----------------|------
@@ -49,7 +49,7 @@ Engine file/folder | Do you need it? | Notes
 
 Here's an example of what your directory might look like by the end (minus bits and bobs that you don't need):
 
-[![Project+Engine Files](../../../Images/ProjectPlusEngineFiles.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1154780862773198888/ProjectPlusEngineFiles.png)
+![Project+Engine Files](../../../Images/ProjectPlusEngineFiles.png)
 
 ## Keeping file size down
 
@@ -66,31 +66,11 @@ Modders do not typically need multiple LODs on meshes, unless you forsee them do
 
 In the editor, you can remove all LODs except LOD 0 (the base LOD) from static meshes and skeletal meshes; this can be done using an asset editor utility script or similar, for example:
 
-[![Strip Mesh LODs](../../../Images/StripMeshLODs.png)](https://cdn.discordapp.com/attachments/1109192354595876944/1154887932235235460/image.png)
+![Strip Mesh LODs](../../../Images/StripMeshLODs.png)
 
 ### Reducing texture quality
 
 In the editor, you can increase the LOD bias of a texture in order to reduce the quality of it, thus its filesize. In order to do this in bulk, you can use the bulk editor matrix asset action, or some automation script of your own, or use the pre-existing plugin [rdTexTools](https://www.unrealengine.com/marketplace/en-US/product/rdtextools).
-
-### Packing content folder
-
-Instead of distributing your game's content as loose `.uasset`/`.uexp` files, you might want to use UnrealPak to package them into a single file instead. This has a few benefits:
-- If you're using World Partition, the amount of loose files it generates is ridiculous and is definitely not fit to be handled by distribution fronts, so paking it all up is a must-have for you
-
-- You can compress the resulting pak file with LZ4 or other compression algorithm. In a couple of cases, it has over halved the content size
-
-It **must** be mentioned that this method only works if:
-- You are distributing your custom engine with the modkit
-
-- You are not distributing a custom engine version, but you force the modkit files to be placed in the same directory as the files of the engine version your game is using
-
-The reason for this is how the project pak file is mounted. Pak file paths are relative to the base directory, i.e. the one with the executable in it. For the editor, that is the engine binaries directory, so to use paks you need to have the project at a predictable relative path to the engine - usually right next to the Engine directory to mirror the structure of a shipped game. However, you *can* set the mount point of the pak to some relative path away from the engine, but obviously if each user is putting their modkit projects at different paths, you can't dynamically set the mount point. The whole point of this is to avoid distributing a large number of loose files, so if users are having to do this based on where they put their project, it defeats the whole purpose.
-
-You can do the same for engine content as well to reduce the distribution size and loose file count, but you need to put it into the separate pak file and not your Project Pak, as engine content is used by the tools/programs that do not read project paks.
-
-The editor requires the `-UsePaks` command line switch to use pak files by default, but it's a 1-line engine patch to change the default behavior, so you may as well do that if you're shipping with a custom engine. Otherwise, you'll need to instruct your users to run the editor with a batch script or similar, that includes this flag.
-
-**Paking your game content will prevent people from modifying it** - while they will still be able to see and work with it in the editor, they wouldn't be able to save changes to the file system - but generally, you don't really want modders to be modifying your base game content anyway.
 
 ### Stripping your PDBs
 

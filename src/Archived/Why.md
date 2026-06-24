@@ -1,6 +1,4 @@
-**This page was archived in favour of Why? with cooked editor modkits**
-
-_Archived on 2026/06/24_
+_Archived on 2026-06-24_
 
 # Why produce a modkit?
 
