@@ -47,10 +47,6 @@ Engine file/folder | Do you need it? | Notes
 `Plugins` | Yes | Only the plugins that your project uses
 `GenerateProjectFiles scripts` | Yes | You also want scripts like this in the root of the engine distribution
 
-Here's an example of what your directory might look like by the end (minus bits and bobs that you don't need):
-
-![Project+Engine Files](../../../Images/ProjectPlusEngineFiles.png)
-
 ## Keeping file size down
 
 If your modkit is huge (i.e. you have massive amounts of content), you can look at trying a few different ways to keep your filesize down:
