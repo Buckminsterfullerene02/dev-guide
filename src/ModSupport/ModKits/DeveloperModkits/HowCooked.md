@@ -58,5 +58,37 @@ s.AllowUnversionedContentInEditor=1
 
 I also found a bug that when deleting an asset in the content browser, the registry would refresh and "loose" all of the packages from the mounted container - because the refresh logic was simply only looking for packages on the disk - thus the cooked content would disappear. So to fix that I [created a helper](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/806fd090cc5a66e5dac5caf9a25e7b00a27dc2fc#diff-3cfb9186423cddbddba9fc668dfc9a8c8d279d81920a79bd47e767a1f2f667aaR70) to check if an asset is from mounted container and then used it in the code paths related to regenerating the registry (also present in the same commit).
 
+### Enabling all cooked blueprint references
+
+This is arguably the most important part of modkit - when a modder is creating their blueprint logic, 99% of the time they will need to get references to a game asset, for example in:
+
+- Casting
+- Get all actors/widgets of class
+- Getting/setting a property of a blueprint
+- Calling a blueprint's function
+- Binding to a blueprint's delegate
+
+The main reason to provide a modkit is so that all the references for the mod are just there, readily available for the modder - no need for the modder to manually create dummy assets just to get their references.
+
+In the vanilla engine, cooked blueprints are only referencable from blueprint code in asset list dropdowns such as on the get al actors of class dropdown. Any of the other referencing examples above aren't doable without an annoying workaround - creating a child blueprint of a cooked blueprint, which does a deep copy of the blueprint's component tree and saves it to an uncooked package on the disk. Since it's a child BP, defaults can still be accessed/modified as well as the copied component tree. However, it does not copy any of the properties, functions or events. So those still need to be manually dummied. Also, creating a child introduces some additional complexity in code as it's not actually the game blueprint they're referencing directly. 
+
+The fix for this turned out to be insanely simple - a single if statement change. In a nutshell, the code that builds the actions database (which is the stuff that appears in the context menu when you right click in a blueprint graph) was that the package's `Class->ClassGeneratedBy` property was never null (it is for cooked assets), thus was going down a code path that would silently fail. Once the change is made, the actions database is built using a seperate code path that doesn't rely on `Class->ClassGeneratedBy` and then simply works.
+
+[Engine change](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/6c597b9adc8a2d4c277104206ab39516901f8483)
+
+### Allowing all cooked assets to be openable
+
+By default, trying to open a cooked asset will lead to a notification message saying something like "Asset not editable". Obviously this is not useful, so you need to change this to allow opening them. 
+
+### Cooked niagara asset viewer
+
+While the engine already provides relatively solid code paths for viewing cooked content for most asset types, one type that (as of 5.6) has no read-only viewer is niagara effect. Like blueprints and materials, the editor-only metadata (such as kismet node graph) is stripped from cooked assets. So when you try to open this asset, it will just crash, as the editor only has code paths for trying to directly load its metadata as if its uncooked.
+
+Therefore, I decided to take a page out of the read-only blueprint code by implementing my own read-only viewer for niagara assets. This viewer shows all of the properties of the asset as well of each effect created inside of it. This is useful for providing more easily obtainable info about the asset in the editor rather than having to rely on third party tools like FModel (which is also much harder to read/understand than in the editor) - for stuff like copying the effect's behaviours or to modify at runtime.
+
+[Engine change](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/7454f17f665b570fe9a76aefe77b512e998f3e3a)
+
+
+TODO
 - setup project configs directories to never cook
 - make sure gameplay tags are all defined in the project
