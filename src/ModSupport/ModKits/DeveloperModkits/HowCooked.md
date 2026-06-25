@@ -178,7 +178,9 @@ Due to the ordering of engine init, the shader library init is done before mount
 
 Then, when a material is opened or referenced in an opened/loaded asset, the shader library will read in the shader maps from the compiled shaders as it comes. This also means that loads of time doesn't need to be spent at editor startup loading in the entire shader file if some of it isn't even going to be used in that session.
 
-no compiling shaders needded
+And as usual, I made it enabled by default but with the ability to be disabled with a startup flag `-DisableCookedShaderLibrary`.
+
+Note (TODO remove when fixed): You also need to close the shader library on engine shutdown otherwise the editor will crash when being closed.
 
 ### Cooked niagara asset viewer
 
