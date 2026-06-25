@@ -4,7 +4,7 @@ As previously mentioned, due to the existence of UEFN, Epic Games have invested 
 
 Firstly, read up on the [Unreal docs for working with cooked content](https://dev.epicgames.com/documentation/unreal-engine/working-with-cooked-content-in-the-unreal-engine) in the editor to understand how it is in the vanilla engine.
 
-As you can see, it is still quite limited. To maximise the potential of the cooked content in the editor, some engine changes will be necessary - but they are really no that complicated changes. Most of the changes are simply necessary to guard against editor code paths that aren't expecting cooked content.
+As you can see, it is still quite limited. To maximise the potential of the cooked content in the editor, some engine changes will be necessary - but they are really not that complicated changes. Most of the changes are simply necessary to guard against editor code paths that aren't expecting cooked content. 
 
 ## Editor only data
 
@@ -18,13 +18,25 @@ Editor only data does not replace the need to make most of the engine changes be
 
 ## Engine changes
 
-I will explain each engine change I had to make in UE5.6.1 for the Subnautica 2 modkit - what they are and how they work. Your results will vary depending on the engine version, but that is for you to figure out. 
+I will explain each engine change I had to make in UE5.6.1 for the Subnautica 2 modkit - what they are and how they work. Your results will vary depending on the engine version, but that is for you to figure out. I will visit each topic in detail:
+
+- Serialisation
+- Mounting game containers
+- Prioritise loading loose files over mounted containers
+- Enable premade asset registry
+- Enabling all cooked blueprint references
+- Allowing all cooked assets to be openable
+- Miscellaneous small changes
+- Loading cooked levels
+- Loading the compiled shaders
+- Cooked niagara asset viewer
+- Extra utilities
 
 At the time of writing (check the [`sn2-v.0.10.3-2`](https://github.com/Buckminsterfullerene02/UnrealEngine/commits/sn2-v0.10.3-2) tag), the cooked editor is very stable as I was able to make mods referencing all kinds of asset types and having a bunch of assets open, for over 3 hours, without the editor crashing once. 
 
 Note that all modkit-related engine changes should be wrapped with WITH_EDITOR compiler guards so that the modkit changes don't exist in the game. While most of my engine changes are already doing this, one thing most changes are not taking into account is operability between a modkit editor and a source/non-modkit editor - as modders don't have access to the source editor so obviously there is no need to support anything but the modkit editor. 
 
-### Serialization
+### Serialisation
 
 When a cooked package is created, its binary structure is dependant off the sizes and offsets of the reflected properties of native class schemas. In UE5+, cooked content is additionally cooked as "unversioned", meaning that it does not contain any information in its header about how to parse the package. This saves a lot of space across all assets and reduces access time in the game as it does not need to spend time looking up the data in the header to get info about parsing the package - now the game can just directly load in data using the offsets known to it from the types in the engine.
 
@@ -32,7 +44,7 @@ If there is a mismatch of the format of the cooked asset binary, the game nor ed
 
 All of this is to say, that for the editor to load the cooked packages correctly, your custom engine must also include all of the reflected class changes that you have made for your game. 
 
-In practicality, you should just include all engine patches for the modkit, not only for serialization, but also so that shaders load in (more on this later) correctly, editor binaries work, etc. I'm also not really in a place to comment on your build system, but I would see it as much easier to just use the same engine build that the game itself uses for the modkit with the aforementioned compiler guards in place.
+In practicality, you should just include all engine patches for the modkit, not only for serialisation, but also so that shaders load in (more on this later) correctly, editor binaries work, etc. I'm also not really in a place to comment on your build system, but I would see it as much easier to just use the same engine build that the game itself uses for the modkit with the aforementioned compiler guards in place.
 
 ### Mounting game content containers (works with IoStore and non-IoStore games similarly)
 
@@ -112,6 +124,8 @@ Next, [set `bCanBeModified` to true](https://github.com/Buckminsterfullerene02/U
 
 It is important to note that any changes to the cooked assets are still temporary to that editor session - no data is written back to the cooked package - so all changes to them are lost on editor shutdown.
 
+Once the changes have been made, the majority of asset tyes should be openable without crashing, sound waves should be playable and overall the usefulness of the modkit has skyrocketed.
+
 ### Miscellaneous small changes
 
 There are a bunch of additional small changes that need to be done to fix code paths that are not expecting cooked data - but please review all changes to check if they will apply to you, as well as any changes that may be different on older/newer engine versions than UE5.6.1.
@@ -150,6 +164,22 @@ Something for you to experiment with (which I can't do as a modder) is to try co
 
 ### Loading the compiled shaders
 
+During project cook, shader code from materials are compiled into shader archive files, which are stored in the cooked containers at the root directory.
+
+This means that the cooked materials themselves do not contain any of their shader information, which explains why all the cooked materials look just black or white or grainy in the editor. 
+
+This is not great because it doesn't actually show the modder what the material looks like if they are inheriting from a game material when writing their own shader code/playing with game material parameters - they would have to package their mod and load into the game to test - making iteration painfully slow.
+
+So, it is possible to load in the compiled shader files from the mounted container, because the game already does that.
+
+[Engine changes](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/b8f86017a3b1ede0fd239b78ad3b85895278251a)
+
+Due to the ordering of engine init, the shader library init is done before mounting the game containers. Therfore, the shader library is populated only with the engine information by the time mounting is done. To workaround this, after the container mounting is done, the code *opens* the shader library, ready to receive the compiled shaders from the game - both the global shader map and the game ones. Note that since Subnautica 2 uses shader sharing (`bShareMaterialShaderCode=true`), all shaders not in global are in one file - so I haven't tested to see if this code would just work if a game does not use shader sharing (which produces many shader files).
+
+Then, when a material is opened or referenced in an opened/loaded asset, the shader library will read in the shader maps from the compiled shaders as it comes. This also means that loads of time doesn't need to be spent at editor startup loading in the entire shader file if some of it isn't even going to be used in that session.
+
+no compiling shaders needded
+
 ### Cooked niagara asset viewer
 
 While the engine already provides relatively solid code paths for viewing cooked content for most asset types, one type that (as of 5.6) has no read-only viewer is niagara effect. Like blueprints and materials, the editor-only metadata (such as kismet node graph) is stripped from cooked assets. So when you try to open this asset, it will just crash, as the editor only has code paths for trying to directly load its metadata as if its uncooked.
@@ -162,6 +192,8 @@ Therefore, I decided to take a page out of the read-only blueprint code by imple
 
 - duplicate cooked widget to uncooked widget
 - duplicate cooked blueprint to uncooked blueprint
+
+## Monolithic editor
 
 TODO
 - setup project configs directories to never cook
