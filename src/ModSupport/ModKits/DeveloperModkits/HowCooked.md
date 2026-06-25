@@ -43,15 +43,20 @@ Once you've made these changes, you may notice that there are no assets showing 
 
 ### Enable premade asset registry
 
-The content browser does not directly mirror the contents of packages on disk or mounted - instead, it builds a virtual view of the packages known to it at editor startup or when refreshed due to actions from content browser (such as creating, deleting or renaming an asset). Since loose assets are there on disk at startup, it can find these files immediately. However, since the mounting happens later in the engine init than the content browser registry read, it is missing all those in the mounted container.
+The content browser does not directly mirror the contents of packages on disk or mounted - instead, it builds a virtual view of the packages known to it at editor startup or when refreshed due to actions from content browser (such as creating, deleting or renaming an asset). Since loose assets are there on disk at startup, it can find these files immediately. However, since the mounting happens later in the engine init than the content registry read, it is missing all those in the mounted container.
 
-If there are still no cooked assets showing up in the editor, do you have these configs set in `DefaultEngine.ini`?
+Thankfully, again the engine already provides a neat way to to do this - an editor startup commandline flag `-EnablePremadeAssetRegistry`. This looks for an `AssetRegistry.bin` file in the project root and then loads up the content registry with all packages from it. Simply supply your game's `AssetRegistry.bin` file in the project with this flag and you should be able to see all cooked content in the editor. Make sure that the asset registry file that is in the project root is always the same version as from the installed game files - as otherwise it may show assets in the content browser that do not exist in the game or not show ones that do.
+
+In [this engine change](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/806fd090cc5a66e5dac5caf9a25e7b00a27dc2fc#diff-3cfb9186423cddbddba9fc668dfc9a8c8d279d81920a79bd47e767a1f2f667aaR391), I do same as I did with `-UsePaks` -> `-NoPaks` flag - flip it to `-DisablePremadeAssetRegistry` so that `bUsePremadeInEditor` is true by default with the option to disable it if needed.
+
+If there are still no cooked assets showing up in the editor, make sure you have these configs set in `DefaultEngine.ini`.
 ```ini
 [/Script/UnrealEd.CookerSettings]
 cook.AllowCookedDataInEditorBuilds=True
 s.AllowUnversionedContentInEditor=1
 ```
 
-- setup project configs to not use any 
-- make sure engine changes for loading cooked content are wrapped with WITH_EDITOR
+I also found a bug that when deleting an asset in the content browser, the registry would refresh and "loose" all of the packages from the mounted container - because the refresh logic was simply only looking for packages on the disk - thus the cooked content would disappear. So to fix that I [created a helper](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/806fd090cc5a66e5dac5caf9a25e7b00a27dc2fc#diff-3cfb9186423cddbddba9fc668dfc9a8c8d279d81920a79bd47e767a1f2f667aaR70) to check if an asset is from mounted container and then used it in the code paths related to regenerating the registry (also present in the same commit).
+
+- setup project configs directories to never cook
 - make sure gameplay tags are all defined in the project
