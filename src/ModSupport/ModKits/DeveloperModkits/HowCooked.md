@@ -213,7 +213,9 @@ I would like to do the same thing for blueprints which copies the component tree
 
 ## Editor setup
 
-Getting the editor setup correctly is also important.
+merge with uncooked editor editor setup stuff
+
+but also write out the extra project configs required such as directories to never cook, CookContentMissingSeverity=Warning, ZeroEngineVersionWarning=False
 
 TODO
 - setup project configs directories to never cook
