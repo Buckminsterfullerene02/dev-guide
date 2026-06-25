@@ -10,7 +10,7 @@ As you can see, it is still quite limited. To maximise the potential of the cook
 
 Before I go into the engine changes, I want to mention about editor only data.
 
-While making engine changes you may notice some code mentioning "editor data", "editor only data" or `WITH_EDITORONLY_DATA`. This is an option for packages to be cooked **with** all the extra metadata that the game itself doesn't need - most notably kismet graph data (rather than just the compiled bytecode) for blueprints, material shader code for materials, and niagara effect node definitions in niagara assets. I believe this exists again due to UEFN as it is enabled for that.
+In your research, you may notice some code mentioning "editor data", "editor only data" or `WITH_EDITORONLY_DATA`. This is an option for packages to be cooked **with** all the extra metadata that the game itself doesn't need - most notably kismet graph data (rather than just the compiled bytecode) for blueprints, material shader code for materials, and niagara effect node definitions in niagara assets. I believe this exists again due to UEFN as it is enabled for that.
 
 Editor only data does inflate the size of assets considerably, but it does give the obvious benefit that you can still use cooked editor while still having blueprint/material source code show up in the modkit!
 
@@ -29,18 +29,17 @@ I will explain each engine change I had to make in UE5.6.1 for the Subnautica 2 
 - Miscellaneous small changes
 - Loading cooked levels
 - Loading the compiled shaders
-- Cooked niagara asset viewer
 - Extra utilities
 
 At the time of writing (check the [`sn2-v.0.10.3-2`](https://github.com/Buckminsterfullerene02/UnrealEngine/commits/sn2-v0.10.3-2) tag), the cooked editor is very stable as I was able to make mods referencing all kinds of asset types and having a bunch of assets open, for over 3 hours, without the editor crashing once. 
 
-Note that all modkit-related engine changes should be wrapped with WITH_EDITOR compiler guards so that the modkit changes don't exist in the game. While most of my engine changes are already doing this, one thing most changes are not taking into account is operability between a modkit editor and a source/non-modkit editor - as modders don't have access to the source editor so obviously there is no need to support anything but the modkit editor. 
+Note that all modkit-related engine changes should be wrapped with WITH_EDITOR compiler guards so that the modkit changes don't exist in the game. While most of my engine changes are already doing this, one thing most changes are not taking into account is operability between a modkit editor and a source/non-modkit editor - as modders don't have access to the source editor so obviously there is no need to for me to support anything but the modkit editor. 
 
 ### Serialisation
 
 When a cooked package is created, its binary structure is dependant off the sizes and offsets of the reflected properties of native class schemas. In UE5+, cooked content is additionally cooked as "unversioned", meaning that it does not contain any information in its header about how to parse the package. This saves a lot of space across all assets and reduces access time in the game as it does not need to spend time looking up the data in the header to get info about parsing the package - now the game can just directly load in data using the offsets known to it from the types in the engine.
 
-If there is a mismatch of the format of the cooked asset binary, the game nor editor would be able to load it properly, as data would eventually shift out of of alignment, thus allowing garbage data to be read into properties, leading to crashes.
+If there is a mismatch of the format of the cooked asset binary, the game nor editor would be able to load it properly, as data would eventually shift out of alignment, thus allowing garbage data to be read into properties, leading to crashes.
 
 All of this is to say, that for the editor to load the cooked packages correctly, your custom engine must also include all of the reflected class changes that you have made for your game. 
 
@@ -58,7 +57,7 @@ While the engine does already support mounting containers from within the projec
 
 So what I did is to make an engine change in `IPlatformFilePak.cpp` that reads in a txt file in the project root containing the path to the game install directory. It's a very simple to ask the user to supply the path manually during modkit setup, or if you had a method of reliably finding the game install location you could have such an algorithm in the engine change and then fallback to a txt file in case it fails. 
 
-[Example change](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/b0bd87c904ee5113a9d97dfd66bb0928f4406b06?diff=unified)
+[Engine change](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/b0bd87c904ee5113a9d97dfd66bb0928f4406b06?diff=unified)
 
 When reading through this change you may notice some code relating to load priority...
 
@@ -66,10 +65,10 @@ When reading through this change you may notice some code relating to load prior
 
 In your project you may have some loose game files that work better as loose/source files than used as cooked files. Example of these in Subnautica 2 modkit:
 
-- Source .ufont files - (at least with IoStore) these do not resolve correctly as cooked files only as the ufont files are stored in a seperate container path, so I extracted the ufont files from the game's pak file and placed them directly into the project content folder under the correct directory path and names. If you just load from containers, any widgets or text using the cooked font files will look like `[A][A][A][A][A]`.
+- Source `.ufont` files - (at least with IoStore) these do not resolve correctly as cooked files only as the ufont files are stored in a seperate container path, so I extracted the ufont files from the game's pak file and placed them directly into the project content folder under the correct directory path and names. If you just load them from containers, any widgets or text using the cooked font files will look like `[A][A][A][A][A]` (missing font source).
 - FMOD banks - FMOD bank files are looked up as non UFS and as such are located as loose files in the game install folder, not in packaged containers. FMODStudio plugin then unpacks these banks at the first editor startup into the correct folders, as source assets. Therefore, the loose assets need priority over the cooked, non-working ones in the mounted containers (note that I did need to fix a bug in this copy process related to mounted containers [here](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/806fd090cc5a66e5dac5caf9a25e7b00a27dc2fc#diff-3fa090adc93025c511740f2328f16c9b871189821dc723e796c0d2830b1f78c6))
 
-You may have other loose assets that you define in your project as "Directories to package as non UFS" such as movies, textures, animations, models (if using Interchange plugin pipeline). You may choose to either distribute these loose assets as part of the modkit download, or have them in the 
+You may have other loose assets that you define in your project as "Directories to package as non UFS" such as movies, textures, animations, models (if using Interchange plugin pipeline). You may choose to either distribute these loose assets as part of the modkit download, or have them copied in from the game install files with some startup script.
 
 Luckily, the engine already provides a way to do this: [`bLookLooseFirst`](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/806fd090cc5a66e5dac5caf9a25e7b00a27dc2fc#diff-f35e4316bf0ccd6cbb45208a24228441b73e9c2aff719932f621983ddd99d574). I hardcoded this to always be true in the editor as there is no reason for it not to be as far as I can tell.
 
@@ -124,7 +123,7 @@ Next, [set `bCanBeModified` to true](https://github.com/Buckminsterfullerene02/U
 
 It is important to note that any changes to the cooked assets are still temporary to that editor session - no data is written back to the cooked package - so all changes to them are lost on editor shutdown.
 
-Once the changes have been made, the majority of asset tyes should be openable without crashing, sound waves should be playable and overall the usefulness of the modkit has skyrocketed.
+Once the changes have been made, the majority of asset tyes should be openable (with a caveat) without crashing, sound waves should be playable and overall the usefulness of the modkit has skyrocketed. The caveat is that most asset types that might have a graph view or viewport will open into a fallback asset editor that only lets you view and edit properties (it looks like a data asset view). 
 
 ### Miscellaneous small changes
 
@@ -145,7 +144,7 @@ There are a bunch of additional small changes that need to be done to fix code p
 
 Once all blueprints and other instancable actors are all opening without crashing the editor, you should now be able to open cooked levels *that do not contain any landscape data*. 
 
-But since many levels do, you should fix the ability to open levels that contain landscape data. This is something some thought wasn't easy with cooked editor, as even in UEFN you cannot open cooked levels.
+But if you have any levels that do, you should fix the ability to open levels that contain landscape data. This is something some thought wasn't easy with cooked editor, as even in UEFN you cannot open cooked levels.
 
 I spent time looking into it as it is extremely beneficial to allow the cooked levels to be openable:
 
@@ -160,7 +159,7 @@ Once these changes are done, all levels should be openable. However, as above, t
 
 That being said, I think it should be possible to allow region streaming to exist, as if non-world partition levels with landscape can load, why not generated partitioned levels? It would take some more engine changes for sure. I'll change this guide if I figure it out (I intend on trying).
 
-Something for you to experiment with (which I can't do as a modder) is to try copying in your uncooked levels as loose files and seeing if they all work fine? In theory, I think this should work perfectly without any of the above fixes required.
+Something for you to experiment with (which I can't do as a modder) is to try copying in your uncooked levels as loose files and seeing if they all work fine? In theory, I think this should work perfectly without any of the above fixes required, as ultimately levels are either self-contained (landscape data) or contain references to assets in the project.
 
 ### Loading the compiled shaders
 
@@ -182,7 +181,17 @@ And as usual, I made it enabled by default but with the ability to be disabled w
 
 Note (TODO remove when fixed): You also need to close the shader library on engine shutdown otherwise the editor will crash when being closed.
 
-### Cooked niagara asset viewer
+### Extra utilities
+
+Since you are making engine changes anyway, it might be worth to add useful little utilities to help facilitate working with cooked content even better:
+
+- Cooked niagara asset viewer
+- Duplicate cooked widget to uncooked widget
+- Duplicate cooked blueprint to uncooked blueprint
+
+Technically all of these can be implemented in editor plugins using the engine API, (aside from a couple of tiny engine patches to make them work properly) but I think that its much easier to implement them in the engine directly to avoid being limited by engine API without big changes required.
+
+#### Cooked niagara asset viewer
 
 While the engine already provides relatively solid code paths for viewing cooked content for most asset types, one type that (as of 5.6) has no read-only viewer is niagara effect. Like blueprints and materials, the editor-only metadata (such as kismet node graph) is stripped from cooked assets. So when you try to open this asset, it will just crash, as the editor only has code paths for trying to directly load its metadata as if its uncooked.
 
@@ -190,13 +199,29 @@ Therefore, I decided to take a page out of the read-only blueprint code by imple
 
 [Engine change](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/7454f17f665b570fe9a76aefe77b512e998f3e3a)
 
-### Extra utilities
+#### Create uncooked blueprint/widget from cooked blueprint/widget
 
-- duplicate cooked widget to uncooked widget
-- duplicate cooked blueprint to uncooked blueprint
+When working with cooked blueprints & widgets, you need to create a child to open it up to see what's inside (which is also uncooked), as otherwise opening it directly just shows the fallback asset editor view. In the case of widgets, since it's a child, you cannot see the original widget tree nor modify it. But at least for blueprints, you can see the component tree as that is copied across into the child.
 
-## Monolithic editor
+So what would be nice, is to have an option to create a copy of it as an uncooked widget. This allows for much easier widget modding because:
+- Mods can make their own widget using the basis or the styling of an existing game widget, without having to create and modify a copy of the game widget at runtime
+- It's way, way easier to know *how* to modify a game widget at runtime if you can actually see the widget tree in the editor, as the alternative is to use UE4SS live viewer or SDK dumps which are not easy to read at all!
+
+[This engine change](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/5ef0cfdae34149e9837103c278b7b7ae11df2632) adds a button to the right click menu on a cooked widget in the content browser. At the top of the context menu, there is a "Make Uncooked Widget Copy" button which asks for destination folder and deep copies the full cooked widget tree and animations into an uncooked widget. Notice that I also needed to make a small engine patch to fix a bug relating to BindWidget properties - but you can ignore this as this is another limitation of Suzie which you will not be using. 
+
+I would like to do the same thing for blueprints which copies the component tree, the functions, properties and events. It could even be possible to reconstruct the kismet graph code from the script bytecode, though many have tried in the past to do it from script bytecode JSON produced by FModel, but as its a lot of work it has not been achieved before.
+
+## Editor setup
+
+Getting the editor setup correctly is also important.
 
 TODO
 - setup project configs directories to never cook
 - make sure gameplay tags are all defined in the project
+
+
+## Monolithic editor
+
+A monolithic editor is when the entire engine and project are built into a single executable. This is what UEFN uses as it is then much easier to distribute - with the downside that every time the game updates, the entire executable needs rebuilding and updating, whereas with a standalone editor and engine, the engine may not need to be redistributed if it has not changed since the last version.
+
+That being said I have not tried it and know nothing about how it works or is created, so I am just mentioning it as a potential research point. I have also heard that a modder once created a monolithic build for a UE4 cooked editor project but they deleted the code so I can't verify if that was really the case.
