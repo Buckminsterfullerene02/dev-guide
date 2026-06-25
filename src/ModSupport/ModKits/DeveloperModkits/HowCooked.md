@@ -6,6 +6,16 @@ Firstly, read up on the [Unreal docs for working with cooked content](https://de
 
 As you can see, it is still quite limited. To maximise the potential of the cooked content in the editor, some engine changes will be necessary - but they are really no that complicated changes. Most of the changes are simply necessary to guard against editor code paths that aren't expecting cooked content.
 
+## Editor only data
+
+Before I go into the engine changes, I want to mention about editor only data.
+
+While making engine changes you may notice some code mentioning "editor data", "editor only data" or `WITH_EDITORONLY_DATA`. This is an option for packages to be cooked **with** all the extra metadata that the game itself doesn't need - most notably kismet graph data (rather than just the compiled bytecode) for blueprints, material shader code for materials, and niagara effect node definitions in niagara assets. I believe this exists again due to UEFN as it is enabled for that.
+
+Editor only data does inflate the size of assets considerably, but it does give the obvious benefit that you can still use cooked editor while still having blueprint/material source code show up in the modkit!
+
+Editor only data does not replace the need to make most of the engine changes below, so please keep reading on for that information. 
+
 ## Engine changes
 
 I will explain each engine change I had to make in UE5.6.1 for the Subnautica 2 modkit - what they are and how they work. Your results will vary depending on the engine version, but that is for you to figure out. 
@@ -104,14 +114,40 @@ It is important to note that any changes to the cooked assets are still temporar
 
 ### Miscellaneous small changes
 
-There are a bunch of additional small changes that need to be done to fix code paths that are not expecting cooked data.
+There are a bunch of additional small changes that need to be done to fix code paths that are not expecting cooked data - but please review all changes to check if they will apply to you, as well as any changes that may be different on older/newer engine versions than UE5.6.1.
 
-- [This commit](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/c04256963dfbf3453389ac47df02d77c9f0e5ff8) contains a few (please ignore all the header changes, I was unprofessional here and committed unrelated changes together)
+- [This commit](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/c04256963dfbf3453389ac47df02d77c9f0e5ff8), [this commit](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/4b22845b5a3b4097b771223330b0480d9a6aaebc#diff-d14d6896f5ac468270d335cae351fbffa1367a3d3620c6421896f6e24035e808), [this commit](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/7ce5c682939abe4dce328ec2a0a9b1b2959b621c) contains a few small changes (please ignore all the header changes, I was unprofessional here and committed unrelated changes together). I also apologise that I'm showing some changes that were later reverted, moved about and stuff, as this was active in development. It might be best to just check the diffs from [here](https://github.com/EpicGames/UnrealEngine/compare/5.6...Buckminsterfullerene02:UnrealEngine:sn2)
   - Allow cooked packages to be duplicated
   - Allow user defined structs to load
   - Fixes various issues loading animation based assets
-  - Downgrades some checks/fatal errors to non-fatal/warnings so that editor does not crash on serialization changes. Note: these changes are not necessary as long as you are supplying your custom engine with all your engine patches for the game.
+  - Downgrades some checks and fatal errors to ensures and non-fatal/warnings so that editor does not crash on serialization changes. Note: these changes should not be necessary as long as you are supplying your custom engine with all your engine patches for the game (due to the nature of reverse engineering engine changes, some changes are inevitably missed/done incorrectly so it was beneficial for me to brute force down some code paths to get more data).
+  - Fixes to issues related to the limitations of Suzie, the tool I was using to generate the UHT class schemas in the project. If you are including source binaries, you should not have these problems either.
  
+- [This commit](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/2baf50f1800c0457b8c7d36aa9216be0fe31b230) reflects the `GameInstance.ReferencedObjects` property to blueprint to allow modifications to default objects to persist across level changes. See more here.
+
+- [This commit](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/6e8d2b8622e40f3b9337dafd2ef95d3112e815fa) fixes opening sparse volume texture assets crashing the editor
+
+### Loading cooked levels
+
+Once all blueprints and other instancable actors are all opening without crashing the editor, you should now be able to open cooked levels *that do not contain any landscape data*. 
+
+But since many levels do, you should fix the ability to open levels that contain landscape data. This is something some thought wasn't easy with cooked editor, as even in UEFN you cannot open cooked levels.
+
+I spent time looking into it as it is extremely beneficial to allow the cooked levels to be openable:
+
+- Modders can use them as references of where to spawn their mod actors at runtime (such as adding a new area in a level)
+- They can be used to see existing actor instances - where they are, how they're configured etc.
+- They can show actors that weren't previously noticed due to being invisible in-game, such as splines
+- They can be copied to create entirely new levels based on existing game ones, as of course mods can load levels from blueprint
+
+As it turns out, at least in 5.6, there are only [two small changes](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/e2bf066d9218976e0c79bc9b2d7dea678c56f60d) necessary! Disabling world partition streaming (more on this in a sec), and avoiding hash creation for weight maps as that data is stripped from the cooked asset.
+
+Once these changes are done, all levels should be openable. However, as above, there is a major caveat: if a level is using world partition streaming, none of the partition regions will be loaded when you open it - you will only be able to view the persistent objects.
+
+That being said, I think it should be possible to allow region streaming to exist, as if non-world partition levels with landscape can load, why not generated partitioned levels? It would take some more engine changes for sure. I'll change this guide if I figure it out (I intend on trying).
+
+Something for you to experiment with (which I can't do as a modder) is to try copying in your uncooked levels as loose files and seeing if they all work fine? In theory, I think this should work perfectly without any of the above fixes required.
+
 ### Loading the compiled shaders
 
 ### Cooked niagara asset viewer
@@ -122,6 +158,10 @@ Therefore, I decided to take a page out of the read-only blueprint code by imple
 
 [Engine change](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/7454f17f665b570fe9a76aefe77b512e998f3e3a)
 
+### Extra utilities
+
+- duplicate cooked widget to uncooked widget
+- duplicate cooked blueprint to uncooked blueprint
 
 TODO
 - setup project configs directories to never cook
