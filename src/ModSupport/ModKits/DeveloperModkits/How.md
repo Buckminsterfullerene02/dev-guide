@@ -1,12 +1,20 @@
-# How to create an uncooked editor modkit
+# How to create an editor modkit
 
-Everything I describe here can be automated fairly easily using a wrapper batch script, or [BuildGraph](https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/BuildTools/AutomationTool/BuildGraph/), in order to make making new modkits simple for minor or major updates. I also recommend that you experiment with build flags to see what might work better for you.
+As before, there are two choices of editor modkit; uncooked editor and cooked editor.
 
-## Building your modkit
+**Before reading this page, please read up on the page for explaining engine changes necessary for enabling cooked editor.**
 
-The process of building your modkit differs depending on whether or not you are planning on building modularly and allowing modders to link against your game's modules, or if you are planning on shipping a custom engine build.
+[Cooked editor engine changes](CookedEngine.md)
 
-1. First, you will likely need to make a copy of your game's project, as you may end up performing optimisations to your content to keep file size down
+## Building editor and engine (if applicable) for distribution
+
+Everything I describe here can be automated fairly easily using a wrapper batch script, or BuildGraph, in order to make making new modkits simple for minor or major updates. I also recommend that you experiment with build flags to see what might work better for you.
+
+### Building the editor
+
+The process of building your editor differs depending on whether or not you are planning on building modularly and allowing modders to link against your game's modules, or if you are planning on shipping a custom engine build.
+
+1. First, you will likely need to make a copy of your game's project, as you will be making changes to configs and content (only partial content if cooked editor, methods to keep file size down if uncooked editor)
 
 2. Next, inside of your `.uproject` file, you must make sure that the engine version set inside it is your version (i.e. custom engine if you have one)
 
@@ -21,20 +29,21 @@ Project file/folder | Do you need it? | Notes
 `Binaries` | Yes | Plus PDBs if you want them
 `Build` | No | If you have any automation modules that are needed for the build
 `Config` | Yes | Make sure to not ship crypto/private API keys accidentally
-`Content` | Yes | Base game content
-`DerivedDataCache/Compressed.ddp` | No, only if you want to | Discussed [here](#compressed-ddc)
+`Content` | Yes | Base game content (uncooked editor) or selected loose files (cooked editor)
+`DerivedDataCache/Compressed.ddp` | No, only required for uncooked editor and you want to include it | Discussed [here](#compressed-ddc)
 `Source/<ModuleNames>/<ProjectName>.Build.cs` | No, only if you are shipping with C++ mod support | Allows the C++ mods to link to the modules
 `Source/<ModuleNames>/Public` | No, only if you are shipping with C++ mod support | Allows the C++ mods to link to the modules
 `Plugins/<PluginNames>` | Yes | `.uplugin` file, content & binaries
 `Plugins/<PluginNames>/Source` | No, only if you are shipping with C++ mod support | Allows the C++ mods to link to the modules
 `<ProjectName>.uproject` | Yes | 
 
-### With custom engine
+### Building your custom engine
+
 If you need to ship your own custom engine, you must **additionally** perform the following steps:
 
 1. Compile Binaries for all relevant tools (UBT, UHT, UAT, UnrealPak, ShaderCompileWorker, UnrealInsights, LiveCodingConsole, etc)
 
-2. Create an installed engine build. Get the files and folders for your engine and prepare them for distribution. This one is a bit more complicated, and requires a bit more of thoughtful includes - for a decent list you can look into Epic's own `Engine/Build/BuildGraph/InstalledBuild.xml` and related files, you need a roughly similar list of files. But at a bare minimum, you need:
+2. Create an installed engine build. Get the files and folders for your engine and prepare them for distribution. This one is a bit more complicated, and requires a bit more of thoughtful includes - for a decent list you can look into `Engine/Build/BuildGraph/InstalledBuild.xml` and related files, you need a roughly similar list of files. But at a bare minimum, you need:
 
 Engine file/folder | Do you need it? | Notes
 --------------------|-----------------|------
@@ -45,15 +54,23 @@ Engine file/folder | Do you need it? | Notes
 `Source` | Yes | Engine sources, target files etc.
 `Sources` | Yes | Engine shader source files
 `Plugins` | Yes | Only the plugins that your project uses
-`GenerateProjectFiles scripts` | Yes | You also want scripts like this in the root of the engine distribution
+`GenerateProjectFiles scripts` | No | Installed engine build is not designed to be built from source
 
-## Keeping file size down
+You should build the engine for all target platforms - at minimum for Win64. If you a cross platform game and you wish to allow mods to be packaged for consoles, then you will need to allow modders to do cloud cooking on your own servers. 
+
+## Keeping file size down (both cooked/uncooked editor)
+
+If you're intending to ship the SDK with PDB debug files, it's generally a good idea to strip them using PDBSTRIP first. This is a tool that comes with Windows, and it's usually located in `C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\srcsrv\pdbstr.exe`.
+
+It reduces the size of the PDB files by a magnitude of 100, making them as small as the resulting binaries.
+
+However, some information from the PDB files, like private symbol names, are lost, but you can't really distribute the non-stripped PDBs because take so much space for multiple targets in multiple configurations.
+
+## Keeping file size down (uncooked editor only)
 
 If your modkit is huge (i.e. you have massive amounts of content), you can look at trying a few different ways to keep your filesize down:
 - Reducing texture quality
 - Removing all mesh LODs except LOD 0 from meshes
-- Packing the whole content folder into a `.pak` file and loading the editor to use the pak file
-- Stripping your PDBs using PDBSTRIP
 - Priming the DDC with a compressed DDC file
 
 ### Removing LODs
@@ -67,14 +84,6 @@ In the editor, you can remove all LODs except LOD 0 (the base LOD) from static m
 ### Reducing texture quality
 
 In the editor, you can increase the LOD bias of a texture in order to reduce the quality of it, thus its filesize. In order to do this in bulk, you can use the bulk editor matrix asset action, or some automation script of your own, or use the pre-existing plugin [rdTexTools](https://www.unrealengine.com/marketplace/en-US/product/rdtextools).
-
-### Stripping your PDBs
-
-If you're intending to ship the SDK with PDB debug files, it's generally a good idea to strip them using PDBSTRIP first. This is a tool that comes with Windows, and it's usually located in `C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\srcsrv\pdbstr.exe`.
-
-It reduces the size of the PDB files by a magnitude of 100, making them as small as the resulting binaries.
-
-However, some information from the PDB files, like private symbol names, are lost, but you can't really distribute the non-stripped PDBs because take so much space for multiple targets in multiple configurations.
 
 ### Compressed DDC
 

@@ -1,4 +1,4 @@
-# How to create a cooked editor modkit
+# Cooked editor engine changes
 
 As previously mentioned, due to the existence of UEFN, Epic Games have invested a lot into making the editor able to handle cooked content fairly well - and the later the engine version, the better it will be. 
 
