@@ -2,9 +2,9 @@
 
 As previously mentioned, due to the existence of UEFN, Epic Games have invested a lot into making the editor able to handle cooked content fairly well - and the later the engine version, the better it will be. 
 
-Firstly, read up on the [Unreal docs for working with cooked content](https://dev.epicgames.com/documentation/unreal-engine/working-with-cooked-content-in-the-unreal-engine) in the editor to understand how it is in the vanilla engine.
+Without any engine changes, [this](https://dev.epicgames.com/documentation/unreal-engine/working-with-cooked-content-in-the-unreal-engine) is how Epic describes working with cooked content in the editor - it is quite limited (there are some hacky ways to make is not so bad, but it's annoying).
 
-As you can see, it is still quite limited. To maximise the potential of the cooked content in the editor, some engine changes will be necessary - but they are really not that complicated changes. Most of the changes are simply necessary to guard against editor code paths that aren't expecting cooked content. 
+To maximise the potential of the cooked content in the editor, some engine changes will be necessary - but they are really not that complicated changes. Most of the changes are simply necessary to guard against editor code paths that aren't expecting cooked content. 
 
 ## Editor only data
 
