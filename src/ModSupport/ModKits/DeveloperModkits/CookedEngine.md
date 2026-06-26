@@ -1,10 +1,10 @@
-# How to create a cooked editor modkit
+# Cooked editor engine changes
 
 As previously mentioned, due to the existence of UEFN, Epic Games have invested a lot into making the editor able to handle cooked content fairly well - and the later the engine version, the better it will be. 
 
-Firstly, read up on the [Unreal docs for working with cooked content](https://dev.epicgames.com/documentation/unreal-engine/working-with-cooked-content-in-the-unreal-engine) in the editor to understand how it is in the vanilla engine.
+Without any engine changes, [this](https://dev.epicgames.com/documentation/unreal-engine/working-with-cooked-content-in-the-unreal-engine) is how Epic describes working with cooked content in the editor - it is quite limited (there are some hacky ways to make is not so bad, but it's annoying).
 
-As you can see, it is still quite limited. To maximise the potential of the cooked content in the editor, some engine changes will be necessary - but they are really not that complicated changes. Most of the changes are simply necessary to guard against editor code paths that aren't expecting cooked content. 
+To maximise the potential of the cooked content in the editor, some engine changes will be necessary - but they are really not that complicated changes. Most of the changes are simply necessary to guard against editor code paths that aren't expecting cooked content. 
 
 ## Editor only data
 
@@ -210,15 +210,6 @@ So what would be nice, is to have an option to create a copy of it as an uncooke
 [This engine change](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/5ef0cfdae34149e9837103c278b7b7ae11df2632) adds a button to the right click menu on a cooked widget in the content browser. At the top of the context menu, there is a "Make Uncooked Widget Copy" button which asks for destination folder and deep copies the full cooked widget tree and animations into an uncooked widget. Notice that I also needed to make a small engine patch to fix a bug relating to BindWidget properties - but you can ignore this as this is another limitation of Suzie which you will not be using. 
 
 I would like to do the same thing for blueprints which copies the component tree, the functions, properties and events. It could even be possible to reconstruct the kismet graph code from the script bytecode, though many have tried in the past to do it from script bytecode JSON produced by FModel, but as its a lot of work it has not been achieved before.
-
-## Editor setup
-
-Getting the editor setup correctly is also important.
-
-TODO
-- setup project configs directories to never cook
-- make sure gameplay tags are all defined in the project
-
 
 ## Monolithic editor
 

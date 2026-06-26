@@ -1,7 +1,10 @@
 # Pak patching
-This is the most fundamental part of UE modding because most forms of modding use it. "Pak" refers to the UE `.pak` file archive format that it uses to store all the cooked assets for the game. It is where mod assets get loaded into the game from.
 
-Many games will have one monolithic pak file with everything inside of it, but others have "chunks" of files categorised by certain asset types, DLCs, levels etc; whatever the developers decide. This is important to know, because it means that the engine can mount multiple pak files from the `Paks/` folder. 
+This is the most fundamental part of UE modding because it works in every game and has been used as the simplest form of modding for years. "Pak" refers to the UE `.pak` file archive format that (until `IoStore` was introduced) stores the game's cooked content. 
+
+To keep the rest of this section easier to understand, it assumes that the game has the setting `Use IoStore` disabled - however this method works exactly the same on `IoStore` but with the triplet container files instead of just the one. 
+
+Many games will have one monolithic pak file with everything inside of it, but others have "chunks" of files categorised by certain asset types, DLCs, levels etc; whatever the developers decide. This is important to know, because it means that the engine can mount multiple pak files from the `Contant/Paks/` folder. 
 
 So, knowing this, what happens when two or more pak files have assets in the same name and relative path? The pak that is mounted most recently replaces any existing assets. Mount order is decided alphabetically. For example, if we have `pak-chunk-0.pak` and `pak-chunk-1.pak` that both contain the asset `/Game/BPCharacter.uasset`, then the asset in `pak-chunk-1.pak` will be the asset that is loaded because it "patches" over the top of the asset in `pak-chunk-0.pak`. 
 
