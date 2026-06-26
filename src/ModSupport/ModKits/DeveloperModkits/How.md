@@ -18,7 +18,7 @@ The process of building your editor differs depending on whether or not you are 
 
 2. Next, inside of your `.uproject` file, you must make sure that the engine version set inside it is your version (i.e. custom engine if you have one)
 
-3. Build your project solution. This will make your binaries. You can do it in any configuration, though just the default development editor target is fine. You can also build the binaries for your server targets if you're looking at server mod support too (which I won't cover here, as I don't have experience with it)
+3. Build your project solution. This will make your binaries. Development and shipping configurations are fine - you can decide on the pros and cons for size and QoL (crash reporting etc). You can also build the binaries for your server targets if you're looking at server mod support too (which I won't cover here, as I don't have experience with it)
 
 4. After you build the editor project, you can look at keeping the file size down, which is discussed [in detail](#keeping-file-size-down)
 
