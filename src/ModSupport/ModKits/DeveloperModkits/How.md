@@ -70,6 +70,18 @@ This offers the most flexible way of managing mods within the editor, as you can
 
 Then, inside each mod, you have any required files responsible for loading the mod, such as the initialization blueprint that the mod loader checks for and spawns, or the mod config file, which will be further discussed in the [extra features](ExtraFeatures.md#mod-configuration-files) section.
 
+## Editor configs
+
+Aside from copying over your project configs (minus those contianing sensitive info), there are some additional configs you need to know about when setting up the editor.
+
+### Packaging configs
+
+When the mod is cooked and packaged, UE will automatically also try to cook any game assets that the mod references, all the way up the dependency tree. Since game content should never be cooked, you need to add all game and game's plugins content folders to the `DirectoriesToNeverCook` config. In UE5+, you need to set `CookContentMissingSeverity` to `Warning` so that the cook does not fail due to not being able to cook dependencies.
+
+### Cooked editor configs
+
+If using cooked editor, you additionally need to set `ZeroEngineVersionWarning=False`, `cook.AllowCookedDataInEditorBuilds=True` & `s.AllowUnversionedContentInEditor=1`.
+
 ## Stripping PDBs
 
 If you're intending to ship the engine or editor with PDB files, it's generally a good idea to strip them using PDBSTRIP first. This is a tool that comes with Windows, and it's usually located in `C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\srcsrv\pdbstr.exe`.
@@ -78,7 +90,7 @@ It reduces the size of the PDB files by a magnitude of 100, making them as small
 
 However, some information from the PDB files, like private symbol names, are lost, but you can't really distribute the non-stripped PDBs because take so much space for multiple targets in multiple configurations.
 
-## Extra considerations (uncooked editor only)
+## Reducing editor size & QoL (uncooked editor only)
 
 If your uncooked modkit is huge (i.e. you have massive amounts of content), you can look at trying a few different ways to keep your filesize down:
 - Reducing texture quality
@@ -110,6 +122,20 @@ It is recommended that you use `CreateInstalledProjectPak` instead of the defaul
 The editor will automatically pick up your `Compressed.ddp` file if it is in the directory `ProjectName/DerivedDataCache/`.
 
 The default configuration settings under `[DerivedDataBackendGraph]` in `DefaultEngine.ini` in the project's config settings are good to use as is.
+
+## Gameplay tags
+
+If your project uses gameplay tags, you'll likely have tags defined in `Config/DefaultTags.ini` or in specific `ini` files in `Config/Tags` - but you may also have tags defined natively (in C++) or in assets.
+
+If you are distributing with your compiled source, the natively defined tags are handled - the editor will pick these up automatically.
+
+If you are using uncooked editor, the gameplay tags defined in your content will also be picked up automatically when it loads all the packages at startup.
+
+However, if you are using cooked editor, the gameplay tags defined in your content will *not* be picked up automatically, as it cannot read the tags from the cooked files when they are loaded in. This will cause a significant problem if you are using gameplay tags extensively, as those defined in content simply will not be available for use/viewing by mods.
+
+The solution to this will be up to you - perhaps you already have a spreadsheet or document listing all gameplay tags that you can add to your project via config files (it's fine to have duplicate entries from different sources, the engine handles this fine). 
+
+For Subnautica 2 cooked editor, I wrote an extension to the tooling that [generates the UHT class schema](https://github.com/Subnautica2Modding/Subnautica2-Project/blob/sn2-engine-v0.10.3/Plugins/Suzie/Source/Suzie/Private/SuzieGameplayTags.cpp) at startup to [harvest all gameplay tags from the game content](https://github.com/Buckminsterfullerene02/meatloaf/blob/5bc964b498c801c4b40bc484721ef10a4a1761b5/jmap_dumper/src/lib.rs#L1019) and then register those gameplay tags to the project at startup. 
 
 ## Updating modkit versions
 
