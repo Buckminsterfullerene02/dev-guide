@@ -14,6 +14,7 @@ There are two tools used to create these projects:
     - This method takes in a `.jmap` file (basically a JSON file containing info dumped from the running game process) and generates the class schemas at editor startup
     - It only takes a few seconds to generate so the editor startup time is hardly impacted
     - No recompiling required for updates - just update the `.jmap` file
+    - [Example for Subnautica 2](https://github.com/Subnautica2Modding/Subnautica2-Project/tree/sn2-engine-v0.10.3/Plugins/Suzie/Source/Suzie)
 
 Both methods have their pros and cons and trade blows on each other relating to limitations and generation bugs, but ultimately I think Suzie is the most useful as updating the project after a game update is as simply as loading the game and regenerating the jmap file from it and placing it back into the project. It takes only 5 minutes to update the project and since there is no compiling to do, errors encounted are always zero.
 
