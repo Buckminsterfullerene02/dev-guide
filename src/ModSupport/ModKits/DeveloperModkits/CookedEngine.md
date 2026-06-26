@@ -33,7 +33,7 @@ I will explain each engine change I had to make in UE5.6.1 for the Subnautica 2 
 
 At the time of writing (check the [`sn2-v.0.10.3-2`](https://github.com/Buckminsterfullerene02/UnrealEngine/commits/sn2-v0.10.3-2) tag), the cooked editor is very stable as I was able to make mods referencing all kinds of asset types and having a bunch of assets open, for over 3 hours, without the editor crashing once. 
 
-Note that all modkit-related engine changes should be wrapped with WITH_EDITOR compiler guards so that the modkit changes don't exist in the game. While most of my engine changes are already doing this, one thing most changes are not taking into account is operability between a modkit editor and a source/non-modkit editor - as modders don't have access to the source editor so obviously there is no need to for me to support anything but the modkit editor. 
+Note that all modkit-related engine changes should be wrapped with `WITH_EDITOR` compiler guards so that the modkit changes don't exist in the game. While most of my engine changes are already doing this, one thing most changes are not taking into account is operability between a modkit editor and a source/non-modkit editor - as modders don't have access to the source editor so obviously there is no need to for me to support anything but the modkit editor. 
 
 ### Serialisation
 
@@ -136,7 +136,7 @@ There are a bunch of additional small changes that need to be done to fix code p
   - Downgrades some checks and fatal errors to ensures and non-fatal/warnings so that editor does not crash on serialization changes. Note: these changes should not be necessary as long as you are supplying your custom engine with all your engine patches for the game (due to the nature of reverse engineering engine changes, some changes are inevitably missed/done incorrectly so it was beneficial for me to brute force down some code paths to get more data).
   - Fixes to issues related to the limitations of Suzie, the tool I was using to generate the UHT class schemas in the project. If you are including source binaries, you should not have these problems either.
  
-- [This commit](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/2baf50f1800c0457b8c7d36aa9216be0fe31b230) reflects the `GameInstance.ReferencedObjects` property to blueprint to allow modifications to default objects to persist across level changes. See more here.
+- [This commit](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/2baf50f1800c0457b8c7d36aa9216be0fe31b230) reflects the `GameInstance.ReferencedObjects` property to blueprint to allow modifications to default objects to persist across level changes. See more [here](./ExtraFeatures.md#give-access-to-referenced-objects-in-blueprint).
 
 - [This commit](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/6e8d2b8622e40f3b9337dafd2ef95d3112e815fa) fixes opening sparse volume texture assets crashing the editor
 
