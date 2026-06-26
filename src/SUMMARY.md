@@ -36,6 +36,7 @@
     - [Captain of Industry](./CaseStudies/COI.md)
 - [Final notes](./FinalNotes.md)
 - [Archived Pages](./Archives.md)
-    - [Folder Hierarchy](./Archived/FolderHierarchy.md)
+    - [Dealing With Paks](./Archived/DealingWithPaks.md)
     - [Community Modkits (old)](./Archived/CommunityModkits.md)
     - [Why? (old)](./Archived/Why.md)
+    - [Folder Hierarchy](./Archived/FolderHierarchy.md)
