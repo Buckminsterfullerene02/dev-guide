@@ -4,7 +4,6 @@
 - [Overview](./Overview.md)
 - [The Basis of all modding](./Basis.md)
     - [Pak patching](./Basis/PakPatching.md)
-    - [Dealing with paks](./Basis/DealingWithPaks.md)
     - [Asset editing](./Basis/AssetEditing.md)
     - [Audio](./Basis/Audio.md)
     - [Visual](./Basis/Visual.md)

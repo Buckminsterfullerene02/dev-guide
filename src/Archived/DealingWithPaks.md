@@ -1,3 +1,5 @@
+_Archived on 26026/06/26_
+
 # Dealing with Paks
 To get access to the assets inside of a pak file, modders will need to unpack it. There are [plenty of tools](https://github.com/Buckminsterfullerene02/UE-Modding-Tools#packers--unpackers) that can achieve this, although if a modder already has the correct engine version installed (which they can find out by right clicking the game’s binary and looking in the details tab) they can call to the UnrealPak utility by command line or batch script. However, if the game uses IO Store, they must use another tool to obtain a manifest/mappings file that contains special data that allows other tools to then unpack the pak files. 
 
