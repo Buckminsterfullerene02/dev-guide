@@ -135,7 +135,7 @@ However, if you are using cooked editor, the gameplay tags defined in your conte
 
 The solution to this will be up to you - perhaps you already have a spreadsheet or document listing all gameplay tags that you can add to your project via config files (it's fine to have duplicate entries from different sources, the engine handles this fine). 
 
-For Subnautica 2 cooked editor, I wrote an extension to the tooling that [generates the UHT class schema](https://github.com/Subnautica2Modding/Subnautica2-Project/blob/sn2-engine-v0.10.3/Plugins/Suzie/Source/Suzie/Private/SuzieGameplayTags.cpp) at startup to [harvest all gameplay tags from the game content](https://github.com/Buckminsterfullerene02/meatloaf/blob/5bc964b498c801c4b40bc484721ef10a4a1761b5/jmap_dumper/src/lib.rs#L1019) and then register those gameplay tags to the project at startup. 
+For Subnautica 2 cooked editor, I wrote an extension to the tooling that [generates the UHT class schema](https://github.com/Subnautica2Modding/Subnautica2-Project/blob/sn2-engine-v0.10.3/Plugins/Suzie/Source/Suzie/Private/SuzieGameplayTags.cpp) at startup to [harvest all gameplay tags from the game content](https://github.com/Buckminsterfullerene02/meatloaf/blob/5bc964b498c801c4b40bc484721ef10a4a1761b5/jmap_dumper/src/lib.rs#L1019) and then register those gameplay tags as part of the same startup process.
 
 ## Updating modkit versions
 
