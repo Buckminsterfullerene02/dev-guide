@@ -21,7 +21,7 @@
         - [Developer Modkits](./ModSupport/ModKits/DeveloperModkits.md)
             - [Why?](./ModSupport/ModKits/DeveloperModkits/Why.md)
             - [How?](./ModSupport/ModKits/DeveloperModkits/How.md)
-            - [Cooked Engine](./ModSupport/ModKits/DeveloperModkits/CookedEngine.md)
+            - [Cooked Editor](./ModSupport/ModKits/DeveloperModkits/CookedEngine.md)
             - [Extra features](./ModSupport/ModKits/DeveloperModkits/ExtraFeatures.md)
             - [Examples](./ModSupport/ModKits/DeveloperModkits/Examples.md)
         - [Community Modkits](./ModSupport/ModKits/CommunityModkits.md)
