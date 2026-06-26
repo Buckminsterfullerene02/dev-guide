@@ -211,17 +211,6 @@ So what would be nice, is to have an option to create a copy of it as an uncooke
 
 I would like to do the same thing for blueprints which copies the component tree, the functions, properties and events. It could even be possible to reconstruct the kismet graph code from the script bytecode, though many have tried in the past to do it from script bytecode JSON produced by FModel, but as its a lot of work it has not been achieved before.
 
-## Editor setup
-
-merge with uncooked editor editor setup stuff
-
-but also write out the extra project configs required such as directories to never cook, CookContentMissingSeverity=Warning, ZeroEngineVersionWarning=False
-
-TODO
-- setup project configs directories to never cook
-- make sure gameplay tags are all defined in the project
-
-
 ## Monolithic editor
 
 A monolithic editor is when the entire engine and project are built into a single executable. This is what UEFN uses as it is then much easier to distribute - with the downside that every time the game updates, the entire executable needs rebuilding and updating, whereas with a standalone editor and engine, the engine may not need to be redistributed if it has not changed since the last version.
