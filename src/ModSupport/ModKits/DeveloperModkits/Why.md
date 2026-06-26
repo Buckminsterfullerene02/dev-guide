@@ -14,13 +14,18 @@ Due to the existence of UEFN, Epic Games have invested a lot into making the edi
 
 With a few small engine changes, cooked content can act similarly to uncooked content in the editor - and importantly, still allows all references to exist in blueprints, widgets, animations, materials etc. 
 
-I will go into a lot more detail about cooked editor in the `How to create a cooked editor modkit` page but using cooked content is very beneficial because:
+I will go into a lot more detail about cooked editor in the [How to create an editor modkit](How.md) & [Cooked editor engine changes](CookedEngine.md) pages but using cooked content is very beneficial because:
 - It keeps game content read-only - mods should not be directly modifiying game content as a general rule
 - It keeps the project content size minimal - if you set up the editor to directly mount the cooked content from the game install files, there is no need for duplicate data on disk
 - No compiling shaders required during editor startup or on cook, as it directly uses the compiled shader files when rendering materials - also means no need to create & distribute a shared DDC pak
+- Editor startup time is very short - all uncooked content is loaded at startup, but cooked content is only loaded when needed (e.g. it or an asset that depends on it is opened or referenced), as well as no shader compilation required
 - If you're using World Partition levels, the amount of loose files it generates is ridiculous and is not really fit to be handled by distribution fronts, so having it as part of the cooked content is nice
 - Since you are using the very same cooked content from the game install, there is no need to worry about IP concerns if you are using marketplace assets/plugins - distribution as cooked content already has to be allowed by the licenses, and you aren't breaking that
 - Your legal team (if applicable) would have a harder time justifying why not to allow a modkit to be created - no uncooked/source content, no source code, mounting content from game install (thus needing to own the game to use it)
+
+There are a couple limitations to it:
+- Engine changes are required to make it useful - so more effort & bigger distribution size (if not already distributing custom engine)
+- Some asset types (animations, skeletal meshes, meshes, niagara asset etc.) are not copyable so mods cannot make copies to modify them in their mods - but this could probably be fixed with more engine changes that I do not cover in this guide
 
 ## What if I want to include uncooked (source) content?
 
