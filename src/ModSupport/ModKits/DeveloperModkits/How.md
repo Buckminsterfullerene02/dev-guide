@@ -58,20 +58,33 @@ Engine file/folder | Do you need it? | Notes
 
 You should build the engine for all target platforms - at minimum for Win64. If you a cross platform game and you wish to allow mods to be packaged for consoles, then you will need to allow modders to do cloud cooking on your own servers. 
 
-## Keeping file size down (both cooked/uncooked editor)
+## Where mods go (in the project)
 
-If you're intending to ship the SDK with PDB debug files, it's generally a good idea to strip them using PDBSTRIP first. This is a tool that comes with Windows, and it's usually located in `C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\srcsrv\pdbstr.exe`.
+Ideally, when a new mod is created in a modkit, it is created as a content only plugin (or a C++ plugin with content if you are supporting C++ modding). 
+
+If you are using gameplay feature plugins, consider making mods as those plugins for even more flexibility.
+
+If you are using data driven gameplay and are using the asset registry scanning techniques, mods as plugins can then place their own data assets into the directories matching the game's. The engine will automatically mount the plugin's asset registry and merge it into the game's one, meaning that any asset registry scans of directories or assets of parent class will automatically pick up those from mods without any extra work from the game.
+
+This offers the most flexible way of managing mods within the editor, as you can easily package them seperately from the main game content. Additionally, when distributing updated versions of the modkit's content, you won't have to worry about overwriting any mod content.
+
+Then, inside each mod, you have any required files responsible for loading the mod, such as the initialization blueprint that the mod loader checks for and spawns, or the mod config file, which will be further discussed in the [extra features](ExtraFeatures.md#mod-configuration-files) section.
+
+## Stripping PDBs
+
+If you're intending to ship the engine or editor with PDB files, it's generally a good idea to strip them using PDBSTRIP first. This is a tool that comes with Windows, and it's usually located in `C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\srcsrv\pdbstr.exe`.
 
 It reduces the size of the PDB files by a magnitude of 100, making them as small as the resulting binaries.
 
 However, some information from the PDB files, like private symbol names, are lost, but you can't really distribute the non-stripped PDBs because take so much space for multiple targets in multiple configurations.
 
-## Keeping file size down (uncooked editor only)
+## Extra considerations (uncooked editor only)
 
-If your modkit is huge (i.e. you have massive amounts of content), you can look at trying a few different ways to keep your filesize down:
+If your uncooked modkit is huge (i.e. you have massive amounts of content), you can look at trying a few different ways to keep your filesize down:
 - Reducing texture quality
 - Removing all mesh LODs except LOD 0 from meshes
-- Priming the DDC with a compressed DDC file
+
+Also, just like you (probably) have in your team's build systems, you should consider priming the DDC with a compressed DDC file and distribute that alongside the editor.
 
 ### Removing LODs
 
@@ -98,16 +111,6 @@ The editor will automatically pick up your `Compressed.ddp` file if it is in the
 
 The default configuration settings under `[DerivedDataBackendGraph]` in `DefaultEngine.ini` in the project's config settings are good to use as is.
 
-## Where mods go (in the project)
-
-Ideally, when a new mod is created in a modkit, it is created as plugin content (or a C++ plugin with content if you are supporting C++ modding). 
-
-This offers the most flexible way of managing mods within the editor, as you can easily package them seperately from the main game content. Additionally, when distributing updated versions of the modkit's content, you won't have to worry about overwriting any mod content.
-
-If you are using a pak file for your content, you have to do this, otherwise mods in the ProjectName/Content/ directory will not be recognised by the editor.
-
-Then, inside each mod, you have any required files responsible for loading the mod, such as the initialization blueprint that the mod loader checks for and spawns, or the mod config file, which will be further discussed in the [extra features](ExtraFeatures.md#mod-configuration-files) section.
-
 ## Updating modkit versions
 
 There are a few solutions you may consider when it comes to updating your modkit versions:
@@ -115,6 +118,6 @@ There are a few solutions you may consider when it comes to updating your modkit
 
 - If your modkit is project only, then using a seperate Steam/EGS install could work best as they already contain the utilities needed to patch only the modkit files that have changed 
 
-- If your modkit is project + engine, then you may have to come up with your own solution that combines the engine source being on your custom engine Github fork, the engine dependencies being pulled from your servers using the git dependencies file, and the project files being pulled from elsewhere, and then potentially introducing a patching system onto all of that
+- If your modkit is project + engine, then you may have to come up with your own solution that combines the engine source being on your custom engine Github fork, the engine dependencies being pulled from your servers using the git dependencies file, and the project files being pulled from git, which is able to deal with project files fine, except for game content (if using uncooked editor) which may have to be downloaded seperately. Or use lotus, Epic Games' answer to perforce? Since it's open source, it could be interesting to use.
 
 - If you can, negotiate with Epic to allow engine distribution to happen on Steam and/or EGS as a seperate app
