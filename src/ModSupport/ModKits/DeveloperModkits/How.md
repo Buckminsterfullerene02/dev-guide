@@ -1,7 +1,5 @@
 # How to create an editor modkit
 
-As before, there are two choices of editor modkit; uncooked editor and cooked editor.
-
 **Before reading this page, please read up on the page for explaining engine changes necessary for enabling cooked editor.**
 
 [Cooked editor engine changes](CookedEngine.md)
@@ -43,20 +41,24 @@ If you need to ship your own custom engine, you must **additionally** perform th
 
 1. Compile Binaries for all relevant tools (UBT, UHT, UAT, UnrealPak, ShaderCompileWorker, UnrealInsights, LiveCodingConsole, etc)
 
-2. Create an installed engine build. Get the files and folders for your engine and prepare them for distribution. This one is a bit more complicated, and requires a bit more of thoughtful includes - for a decent list you can look into `Engine/Build/BuildGraph/InstalledBuild.xml` and related files, you need a roughly similar list of files. But at a bare minimum, you need:
+2. Create an installed engine build. Get the files and folders for your engine and prepare them for distribution. This one is a bit more complicated, and requires a bit more of thoughtful includes - for a decent list you can look into `Engine/Build/BuildGraph/InstalledBuild.xml` and related files, you need a roughly similar list of files. 
 
 Engine file/folder | Do you need it? | Notes
 --------------------|-----------------|------
-`Binaries` | Yes | Binaries for the relevant tools (UBT, UHT, UAT, UnrealPak etc.), the editor and the game
+`Binaries` | Yes | Binaries for the relevant tools (UBT, UHT, UAT, UnrealPak etc.), the editor and the game. Weigh up if you want to keep or strip PDBs - they inflate engine size, but provide valuable information when debugging engine crashes
 `Build` | Yes | Batch scripts and other things necessary for working with the engine distribution
 `Config` | Yes | Default engine config files
 `Content` | Yes | All of it
 `Source` | Yes | Engine sources, target files etc.
 `Sources` | Yes | Engine shader source files
-`Plugins` | Yes | Only the plugins that your project uses
+`Plugins` | Yes | Only the plugins that your project uses - can rack up a lot of space savings
+`Templates` | No | Remove to save space
+`Samples` | No | Remove to save space
 `GenerateProjectFiles scripts` | No | Installed engine build is not designed to be built from source
 
-You should build the engine for all target platforms - at minimum for Win64. If you a cross platform game and you wish to allow mods to be packaged for consoles, then you will need to allow modders to do cloud cooking on your own servers. 
+You should build the engine for all platforms you would like to support mods on - at minimum for Win64. If you have a cross platform game and you wish to allow mods to be packaged for consoles, then you will need to allow modders to do cloud cooking on your own servers. 
+
+With some of these changes (view my `InstalledEngineFilters.xml` [here](https://github.com/Buckminsterfullerene02/UnrealEngine/blob/sn2/Engine/Build/InstalledEngineFilters.xml) as an example), I was able to reduce the UE5.6.1 installed engine build from the stock 26GB to 18GB - which also compressed to `.zip` to 7GB for distribution.
 
 ## Where mods go (in the project)
 

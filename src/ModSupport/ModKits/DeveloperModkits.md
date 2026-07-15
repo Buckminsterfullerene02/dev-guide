@@ -1,13 +1,5 @@
 # Developer Modkits
 
-There is a certain way to produce a modkit that trumps every other way and is extremely powerful for modding, while **not** exposing the source code of the game.
-
-This is an idea that is very obvious in hindsight, yet is something not many games have done before. I really hope that more games in the future will do this!
-
-There are two types of modkit that can be created. These are explained in more detail later:
-- Uncooked editor
-- Cooked editor
-
 ## Extra credit
 
 I know I've already mentioned [Archengius](https://www.linkedin.com/in/archengius/) in the home page's credits, but I really feel obliged to mention him again here. Some of the information in the [How?](./DeveloperModkits/How.md) section is from his own research and experience, that he has obtained from:
