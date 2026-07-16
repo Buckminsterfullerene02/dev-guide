@@ -9,3 +9,9 @@ I know I've already mentioned [Archengius](https://www.linkedin.com/in/archengiu
 This is why much of the information here is not information you can just find in the documentation - a lot of work by him and myself has been delving into engine code to figure things out ourselves.
 
 As always, if you have read through this section and are serious about making a modkit for your game, and wish to know more information in more detail, I recommend that you contact him through [Linkedin](https://www.linkedin.com/in/archengius/).
+
+## Examples of a developer modkit
+
+[Astro Colony](../../CaseStudies/AstroColony.md) (uncooked editor)
+
+[Contractors VR](../../CaseStudies/ContractorsVR.md) (uncooked editor)

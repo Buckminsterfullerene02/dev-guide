@@ -27,14 +27,22 @@ There are a couple limitations to it:
 - Engine changes are required to make it useful - so more effort & bigger distribution size (if not already distributing custom engine)
 - Some asset types (animations, skeletal meshes, meshes, niagara asset etc.) are not copyable so mods cannot make copies to modify them in their mods - but this could probably be fixed with more engine changes that I do not cover in this guide
 
-## What if I want to include uncooked (source) content?
+## What if I want to include uncooked (source) content? "Mixed" editor
 
-No problem! Please do, and the editor is even easier to setup with uncooked content than cooked content, but is simply not a popular choice among studios due to IP/legal issues, hence why I am suggesting cooked editor as a more likely choice. I go into detail about making an uncooked editor in `How to create an uncooked editor modkit` page.
+No problem! Please do, and the editor is even easier to setup with uncooked content than cooked content, but is simply not a popular choice among studios due to IP/legal issues, hence why I am suggesting cooked editor as a more likely choice.
 
 Uncooked content has the following benefits over cooked content:
 - Content is not read-only (but still shouldn't really be edited directly by mods) and can be copied into mod content and edited to fit the mods' needs (cooked content can be done like this with some caveats I will get into later)
 - Does not require engine changes to enable
 - Includes all material shader code and blueprint code
+
+As a compromise, you may choose that you would like to have some asset types as cooked assets, and some as source assets. For example, you want to give modders access to as much source as possible, while also adhering to licenses and other legal requirements. 
+
+This can be achieved quite easily!
+
+You need more context from [this section](CookedEngine.md#prioritise-loading-loose-files-over-mounted-containers) in the cooked editor engine changes page, but basically, you can have your editor prioritise loading loose files that are on disk in the project's folder over the cooked files in your packaged game content. These loose files can be both source assets and cooked assets, but you'll want these to be the source assets.
+
+Additionally, you could also look into enabling [editor optional data](CookedEngine.md#editor-optional-data) so that you don't have to worry about [loading the compiled shaders](CookedEngine.md#loading-the-compiled-shaders) for materials, while the materials are still cooked files!
 
 ## What if my game contains paid plugins from the marketplace?
 
@@ -46,5 +54,6 @@ If your game contains paid plugins from the marketplace, you may be concerned ab
 ## Wouldn't allowing PIE be an issue where players can play the game for free?
 
 This is a fair concern, but it is fairly easy to deal with this. It's up to you how you want to do it, but here are some ideas:
+
 - Configure the cooked modkit to mount the content containers directly from the game install folder. This will then require users to buy the game and have it installed to use the modkit
 - Have an editor plugin that is always running, and when the player is in PIE, it will limit the play time per session to only a few minutes, then force close PIE. If they are needing longer, then it may be fair to require them to package their mod and test in the actual game
