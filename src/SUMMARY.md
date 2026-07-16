@@ -23,7 +23,6 @@
             - [How?](./ModSupport/ModKits/DeveloperModkits/How.md)
             - [Cooked Editor](./ModSupport/ModKits/DeveloperModkits/CookedEngine.md)
             - [Extra features](./ModSupport/ModKits/DeveloperModkits/ExtraFeatures.md)
-            - [Examples](./ModSupport/ModKits/DeveloperModkits/Examples.md)
         - [Community Modkits](./ModSupport/ModKits/CommunityModkits.md)
 - [Case Studies](./CaseStudies.md)
     - [Satisfactory](./CaseStudies/Satisfactory.md)

@@ -8,13 +8,23 @@ To maximise the potential of the cooked content in the editor, some engine chang
 
 ## Editor only data
 
-Before I go into the engine changes, I want to mention about editor only data.
+In your research, you may notice some code mentioning "editor data", "editor only data" or `WITH_EDITORONLY_DATA`. As the name suggests, editor only data is enabled in the editor and disabled in the game, as it is used to control the code paths in the engine to seperate loading source assets and cooked assets.
 
-In your research, you may notice some code mentioning "editor data", "editor only data" or `WITH_EDITORONLY_DATA`. This is an option for packages to be cooked **with** all the extra metadata that the game itself doesn't need - most notably kismet graph data (rather than just the compiled bytecode) for blueprints, material shader code for materials, and niagara effect node definitions in niagara assets. I believe this exists again due to UEFN as it is enabled for that.
+You can enable this for your game so that packages are be cooked **with** all the extra metadata that the game itself doesn't need - most notably kismet graph data (rather than just the compiled bytecode) for blueprints, material shader code for materials, and niagara effect node definitions in niagara assets. I believe this exists again due to UEFN as it is enabled for that.
 
 Editor only data does inflate the size of assets considerably, but it does give the obvious benefit that you can still use cooked editor while still having blueprint/material source code show up in the modkit!
 
 Editor only data does not replace the need to make most of the engine changes below, so please keep reading on for that information. 
+
+## Editor optional data
+
+There is also the cooker parameter `-editoroptional` which, during cook, creates extra sidecar files containing optional information about the assets. This sidecar file takes on the form `.o.uasset` and if detected, is automatically loaded in the cooked editor by merging its optional information back in with the cooked asset.
+
+By default, editor optional data only includes material editor data and asset metadata - those being controlled by the `UCLASS` macro containing the `Optional` flag, and the headers with `metadata=...`. There's not much that uses this by default, and I haven't looked into how much work it would be to add more asset classes to this.
+
+![UCLASS(Optional) usage](../../../Images/EditorOptionalData.png)
+
+As far as I understand it, the benefit of using this over enabling editor only data, is that in your actual game distribution, you can have editor data only for materials, without requiring either two seperate cooks (one for the game and another for the modkit) or without massively inflating the size of your game files.
 
 ## Engine changes
 
@@ -24,16 +34,17 @@ I will explain each engine change I had to make in UE5.6.1 for the Subnautica 2 
 - Mounting game containers
 - Prioritise loading loose files over mounted containers
 - Enable premade asset registry
+- Populate the references viewer data
 - Enabling all cooked blueprint references
 - Allowing all cooked assets to be openable
-- Miscellaneous small changes
 - Loading cooked levels
 - Loading the compiled shaders
+- Miscellaneous small changes
 - Extra utilities
 
-At the time of writing (check the [`sn2-v.0.10.3-2`](https://github.com/Buckminsterfullerene02/UnrealEngine/commits/sn2-v0.10.3-2) tag), the cooked editor is very stable as I was able to make mods referencing all kinds of asset types and having a bunch of assets open, for over 3 hours, without the editor crashing once. 
+At the time of writing (check the [`sn2-v.0.1.1.0`](https://github.com/Buckminsterfullerene02/UnrealEngine/tree/sn2-v0.1.1.0) tag), the cooked editor is very stable as I was able to make mods referencing all kinds of asset types and having a bunch of assets open, for over 3 hours, without the editor crashing once. 
 
-Note that all modkit-related engine changes should be wrapped with `WITH_EDITOR` compiler guards so that the modkit changes don't exist in the game. While most of my engine changes are already doing this, one thing most changes are not taking into account is operability between a modkit editor and a source/non-modkit editor - as modders don't have access to the source editor so obviously there is no need to for me to support anything but the modkit editor. 
+Note that all modkit-related engine changes should be wrapped with `WITH_EDITOR` compiler guards in code that runs in both editor and game, so that the modkit changes don't exist in the game. While most of my engine changes are already doing this, one thing most changes are not taking into account (I only realised this after the fact) is operability between a modkit editor and a source/non-modkit editor. It may be that you choose to have your own editor for development contain these changes, but all of them disabled for your source assets - and then distribute it as a cooked editor when being used by modders.
 
 ### Serialisation
 
@@ -45,7 +56,7 @@ All of this is to say, that for the editor to load the cooked packages correctly
 
 In practicality, you should just include all engine patches for the modkit, not only for serialisation, but also so that shaders load in (more on this later) correctly, editor binaries work, etc. I'm also not really in a place to comment on your build system, but I would see it as much easier to just use the same engine build that the game itself uses for the modkit with the aforementioned compiler guards in place.
 
-### Mounting game content containers (works with IoStore and non-IoStore games similarly)
+### Mounting game content containers
 
 So in the engine, there is an existing project startup command line flag `-UsePaks`. This flag allows you to directly mount container files to the editor.
 
@@ -55,9 +66,15 @@ While the engine does already support mounting containers from within the projec
 - It expects the container files to be at a relative location to the engine install. You should change this behaviour anyway though, as if you are distributing an installed engine build seperately, then the user may choose to install the engine to a different location, thus causing it to break
 - You would need to either distribute your modkit project already containing the game content (inflating download size massively) or have some utility to copy the game content from the game into the project location (extra hoops, slow to copy, duplicate data)
 
-So what I did is to make an engine change in `IPlatformFilePak.cpp` that reads in a txt file in the project root containing the path to the game install directory. It's a very simple to ask the user to supply the path manually during modkit setup, or if you had a method of reliably finding the game install location you could have such an algorithm in the engine change and then fallback to a txt file in case it fails. 
+So what I did is to make an engine change to read in a txt file in the project root containing the path to the game install directory. It's a very simple to ask the user to supply the path manually during modkit setup, or if you had a method of reliably finding the game install location you could have such an algorithm in the engine change and then fallback to a txt file in case it fails. 
 
 [Engine change](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/b0bd87c904ee5113a9d97dfd66bb0928f4406b06?diff=unified)
+
+Obviously if your containers use an AES key, you will need to supply that key to the `IoDispatcherFileBackend->Mount` call - but there really is no point in encrypting with AES because they are found in games in minutes or sometimes days if the developers have really tried to hide them.
+
+This is an example of what my logging looks like on editor startup:
+
+![MountingLogs](../../../Images/MountingLogs.png)
 
 When reading through this change you may notice some code relating to load priority...
 
@@ -83,6 +100,7 @@ Thankfully, again the engine already provides a neat way to to do this - an edit
 In [this engine change](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/806fd090cc5a66e5dac5caf9a25e7b00a27dc2fc#diff-3cfb9186423cddbddba9fc668dfc9a8c8d279d81920a79bd47e767a1f2f667aaR391), I do same as I did with `-UsePaks` -> `-NoPaks` flag - flip it to `-DisablePremadeAssetRegistry` so that `bUsePremadeInEditor` is true by default with the option to disable it if needed.
 
 If there are still no cooked assets showing up in the editor, make sure you have these configs set in `DefaultEngine.ini`.
+
 ```ini
 [/Script/UnrealEd.CookerSettings]
 cook.AllowCookedDataInEditorBuilds=True
@@ -90,6 +108,21 @@ s.AllowUnversionedContentInEditor=1
 ```
 
 I also found a bug that when deleting an asset in the content browser, the registry would refresh and "loose" all of the packages from the mounted container - because the refresh logic was simply only looking for packages on the disk - thus the cooked content would disappear. So to fix that I [created a helper](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/806fd090cc5a66e5dac5caf9a25e7b00a27dc2fc#diff-3cfb9186423cddbddba9fc668dfc9a8c8d279d81920a79bd47e767a1f2f667aaR70) to check if an asset is from mounted container and then used it in the code paths related to regenerating the registry (also present in the same commit).
+
+### Populate the references viewer data (IoStore only)
+
+The reference viewer is an extremely useful tool for modding as it makes it way easier to understand how the different systems connect together in the game. I'm sure you probably also find it useful sometimes! 
+
+By default, the reference viewer is only populated by the loaded loose/source assets. So when you open a cooked asset in it, there won't be anything connected to it.
+
+When we mount the IoStore containers, we can specify to load it with soft references:
+`TIoStatusOr<FIoContainerHeader> MountResult = IoDispatcherFileBackend->Mount(*UtocPath, PakOrder, FGuid(), FAES::FAESKey(), UE::IoStore::ETocMountOptions::WithSoftReferences);`
+
+Then, when engine init is complete, we can populate the asset registry's dependencies graph with the references found in the headers of the IoStore containers. This is a very fast operation, because it's not loading any of the packages, just reading their headers.
+
+[Engine change](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/e2ae13e7355452dff9dd7345e6f86f33c06eb9ed)
+
+![Reference Viewer](../../../Images/ReferenceViewer.png)
 
 ### Enabling all cooked blueprint references
 
@@ -111,7 +144,7 @@ The fix for this turned out to be insanely simple - a single if statement change
 
 ### Allowing all cooked assets to be openable
 
-By default, trying to open a cooked asset will lead to a notification message saying something like "Cannot modify cooked assets". Obviously this is not useful, so you need to change this to allow opening them. 
+By default, trying to open a cooked asset will lead to a notification message saying "Cannot modify cooked assets". Obviously this is not useful, so you need to change this to allow opening them. 
 
 First, [disable the logic](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/c04256963dfbf3453389ac47df02d77c9f0e5ff8#diff-2f81aa549dd603bb36ff1156db28fdd1b2e052f5e01a889c685ceb9d30c09d3c) for the above check in the content browser (note that this change is commented out code, obviously you should be implementing it with proper checks etc).
 
@@ -124,21 +157,6 @@ Next, [set `bCanBeModified` to true](https://github.com/Buckminsterfullerene02/U
 It is important to note that any changes to the cooked assets are still temporary to that editor session - no data is written back to the cooked package - so all changes to them are lost on editor shutdown.
 
 Once the changes have been made, the majority of asset tyes should be openable (with a caveat) without crashing, sound waves should be playable and overall the usefulness of the modkit has skyrocketed. The caveat is that most asset types that might have a graph view or viewport will open into a fallback asset editor that only lets you view and edit properties (it looks like a data asset view). 
-
-### Miscellaneous small changes
-
-There are a bunch of additional small changes that need to be done to fix code paths that are not expecting cooked data - but please review all changes to check if they will apply to you, as well as any changes that may be different on older/newer engine versions than UE5.6.1.
-
-- [This commit](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/c04256963dfbf3453389ac47df02d77c9f0e5ff8), [this commit](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/4b22845b5a3b4097b771223330b0480d9a6aaebc#diff-d14d6896f5ac468270d335cae351fbffa1367a3d3620c6421896f6e24035e808), [this commit](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/7ce5c682939abe4dce328ec2a0a9b1b2959b621c) contains a few small changes (please ignore all the header changes, I was unprofessional here and committed unrelated changes together). I also apologise that I'm showing some changes that were later reverted, moved about and stuff, as this was active in development. It might be best to just check the diffs from [here](https://github.com/EpicGames/UnrealEngine/compare/5.6...Buckminsterfullerene02:UnrealEngine:sn2)
-  - Allow cooked packages to be duplicated
-  - Allow user defined structs to load
-  - Fixes various issues loading animation based assets
-  - Downgrades some checks and fatal errors to ensures and non-fatal/warnings so that editor does not crash on serialization changes. Note: these changes should not be necessary as long as you are supplying your custom engine with all your engine patches for the game (due to the nature of reverse engineering engine changes, some changes are inevitably missed/done incorrectly so it was beneficial for me to brute force down some code paths to get more data).
-  - Fixes to issues related to the limitations of Suzie, the tool I was using to generate the UHT class schemas in the project. If you are including source binaries, you should not have these problems either.
- 
-- [This commit](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/2baf50f1800c0457b8c7d36aa9216be0fe31b230) reflects the `GameInstance.ReferencedObjects` property to blueprint to allow modifications to default objects to persist across level changes. See more [here](./ExtraFeatures.md#give-access-to-referenced-objects-in-blueprint).
-
-- [This commit](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/6e8d2b8622e40f3b9337dafd2ef95d3112e815fa) fixes opening sparse volume texture assets crashing the editor
 
 ### Loading cooked levels
 
@@ -153,13 +171,56 @@ I spent time looking into it as it is extremely beneficial to allow the cooked l
 - They can show actors that weren't previously noticed due to being invisible in-game, such as splines
 - They can be copied to create entirely new levels based on existing game ones, as of course mods can load levels from blueprint
 
-As it turns out, at least in 5.6, there are only [two small changes](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/e2bf066d9218976e0c79bc9b2d7dea678c56f60d) necessary! Disabling world partition streaming (more on this in a sec), and avoiding hash creation for weight maps as that data is stripped from the cooked asset.
+As it turns out, at least in 5.6, there are only [two small changes](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/e2bf066d9218976e0c79bc9b2d7dea678c56f60d) necessary! Disabling world partition streaming and avoiding hash creation for weight maps as that data is stripped from the cooked asset.
 
 Once these changes are done, all levels should be openable. However, as above, there is a major caveat: if a level is using world partition streaming, none of the partition regions will be loaded when you open it - you will only be able to view the persistent objects.
 
-That being said, I think it should be possible to allow region streaming to exist, as if non-world partition levels with landscape can load, why not generated partitioned levels? It would take some more engine changes for sure. I'll change this guide if I figure it out (I intend on trying).
-
 Something for you to experiment with (which I can't do as a modder) is to try copying in your uncooked levels as loose files and seeing if they all work fine? In theory, I think this should work perfectly without any of the above fixes required, as ultimately levels are either self-contained (landscape data) or contain references to assets in the project.
+
+### Fixing world partition streaming
+
+Fixing world partition streaming for cooked levels is not a straightforward problem, because the engine code paths are not built for streaming in cooked landscape and packages - I don't think you can open levels that use world partition in UEFN, so Epic haven't coded this.
+
+A cooked WP map doesnt't ship the editor's `ActorDesc` data that the normal editor loading path relies on. Instead it ships the runtime cells inside its RuntimeHash, each already carrying a pre created `UWorldPartitionLevelStreamingDynamic` that points at its generated cell package - you can check this in the FModel JSON output of a map's `_Generated_/<hash>.umap` file:
+
+```json
+"Properties": {
+  "Model": {
+    "ObjectName": "Model'L_Main:PersistentLevel.Model_0'",
+    "ObjectPath": "/Game/Maps/Main/L_Main/_Generated_/00066UYU9N5IX2X34WNEUW1CF.1"
+  },
+  "LevelBuildDataId": "39A3D9D7-47E8360C-71D1029A-E2A29ABA",
+  "WorldSettings": {
+    "ObjectName": "WorldSettings'L_Main:PersistentLevel.WorldSettings'",
+    "ObjectPath": "/Game/Maps/Main/L_Main/_Generated_/00066UYU9N5IX2X34WNEUW1CF.6"
+  },
+  "WorldPartitionRuntimeCell": {
+    "AssetPathName": "/Game/Maps/Main/L_Main.L_Main",
+    "SubPathString": "PersistentLevel.WorldSettings.WorldPartition_0.WorldPartitionRuntimeHashSet_0.00066UYU9N5IX2X34WNEUW1CF"
+  }
+},
+```
+
+It took a lot of work, but the change is to add in a new WP cooked cell streaming manager when the level is a cooked one. This watches the editor's WP region loader adapters (e.g. the "Load Region" boxes the WP minimap creates) and loads/unloads the intersecting runtime cells as streaming levels. It reuses each cell's pre cooked `LevelStreaming` and forces its standard loading path instead of the editor's `ActorDesc` assembly path. Honestly, most of the code is similar to how the existing engine's WP cell streaming works.
+
+I only went as far as supporting the "Load Region" selection box adapter in the WP minimap, but you could also try to implement other streaming features that the engine also has. I find that manual selection is fine, because it takes a solid amount of time (20-30s) to load in a section of the Subnautica 2 map, so I didn't bother adding others.
+
+[Main engine change commit](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/85411c6ca2b7aa48059e7a751af4424346fbaa54)
+
+There are also some additional fixes in the landscape code paths that do not typically expect to load cooked data that do not contain all information. Some of these issues are in the serialization override of the class, which assumes the package contains data it does not when cooked. This leads to serialization issues, and eventually crashing.
+
+Here are the changes I had to make to get it to work for Subnautica 2:
+- [Remove an assertion](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/85411c6ca2b7aa48059e7a751af4424346fbaa54#diff-55f6b10ea040f74155306b7fa66df4f743ce0c5c979678a064a0704c56222239R367)
+
+- [Fix for missing mips](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/fbcd93cdf788cd9cf9544ceae0d9ecc88e0033a3#diff-10a8fd79377cbe765d86917a7bdb0ed28aa326545193d69d299f16124d827e75)
+
+- [Serialization fix for missing EdgeSnapshot TextureSourceID](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/fbcd93cdf788cd9cf9544ceae0d9ecc88e0033a3#diff-a2b213ac50682f116f79b8ed2d69c92d91ad4c1c9804d2f2736267738e46aefb)
+
+- [Fix to cooked packed level actors missing level instance data](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/fbcd93cdf788cd9cf9544ceae0d9ecc88e0033a3#diff-ed6da7454f08abc41a120587020729eeb0b4335131f15c00a17682f10d0601dc) (this one is probably not fixing the root cause of the issue, which is likely again serialization)
+
+And the result:
+
+![Cooked WP Level Result](../../../Images/CookedWPLevel.png)
 
 ### Loading the compiled shaders
 
@@ -171,15 +232,48 @@ This is not great because it doesn't actually show the modder what the material 
 
 So, it is possible to load in the compiled shader files from the mounted container, because the game already does that.
 
-[Engine changes](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/b8f86017a3b1ede0fd239b78ad3b85895278251a)
+Due to the ordering of engine init, the shader library init is done before mounting the game containers. Therfore, the shader library is populated only with the engine information by the time mounting is done. 
 
-Due to the ordering of engine init, the shader library init is done before mounting the game containers. Therfore, the shader library is populated only with the engine information by the time mounting is done. To workaround this, after the container mounting is done, the code *opens* the shader library, ready to receive the compiled shaders from the game - both the global shader map and the game ones. Note that since Subnautica 2 uses shader sharing (`bShareMaterialShaderCode=true`), all shaders not in global are in one file - so I haven't tested to see if this code would just work if a game does not use shader sharing (which produces many shader files).
+To workaround this, after the container mounting is done, the code *opens* the shader library, ready to receive the compiled shaders from the game - both the global shader map and the game ones. Note that since Subnautica 2 uses shader sharing (`bShareMaterialShaderCode=true`), all shaders not in global are in one file. If your game uses `bShareMaterialShaderCode=false`, compiled shader code is stored within each cooked material package. I'm not sure how this would work when populating the shader library - so you'll be on your own there.
 
-Then, when a material is opened or referenced in an opened/loaded asset, the shader library will read in the shader maps from the compiled shaders as it comes. This also means that loads of time doesn't need to be spent at editor startup loading in the entire shader file if some of it isn't even going to be used in that session.
+Another thing important to note is that for mods to contain custom materials/shaders, the editor **must** have the setting `bShareMaterialShaderCode=false` - this is so that the mod's materials will contain the shader code to be loaded by the engine seperately from the game's central shader file, if the game itself uses `bShareMaterialShaderCode=true`. However, (again, if the game has it set to true), the shader loading code needs to know to load it from the central file - so in the engine patch, we disconnect the CVar value from that code, so the CVar is *only* used to determine the method of shader code storage during cook.
+
+On post engine init, the shader library will read in the shader maps from the compiled shaders. 
 
 And as usual, I made it enabled by default but with the ability to be disabled with a startup flag `-DisableCookedShaderLibrary`.
 
-Note (TODO remove when fixed): You also need to close the shader library on engine shutdown otherwise the editor will crash when being closed.
+I worked on this in groups for subnautica 2, as I found that it contains a large number of shader changes in the engine.
+
+- [First set of changes](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/b8f86017a3b1ede0fd239b78ad3b85895278251a)
+
+- [Matching the game's engine changes](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/8c4d8cbef8d8c3039bbbe37e8cf325161d22a1ff) for your awareness. As a developer, you should not need to worry about this part
+
+- [Many changes related to the game using both nanite and lumen shaders](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/402998d68219d3c804dfa0e6463350203a1cfdda). I didn't write 90% of this engine patch, so I'm not really sure how it works.
+
+- [Final patch](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/7fb18068f87012d3a0c73a4e7ad356075d197a0d) is the correct time to load the compiled shaders into the shader library. You may notice that in my first set of changes, I thought that the best option would be to load the compiled shaders in when you first load a package that requires them. This caused a timing issue where the engine would push invalid shader code to the DDC, and then whenever the DDC was pulled from (could be when closing an asset view or loading another package), the editor would crash due to reading in garbage data.
+
+### Miscellaneous small changes
+
+There are a bunch of additional small changes that need to be done to fix code paths that are not expecting cooked data - but please review all changes to check if they will apply to you, as well as any changes that may be different on older/newer engine versions than UE5.6.1.
+
+- [This commit](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/c04256963dfbf3453389ac47df02d77c9f0e5ff8), [this commit](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/4b22845b5a3b4097b771223330b0480d9a6aaebc#diff-d14d6896f5ac468270d335cae351fbffa1367a3d3620c6421896f6e24035e808), [this commit](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/7ce5c682939abe4dce328ec2a0a9b1b2959b621c) contains a few small changes (please ignore all the header changes, I was unprofessional here and committed unrelated changes together). I also apologise that I'm showing some changes that were later reverted, moved about and stuff, as this was active in development. It might be best to just check the diffs from [here](https://github.com/EpicGames/UnrealEngine/compare/5.6...Buckminsterfullerene02:UnrealEngine:sn2)
+  - Allow cooked packages to be duplicated
+  - Allow user defined structs to load
+  - Fixes various issues loading animation based assets
+  - Downgrades some checks and fatal errors to ensures and non-fatal/warnings so that editor does not crash on serialization changes. Note: some of these changes should not be necessary as long as you are supplying your custom engine with all your engine patches for the game. Some other changes may still be necessary due to some code paths where serialization is done on the assumption that it is only looking through source packages, not cooked ones.
+  - Fixes to issues related to the limitations of Suzie, the tool I was using to generate the UHT class schemas in the project. If you are including source binaries, you should not have these problems either.
+ 
+- [Reflect](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/2baf50f1800c0457b8c7d36aa9216be0fe31b230) the `GameInstance.ReferencedObjects` property to blueprint to allow modifications to default objects to persist across level changes. See more [here](./ExtraFeatures.md#give-access-to-referenced-objects-in-blueprint).
+
+- [Fixes](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/6e8d2b8622e40f3b9337dafd2ef95d3112e815fa) opening sparse volume texture assets crashing the editor.
+
+- [Fixes](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/5a2a1a05b65cf918fa6fffff4431a6381261530f) making a material instance of a cooked material wasn't populating the parameters. 
+
+- [Fixes](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/7ea7a03b98286a628c24c0acfa32ba1f90b630c4) bink plugin crashing when loading a cooked bink movie player
+
+- [This commit](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/2fdb4aaffd8dfac6b98ec9b4a970c343c27ff097) removes the annoying "Do you want to apply LOD changes to this mesh?" prompt when closing a cooked static mesh asset viewer
+
+- [Fixes](github.com/Buckminsterfullerene02/UnrealEngine/commit/20c629c06d870065deaa0c696c1d20ddd0f4d1ed) bone weights recalculation causing a crash
 
 ### Extra utilities
 
@@ -188,8 +282,9 @@ Since you are making engine changes anyway, it might be worth to add useful litt
 - Cooked niagara asset viewer
 - Duplicate cooked widget to uncooked widget
 - Duplicate cooked blueprint to uncooked blueprint
+- Copy properties button in simple asset editor
 
-Technically all of these can be implemented in editor plugins using the engine API, (aside from a couple of tiny engine patches to make them work properly) but I think that its much easier to implement them in the engine directly to avoid being limited by engine API without big changes required.
+Technically all of these can be implemented in editor plugins using the engine API, (aside from a couple of tiny engine patches to make them work properly) but I think that its much easier to implement them in the engine directly to avoid being limited by engine API without big changes required. That said, you may choose to still have them as plugins, as if there is a bug in the engine code, you will have to distribute a new engine version to push those, while a project plugin could be much quicker to iterate and distribute.
 
 #### Cooked niagara asset viewer
 
@@ -199,9 +294,11 @@ Therefore, I decided to take a page out of the read-only blueprint code by imple
 
 [Engine change](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/7454f17f665b570fe9a76aefe77b512e998f3e3a)
 
-#### Create uncooked blueprint/widget from cooked blueprint/widget
+![Cooked Niagara Viewer](../../../Images/CookedNiagaraViewer.png)
 
-When working with cooked blueprints & widgets, you need to create a child to open it up to see what's inside (which is also uncooked), as otherwise opening it directly just shows the fallback asset editor view. In the case of widgets, since it's a child, you cannot see the original widget tree nor modify it. But at least for blueprints, you can see the component tree as that is copied across into the child.
+#### Create uncooked widget from cooked widget
+
+When working with cooked widgets, you need to create a child to open it up to see what's inside (which is also uncooked), as otherwise opening it directly just shows the fallback asset editor view. In the case of widgets, since it's a child, you cannot see the original widget tree nor modify it. 
 
 So what would be nice, is to have an option to create a copy of it as an uncooked widget. This allows for much easier widget modding because:
 - Mods can make their own widget using the basis or the styling of an existing game widget, without having to create and modify a copy of the game widget at runtime
@@ -209,7 +306,59 @@ So what would be nice, is to have an option to create a copy of it as an uncooke
 
 [This engine change](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/5ef0cfdae34149e9837103c278b7b7ae11df2632) adds a button to the right click menu on a cooked widget in the content browser. At the top of the context menu, there is a "Make Uncooked Widget Copy" button which asks for destination folder and deep copies the full cooked widget tree and animations into an uncooked widget. Notice that I also needed to make a small engine patch to fix a bug relating to BindWidget properties - but you can ignore this as this is another limitation of Suzie which you will not be using. 
 
-I would like to do the same thing for blueprints which copies the component tree, the functions, properties and events. It could even be possible to reconstruct the kismet graph code from the script bytecode, though many have tried in the past to do it from script bytecode JSON produced by FModel, but as its a lot of work it has not been achieved before.
+![Uncooked Widget Button](../../../Images/UncookedWidget1.png)
+
+![Uncooked Widget](../../../Images/UncookedWidget2.png)
+
+#### Create uncooked blueprint from cooked blueprint
+
+Similarly to widgets above, you can already create a child BP to see inside of it and you can at least see the component tree as that is copied across into the child. While this is technically enough information to "see" the blueprint (without just dragging it into the editor), the child BP method actually copies the component tree slightly inaccurately, in that I found some volume components are sized incorrectly.
+
+The benefits of creating an uncooked blueprint are:
+- The modder can directly view, in their "correct" positions, the components, interfaces, function bodies, events and variables that the blueprint uses. With this view, it's much easier to know what options they have when wanting to use or modify stuff in the game's blueprint
+- For blueprints with no or very little code, a mod can copy a blueprint as a base to modify (rather than doing it at runtime) or even use it to implement their own logic in it, for example if they want to add a new buildable that's similar in design to an existing game's one, and has its own custom logic inside
+
+[This engine change](github.com/Buckminsterfullerene02/UnrealEngine/commit/b1c6da407aaaf30cf4bc62d572c7290b8a880150) adds a button to the right click menu on a cooked blueprint in the content browser. At the top of the context menu, there is a "Make Uncooked Blueprint Copy" button which asks for destination folder.  
+
+![Uncooked BLueprint Button](../../../Images/UncookedBlueprint1.png)
+
+![Uncooked Blueprint](../../../Images/UncookedBlueprint2.png)
+
+It could even be possible to reconstruct the kismet graph code from the script bytecode, though many have tried in the past to do it from script bytecode JSON produced by FModel, but as its a lot of work it has not been achieved *accurately* before (I say accurately, because there is [a plugin](https://github.com/tabby0x/fnaf9/blob/master/Plugins/BlueprintUncooker/Source/BlueprintUncooker/GraphBuilder.cpp) that does reconstruct some code, but it's horrendously inaccurate and not worth using). If you want to include blueprint code, you may as well just keep the source blueprint assets in your modkit project, or use editor only data.
+
+#### Copy properties button
+
+This isn't really necessary, but when I was trying to figure out how to mod something in the game, I felt that I really needed a way to copy properties in the simple asset editor to my clipboard for easier viewing of the data (without expanding all dropdowns for example) would be useful. [So I built one](https://github.com/Buckminsterfullerene02/UnrealEngine/commit/39a9f030911483b1b8f8d0807020a3e90bb384f7).
+
+For example:
+
+![Copy Properties](../../../Images/CopyProperties.png)
+
+Copies to this:
+
+```
+Begin Object Class=/Script/CommonUI.CommonMappingContextMetadata Name="DA_UI_IA_GenericMetadata" ExportPath="/Script/CommonUI.CommonMappingContextMetadata'/Game/Data/DA_UI_IA_GenericMetadata.DA_UI_IA_GenericMetadata'"
+   Begin Object Class=/Script/CommonUI.CommonInputMetadata Name="CommonInputMetadata_0" ExportPath="/Script/CommonUI.CommonInputMetadata'/Game/Data/DA_UI_IA_GenericMetadata.DA_UI_IA_GenericMetadata:CommonInputMetadata_0'"
+   End Object
+   Begin Object Class=/Script/CommonUI.CommonInputMetadata Name="CommonInputMetadata_1" ExportPath="/Script/CommonUI.CommonInputMetadata'/Game/Data/DA_UI_IA_GenericMetadata.DA_UI_IA_GenericMetadata:CommonInputMetadata_1'"
+   End Object
+   Begin Object Class=/Script/CommonUI.CommonInputMetadata Name="CommonInputMetadata_2" ExportPath="/Script/CommonUI.CommonInputMetadata'/Game/Data/DA_UI_IA_GenericMetadata.DA_UI_IA_GenericMetadata:CommonInputMetadata_2'"
+   End Object
+   Begin Object Class=/Script/CommonUI.CommonInputMetadata Name="CommonInputMetadata_3" ExportPath="/Script/CommonUI.CommonInputMetadata'/Game/Data/DA_UI_IA_GenericMetadata.DA_UI_IA_GenericMetadata:CommonInputMetadata_3'"
+   End Object
+   Begin Object Name="CommonInputMetadata_0" ExportPath="/Script/CommonUI.CommonInputMetadata'/Game/Data/DA_UI_IA_GenericMetadata.DA_UI_IA_GenericMetadata:CommonInputMetadata_0'"
+      NavBarPriority=10
+   End Object
+   Begin Object Name="CommonInputMetadata_1" ExportPath="/Script/CommonUI.CommonInputMetadata'/Game/Data/DA_UI_IA_GenericMetadata.DA_UI_IA_GenericMetadata:CommonInputMetadata_1'"
+   End Object
+   Begin Object Name="CommonInputMetadata_2" ExportPath="/Script/CommonUI.CommonInputMetadata'/Game/Data/DA_UI_IA_GenericMetadata.DA_UI_IA_GenericMetadata:CommonInputMetadata_2'"
+   End Object
+   Begin Object Name="CommonInputMetadata_3" ExportPath="/Script/CommonUI.CommonInputMetadata'/Game/Data/DA_UI_IA_GenericMetadata.DA_UI_IA_GenericMetadata:CommonInputMetadata_3'"
+   End Object
+   EnhancedInputMetadata="/Script/CommonUI.CommonInputMetadata'CommonInputMetadata_0'"
+   PerActionEnhancedInputMetadata=(("/Script/EnhancedInput.InputAction'/Game/Gameplay/Input/IA_Back.IA_Back'", "/Script/CommonUI.CommonInputMetadata'CommonInputMetadata_1'"),("/Script/EnhancedInput.InputAction'/Game/Gameplay/Input/IA_OpenConsole.IA_OpenConsole'", "/Script/CommonUI.CommonInputMetadata'CommonInputMetadata_2'"),("/Script/EnhancedInput.InputAction'/Game/Gameplay/Input/IA_Pause.IA_Pause'", "/Script/CommonUI.CommonInputMetadata'CommonInputMetadata_3'"))
+End Object
+```
 
 ## Monolithic editor
 

@@ -1,7 +1,5 @@
 # How to create an editor modkit
 
-As before, there are two choices of editor modkit; uncooked editor and cooked editor.
-
 **Before reading this page, please read up on the page for explaining engine changes necessary for enabling cooked editor.**
 
 [Cooked editor engine changes](CookedEngine.md)
@@ -43,20 +41,26 @@ If you need to ship your own custom engine, you must **additionally** perform th
 
 1. Compile Binaries for all relevant tools (UBT, UHT, UAT, UnrealPak, ShaderCompileWorker, UnrealInsights, LiveCodingConsole, etc)
 
-2. Create an installed engine build. Get the files and folders for your engine and prepare them for distribution. This one is a bit more complicated, and requires a bit more of thoughtful includes - for a decent list you can look into `Engine/Build/BuildGraph/InstalledBuild.xml` and related files, you need a roughly similar list of files. But at a bare minimum, you need:
+2. Create an installed engine build. Get the files and folders for your engine and prepare them for distribution. This one is a bit more complicated, and requires a bit more of thoughtful includes - for a decent list you can look into `Engine/Build/BuildGraph/InstalledBuild.xml` and related files, you need a roughly similar list of files. 
 
 Engine file/folder | Do you need it? | Notes
 --------------------|-----------------|------
-`Binaries` | Yes | Binaries for the relevant tools (UBT, UHT, UAT, UnrealPak etc.), the editor and the game
+`Binaries` | Yes | Binaries for the relevant tools (UBT, UHT, UAT, UnrealPak etc.), the editor and the game. Weigh up if you want to keep or strip PDBs - they inflate engine size, but provide valuable information when debugging engine crashes
 `Build` | Yes | Batch scripts and other things necessary for working with the engine distribution
 `Config` | Yes | Default engine config files
 `Content` | Yes | All of it
 `Source` | Yes | Engine sources, target files etc.
 `Sources` | Yes | Engine shader source files
-`Plugins` | Yes | Only the plugins that your project uses
+`Plugins` | Yes | Only the plugins that your project uses - can rack up a lot of space savings
+`Templates` | No | Remove to save space
+`Samples` | No | Remove to save space
 `GenerateProjectFiles scripts` | No | Installed engine build is not designed to be built from source
 
-You should build the engine for all target platforms - at minimum for Win64. If you a cross platform game and you wish to allow mods to be packaged for consoles, then you will need to allow modders to do cloud cooking on your own servers. 
+You should build the engine for all platforms you would like to support mods on - at minimum for Win64. If you have a cross platform game and you wish to allow mods to be packaged for consoles, then you will need to allow modders to do cloud cooking on your own servers. 
+
+With some of these changes (view my `InstalledEngineFilters.xml` [here](https://github.com/Buckminsterfullerene02/UnrealEngine/blob/sn2/Engine/Build/InstalledEngineFilters.xml) as an example), I was able to reduce the UE5.6.1 installed engine build from the stock 26GB to 18GB - which also compressed to `.zip` to 7GB for distribution. The command I use for this is
+
+`F:\UnrealEngine\Engine\Build\BatchFiles\RunUAT.bat BuildGraph -script=Engine/Build/InstalledEngineBuild.xml -target="Make Installed Build Win64" -nosign -set:HostPlatformOnly=true -set:WithDDC=false -set:GameConfigurations=Shipping`
 
 ## Where mods go (in the project)
 
@@ -136,6 +140,28 @@ However, if you are using cooked editor, the gameplay tags defined in your conte
 The solution to this will be up to you - perhaps you already have a spreadsheet or document listing all gameplay tags that you can add to your project via config files (it's fine to have duplicate entries from different sources, the engine handles this fine). 
 
 For Subnautica 2 cooked editor, I wrote an extension to the tooling that [generates the UHT class schema](https://github.com/Subnautica2Modding/Subnautica2-Project/blob/sn2-engine-v0.10.3/Plugins/Suzie/Source/Suzie/Private/SuzieGameplayTags.cpp) at startup to [harvest all gameplay tags from the game content](https://github.com/Buckminsterfullerene02/meatloaf/blob/5bc964b498c801c4b40bc484721ef10a4a1761b5/jmap_dumper/src/lib.rs#L1019) and then register those gameplay tags as part of the same startup process.
+
+## Distributing custom engine
+
+By default, the only legal way to distribute your custom engine is through a fork of the Unreal Engine Github repository. You have to upload your installed build using multi-part zip parts. Unfortunately, Github releases only supports zip parts in the format of `<filename>.zip.00x` up to the size of 2GB each. For creating the zip files, I use NanaZip (a fork of 7z) CLI tool with the following commands:
+
+```
+7z a -tzip Engine.zip Engine/
+7z t Engine.zip
+7z a -v1900m SN2-Engine.zip Engine.zip
+```
+
+The first command zips up the `Engine` folder. The second command verifies it. The third command splits it up into a multi-part zip of 1900MB blocks. Do not try to verify the zip parts - some of them may fail verification. This is fine, you can ignore it and upload anyway. If Github fails to upload a file, simply try again, there may have been some network error. It takes me about an hour to upload ~7GB of files to the release - not fast! This is what it looks like by the end:
+
+![Engine dist release](../../../Images/EngineDist.png)
+
+The extraction for the user is easy - download the zip parts to a folder and extract them to a folder.
+
+Note that you do not need to push your engine source code changes to the engine fork that you are distributing on.
+
+### A better way
+
+If you have one, contact your Epic rep and ask for permission to distribute your engine on another platform. This could be via the Epic Games store, on a branch of your game on steam, or elsewhere. Some games have done this, so it's doable!
 
 ## Updating modkit versions
 

@@ -32,5 +32,6 @@ If you are reading this with a negative perspective of modding, I encourage that
 - 1.3 - 2024-09-25 - Update links
 - 1.4 - 2026-05-05 - Don't recommend turning off `Use IoStore` setting for UE5 (because community tooling to mod IoStore files exist now), changes to the basics since last edits, added Whiskerwood case study, added Captain of Industry case study
 - 1.5 - 2026-06-24 - Overhaul guides related to modkits - write about cooked editor
+- 1.6 - 2026-07-16 - More detail related to modkits and cooked editors
 
 *No AI was used in the writing of this document*
