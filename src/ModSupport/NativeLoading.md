@@ -1,9 +1,10 @@
 # Natively loading mods
 
 To natively load mods, there are a few options:
-- Using a [marketplace Pak loader plugin](https://www.unrealengine.com/marketplace/en-US/product/pak-loader-plugin) (easiest)
+- Using the [built-in engine mounting system for DLC plugins](https://dev.epicgames.com/community/learning/knowledge-base/44nr/creating-platform-agnostic-dlcs-in-unreal-engine) (least effort to implement, has the most benefits)
+- Using a [marketplace Pak loader plugin](https://www.unrealengine.com/marketplace/en-US/product/pak-loader-plugin) (simplest to use)
 - Using the [SimpleUGC](https://forums.unrealengine.com/t/inside-unreal-adding-mod-support-with-the-simple-ugc-plugin/147657/57) plugin
-- Writing your own system
+- Using a combination of the above, or writing your own system
 
 You will also need to produce a standard for blueprint names, install folder hierarchy and naming, that you must communicate to modders to conform to, but that will all be up to how you want to do it.
 
