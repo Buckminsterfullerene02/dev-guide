@@ -1,0 +1,453 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Cooked Editor - A Comprehensive Introduction to Unreal Engine Modding</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../highlight.css">
+        <link rel="stylesheet" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../../css/custom.css">
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../index.html">Home</a></li><li class="chapter-item expanded "><a href="../../../Overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../../../Basis.html"><strong aria-hidden="true">2.</strong> The Basis of all modding</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../Basis/PakPatching.html"><strong aria-hidden="true">2.1.</strong> Pak patching</a></li><li class="chapter-item expanded "><a href="../../../Basis/AssetEditing.html"><strong aria-hidden="true">2.2.</strong> Asset editing</a></li><li class="chapter-item expanded "><a href="../../../Basis/Audio.html"><strong aria-hidden="true">2.3.</strong> Audio</a></li><li class="chapter-item expanded "><a href="../../../Basis/Visual.html"><strong aria-hidden="true">2.4.</strong> Visual</a></li><li class="chapter-item expanded "><a href="../../../Basis/Blueprints.html"><strong aria-hidden="true">2.5.</strong> Blueprints</a></li><li class="chapter-item expanded "><a href="../../../Basis/C++.html"><strong aria-hidden="true">2.6.</strong> C++</a></li><li class="chapter-item expanded "><a href="../../../Basis/DLLInjection.html"><strong aria-hidden="true">2.7.</strong> DLL injection</a></li></ol></li><li class="chapter-item expanded "><a href="../../../ModSupport.html"><strong aria-hidden="true">3.</strong> Mod Support</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../ModSupport/NativeLoading.html"><strong aria-hidden="true">3.1.</strong> Natively loading mods</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../ModSupport/NativeLoading/PakLoader.html"><strong aria-hidden="true">3.1.1.</strong> Pak loader plugin</a></li><li class="chapter-item expanded "><a href="../../../ModSupport/NativeLoading/SimpleUGC.html"><strong aria-hidden="true">3.1.2.</strong> SimpleUGC plugin</a></li><li class="chapter-item expanded "><a href="../../../ModSupport/NativeLoading/DIY.html"><strong aria-hidden="true">3.1.3.</strong> Do it yourself</a></li></ol></li><li class="chapter-item expanded "><a href="../../../ModSupport/ModFeatures.html"><strong aria-hidden="true">3.2.</strong> Making a better ecosystem</a></li><li class="chapter-item expanded "><a href="../../../ModSupport/ModManagers.html"><strong aria-hidden="true">3.3.</strong> Mod managers</a></li><li class="chapter-item expanded "><a href="../../../ModSupport/ModKits.html"><strong aria-hidden="true">3.4.</strong> Mod kits/SDKs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../ModSupport/ModKits/DeveloperModkits.html"><strong aria-hidden="true">3.4.1.</strong> Developer Modkits</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../ModSupport/ModKits/DeveloperModkits/Why.html"><strong aria-hidden="true">3.4.1.1.</strong> Why?</a></li><li class="chapter-item expanded "><a href="../../../ModSupport/ModKits/DeveloperModkits/How.html"><strong aria-hidden="true">3.4.1.2.</strong> How?</a></li><li class="chapter-item expanded "><a href="../../../ModSupport/ModKits/DeveloperModkits/CookedEngine.html" class="active"><strong aria-hidden="true">3.4.1.3.</strong> Cooked Editor</a></li><li class="chapter-item expanded "><a href="../../../ModSupport/ModKits/DeveloperModkits/ExtraFeatures.html"><strong aria-hidden="true">3.4.1.4.</strong> Extra features</a></li></ol></li><li class="chapter-item expanded "><a href="../../../ModSupport/ModKits/CommunityModkits.html"><strong aria-hidden="true">3.4.2.</strong> Community Modkits</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../../CaseStudies.html"><strong aria-hidden="true">4.</strong> Case Studies</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../CaseStudies/Satisfactory.html"><strong aria-hidden="true">4.1.</strong> Satisfactory</a></li><li class="chapter-item expanded "><a href="../../../CaseStudies/ContractorsVR.html"><strong aria-hidden="true">4.2.</strong> ContractorsVR</a></li><li class="chapter-item expanded "><a href="../../../CaseStudies/AstroColony.html"><strong aria-hidden="true">4.3.</strong> Astro Colony</a></li><li class="chapter-item expanded "><a href="../../../CaseStudies/ARK.html"><strong aria-hidden="true">4.4.</strong> ARK: Survival Evolved</a></li><li class="chapter-item expanded "><a href="../../../CaseStudies/DRG.html"><strong aria-hidden="true">4.5.</strong> Deep Rock Galactic</a></li><li class="chapter-item expanded "><a href="../../../CaseStudies/cyubeVR.html"><strong aria-hidden="true">4.6.</strong> cyubeVR</a></li><li class="chapter-item expanded "><a href="../../../CaseStudies/Whiskerwood.html"><strong aria-hidden="true">4.7.</strong> Whiskerwood</a></li><li class="chapter-item expanded "><a href="../../../CaseStudies/COI.html"><strong aria-hidden="true">4.8.</strong> Captain of Industry</a></li></ol></li><li class="chapter-item expanded "><a href="../../../FinalNotes.html"><strong aria-hidden="true">5.</strong> Final notes</a></li><li class="chapter-item expanded "><a href="../../../Archives.html"><strong aria-hidden="true">6.</strong> Archived Pages</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../Archived/DealingWithPaks.html"><strong aria-hidden="true">6.1.</strong> Dealing With Paks</a></li><li class="chapter-item expanded "><a href="../../../Archived/CommunityModkits.html"><strong aria-hidden="true">6.2.</strong> Community Modkits (old)</a></li><li class="chapter-item expanded "><a href="../../../Archived/Why.html"><strong aria-hidden="true">6.3.</strong> Why? (old)</a></li><li class="chapter-item expanded "><a href="../../../Archived/FolderHierarchy.html"><strong aria-hidden="true">6.4.</strong> Folder Hierarchy</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">A Comprehensive Introduction to Unreal Engine Modding</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="cooked-editor-engine-changes"><a class="header" href="#cooked-editor-engine-changes">Cooked editor engine changes</a></h1>
+<p>As previously mentioned, due to the existence of UEFN, Epic Games have invested a lot into making the editor able to handle cooked content fairly well - and the later the engine version, the better it will be. </p>
+<p>Without any engine changes, <a href="https://dev.epicgames.com/documentation/unreal-engine/working-with-cooked-content-in-the-unreal-engine">this</a> is how Epic describes working with cooked content in the editor - it is quite limited (there are some hacky ways to make is not so bad, but it's annoying).</p>
+<p>To maximise the potential of the cooked content in the editor, some engine changes will be necessary - but they are really not that complicated changes. Most of the changes are simply necessary to guard against editor code paths that aren't expecting cooked content. </p>
+<h2 id="editor-only-data"><a class="header" href="#editor-only-data">Editor only data</a></h2>
+<p>In your research, you may notice some code mentioning &quot;editor data&quot;, &quot;editor only data&quot; or <code>WITH_EDITORONLY_DATA</code>. As the name suggests, editor only data is enabled in the editor and disabled in the game, as it is used to control the code paths in the engine to seperate loading source assets and cooked assets.</p>
+<p>You can enable this for your game so that packages are be cooked <strong>with</strong> all the extra metadata that the game itself doesn't need - most notably kismet graph data (rather than just the compiled bytecode) for blueprints, material shader code for materials, and niagara effect node definitions in niagara assets. I believe this exists again due to UEFN as it is enabled for that.</p>
+<p>Editor only data does inflate the size of assets considerably, but it does give the obvious benefit that you can still use cooked editor while still having blueprint/material source code show up in the modkit!</p>
+<p>Editor only data does not replace the need to make most of the engine changes below, so please keep reading on for that information. </p>
+<h2 id="editor-optional-data"><a class="header" href="#editor-optional-data">Editor optional data</a></h2>
+<p>There is also the cooker parameter <code>-editoroptional</code> which, during cook, creates extra sidecar files containing optional information about the assets. This sidecar file takes on the form <code>.o.uasset</code> and if detected, is automatically loaded in the cooked editor by merging its optional information back in with the cooked asset.</p>
+<p>By default, editor optional data only includes material editor data and asset metadata - those being controlled by the <code>UCLASS</code> macro containing the <code>Optional</code> flag, and the headers with <code>metadata=...</code>. There's not much that uses this by default, and I haven't looked into how much work it would be to add more asset classes to this.</p>
+<p><img src="../../../Images/EditorOptionalData.png" alt="UCLASS(Optional) usage" /></p>
+<p>As far as I understand it, the benefit of using this over enabling editor only data, is that in your actual game distribution, you can have editor data only for materials, without requiring either two seperate cooks (one for the game and another for the modkit) or without massively inflating the size of your game files.</p>
+<h2 id="engine-changes"><a class="header" href="#engine-changes">Engine changes</a></h2>
+<p>I will explain each engine change I had to make in UE5.6.1 for the Subnautica 2 modkit - what they are and how they work. Your results will vary depending on the engine version, but that is for you to figure out. I will visit each topic in detail:</p>
+<ul>
+<li>Serialisation</li>
+<li>Mounting game containers</li>
+<li>Prioritise loading loose files over mounted containers</li>
+<li>Enable premade asset registry</li>
+<li>Populate the references viewer data</li>
+<li>Enabling all cooked blueprint references</li>
+<li>Allowing all cooked assets to be openable</li>
+<li>Loading cooked levels</li>
+<li>Loading the compiled shaders</li>
+<li>Miscellaneous small changes</li>
+<li>Extra utilities</li>
+</ul>
+<p>At the time of writing (check the <a href="https://github.com/Buckminsterfullerene02/UnrealEngine/tree/sn2-v0.1.1.0"><code>sn2-v.0.1.1.0</code></a> tag), the cooked editor is very stable as I was able to make mods referencing all kinds of asset types and having a bunch of assets open, for over 3 hours, without the editor crashing once. </p>
+<p>Note that all modkit-related engine changes should be wrapped with <code>WITH_EDITOR</code> compiler guards in code that runs in both editor and game, so that the modkit changes don't exist in the game. While most of my engine changes are already doing this, one thing most changes are not taking into account (I only realised this after the fact) is operability between a modkit editor and a source/non-modkit editor. It may be that you choose to have your own editor for development contain these changes, but all of them disabled for your source assets - and then distribute it as a cooked editor when being used by modders.</p>
+<h3 id="serialisation"><a class="header" href="#serialisation">Serialisation</a></h3>
+<p>When a cooked package is created, its binary structure is dependant off the sizes and offsets of the reflected properties of native class schemas. In UE5+, cooked content is additionally cooked as &quot;unversioned&quot;, meaning that it does not contain any information in its header about how to parse the package. This saves a lot of space across all assets and reduces access time in the game as it does not need to spend time looking up the data in the header to get info about parsing the package - now the game can just directly load in data using the offsets known to it from the types in the engine.</p>
+<p>If there is a mismatch of the format of the cooked asset binary, the game nor editor would be able to load it properly, as data would eventually shift out of alignment, thus allowing garbage data to be read into properties, leading to crashes.</p>
+<p>All of this is to say, that for the editor to load the cooked packages correctly, your custom engine must also include all of the reflected class changes that you have made for your game. </p>
+<p>In practicality, you should just include all engine patches for the modkit, not only for serialisation, but also so that shaders load in (more on this later) correctly, editor binaries work, etc. I'm also not really in a place to comment on your build system, but I would see it as much easier to just use the same engine build that the game itself uses for the modkit with the aforementioned compiler guards in place.</p>
+<h3 id="mounting-game-content-containers"><a class="header" href="#mounting-game-content-containers">Mounting game content containers</a></h3>
+<p>So in the engine, there is an existing project startup command line flag <code>-UsePaks</code>. This flag allows you to directly mount container files to the editor.</p>
+<p>Engine edit <code>-UsePaks</code> flag to always be enabled (optionally, flip it so that you can supply <code>-NoPaks</code> flag to disable mounting).</p>
+<p>While the engine does already support mounting containers from within the project, there are a couple drawbacks:</p>
+<ul>
+<li>It expects the container files to be at a relative location to the engine install. You should change this behaviour anyway though, as if you are distributing an installed engine build seperately, then the user may choose to install the engine to a different location, thus causing it to break</li>
+<li>You would need to either distribute your modkit project already containing the game content (inflating download size massively) or have some utility to copy the game content from the game into the project location (extra hoops, slow to copy, duplicate data)</li>
+</ul>
+<p>So what I did is to make an engine change to read in a txt file in the project root containing the path to the game install directory. It's a very simple to ask the user to supply the path manually during modkit setup, or if you had a method of reliably finding the game install location you could have such an algorithm in the engine change and then fallback to a txt file in case it fails. </p>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/b0bd87c904ee5113a9d97dfd66bb0928f4406b06?diff=unified">Engine change</a></p>
+<p>Obviously if your containers use an AES key, you will need to supply that key to the <code>IoDispatcherFileBackend-&gt;Mount</code> call - but there really is no point in encrypting with AES because they are found in games in minutes or sometimes days if the developers have really tried to hide them.</p>
+<p>This is an example of what my logging looks like on editor startup:</p>
+<p><img src="../../../Images/MountingLogs.png" alt="MountingLogs" /></p>
+<p>When reading through this change you may notice some code relating to load priority...</p>
+<h3 id="prioritise-loading-loose-files-over-mounted-containers"><a class="header" href="#prioritise-loading-loose-files-over-mounted-containers">Prioritise loading loose files over mounted containers</a></h3>
+<p>In your project you may have some loose game files that work better as loose/source files than used as cooked files. Example of these in Subnautica 2 modkit:</p>
+<ul>
+<li>Source <code>.ufont</code> files - (at least with IoStore) these do not resolve correctly as cooked files only as the ufont files are stored in a seperate container path, so I extracted the ufont files from the game's pak file and placed them directly into the project content folder under the correct directory path and names. If you just load them from containers, any widgets or text using the cooked font files will look like <code>[A][A][A][A][A]</code> (missing font source).</li>
+<li>FMOD banks - FMOD bank files are looked up as non UFS and as such are located as loose files in the game install folder, not in packaged containers. FMODStudio plugin then unpacks these banks at the first editor startup into the correct folders, as source assets. Therefore, the loose assets need priority over the cooked, non-working ones in the mounted containers (note that I did need to fix a bug in this copy process related to mounted containers <a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/806fd090cc5a66e5dac5caf9a25e7b00a27dc2fc#diff-3fa090adc93025c511740f2328f16c9b871189821dc723e796c0d2830b1f78c6">here</a>)</li>
+</ul>
+<p>You may have other loose assets that you define in your project as &quot;Directories to package as non UFS&quot; such as movies, textures, animations, models (if using Interchange plugin pipeline). You may choose to either distribute these loose assets as part of the modkit download, or have them copied in from the game install files with some startup script.</p>
+<p>Luckily, the engine already provides a way to do this: <a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/806fd090cc5a66e5dac5caf9a25e7b00a27dc2fc#diff-f35e4316bf0ccd6cbb45208a24228441b73e9c2aff719932f621983ddd99d574"><code>bLookLooseFirst</code></a>. I hardcoded this to always be true in the editor as there is no reason for it not to be as far as I can tell.</p>
+<p>Once you've made these changes, you may notice that there are no assets showing up in the content browser (aside from any loose ones)...</p>
+<h3 id="enable-premade-asset-registry"><a class="header" href="#enable-premade-asset-registry">Enable premade asset registry</a></h3>
+<p>The content browser does not directly mirror the contents of packages on disk or mounted - instead, it builds a virtual view of the packages known to it at editor startup or when refreshed due to actions from content browser (such as creating, deleting or renaming an asset). Since loose assets are there on disk at startup, it can find these files immediately. However, since the mounting happens later in the engine init than the content registry read, it is missing all those in the mounted container.</p>
+<p>Thankfully, again the engine already provides a neat way to to do this - an editor startup commandline flag <code>-EnablePremadeAssetRegistry</code>. This looks for an <code>AssetRegistry.bin</code> file in the project root and then loads up the content registry with all packages from it. Simply supply your game's <code>AssetRegistry.bin</code> file in the project with this flag and you should be able to see all cooked content in the editor. Make sure that the asset registry file that is in the project root is always the same version as from the installed game files - as otherwise it may show assets in the content browser that do not exist in the game or not show ones that do.</p>
+<p>In <a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/806fd090cc5a66e5dac5caf9a25e7b00a27dc2fc#diff-3cfb9186423cddbddba9fc668dfc9a8c8d279d81920a79bd47e767a1f2f667aaR391">this engine change</a>, I do same as I did with <code>-UsePaks</code> -&gt; <code>-NoPaks</code> flag - flip it to <code>-DisablePremadeAssetRegistry</code> so that <code>bUsePremadeInEditor</code> is true by default with the option to disable it if needed.</p>
+<p>If there are still no cooked assets showing up in the editor, make sure you have these configs set in <code>DefaultEngine.ini</code>.</p>
+<pre><code class="language-ini">[/Script/UnrealEd.CookerSettings]
+cook.AllowCookedDataInEditorBuilds=True
+s.AllowUnversionedContentInEditor=1
+</code></pre>
+<p>I also found a bug that when deleting an asset in the content browser, the registry would refresh and &quot;loose&quot; all of the packages from the mounted container - because the refresh logic was simply only looking for packages on the disk - thus the cooked content would disappear. So to fix that I <a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/806fd090cc5a66e5dac5caf9a25e7b00a27dc2fc#diff-3cfb9186423cddbddba9fc668dfc9a8c8d279d81920a79bd47e767a1f2f667aaR70">created a helper</a> to check if an asset is from mounted container and then used it in the code paths related to regenerating the registry (also present in the same commit).</p>
+<h3 id="populate-the-references-viewer-data-iostore-only"><a class="header" href="#populate-the-references-viewer-data-iostore-only">Populate the references viewer data (IoStore only)</a></h3>
+<p>The reference viewer is an extremely useful tool for modding as it makes it way easier to understand how the different systems connect together in the game. I'm sure you probably also find it useful sometimes! </p>
+<p>By default, the reference viewer is only populated by the loaded loose/source assets. So when you open a cooked asset in it, there won't be anything connected to it.</p>
+<p>When we mount the IoStore containers, we can specify to load it with soft references:
+<code>TIoStatusOr&lt;FIoContainerHeader&gt; MountResult = IoDispatcherFileBackend-&gt;Mount(*UtocPath, PakOrder, FGuid(), FAES::FAESKey(), UE::IoStore::ETocMountOptions::WithSoftReferences);</code></p>
+<p>Then, when engine init is complete, we can populate the asset registry's dependencies graph with the references found in the headers of the IoStore containers. This is a very fast operation, because it's not loading any of the packages, just reading their headers.</p>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/e2ae13e7355452dff9dd7345e6f86f33c06eb9ed">Engine change</a></p>
+<p><img src="../../../Images/ReferenceViewer.png" alt="Reference Viewer" /></p>
+<h3 id="enabling-all-cooked-blueprint-references"><a class="header" href="#enabling-all-cooked-blueprint-references">Enabling all cooked blueprint references</a></h3>
+<p>This is arguably the most important part of modkit - when a modder is creating their blueprint logic, 99% of the time they will need to get references to a game asset, for example in:</p>
+<ul>
+<li>Casting</li>
+<li>Get all actors/widgets of class</li>
+<li>Getting/setting a property of a blueprint</li>
+<li>Calling a blueprint's function</li>
+<li>Binding to a blueprint's delegate</li>
+</ul>
+<p>The main reason to provide a modkit is so that all the references for the mod are just there, readily available for the modder - no need for the modder to manually create dummy assets just to get their references.</p>
+<p>In the vanilla engine, cooked blueprints are only referencable from blueprint code in asset list dropdowns such as on the get all actors of class dropdown. Any of the other referencing examples above aren't doable without an annoying workaround - creating a child blueprint of a cooked blueprint, which does a deep copy of the blueprint's component tree and saves it to an uncooked package on the disk. Since it's a child BP, defaults can still be accessed/modified as well as the copied component tree. However, it does not copy any of the properties, functions or events. So those still need to be manually dummied. Also, creating a child introduces some additional complexity in code as it's not actually the game blueprint they're referencing directly. </p>
+<p>The fix for this turned out to be insanely simple - a single if statement change. In a nutshell, the code that builds the actions database (which is the stuff that appears in the context menu when you right click in a blueprint graph) was that the package's <code>Class-&gt;ClassGeneratedBy</code> property was never null (it is for cooked assets), thus was going down a code path that would silently fail. Once the change is made, the actions database is built using a seperate code path that doesn't rely on <code>Class-&gt;ClassGeneratedBy</code> and then simply works.</p>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/6c597b9adc8a2d4c277104206ab39516901f8483">Engine change</a></p>
+<h3 id="allowing-all-cooked-assets-to-be-openable"><a class="header" href="#allowing-all-cooked-assets-to-be-openable">Allowing all cooked assets to be openable</a></h3>
+<p>By default, trying to open a cooked asset will lead to a notification message saying &quot;Cannot modify cooked assets&quot;. Obviously this is not useful, so you need to change this to allow opening them. </p>
+<p>First, <a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/c04256963dfbf3453389ac47df02d77c9f0e5ff8#diff-2f81aa549dd603bb36ff1156db28fdd1b2e052f5e01a889c685ceb9d30c09d3c">disable the logic</a> for the above check in the content browser (note that this change is commented out code, obviously you should be implementing it with proper checks etc).</p>
+<p>Next, <a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/c04256963dfbf3453389ac47df02d77c9f0e5ff8#diff-e88282ee6c14fcf69ae9dbe0135b725476c6cd4a2ec1aac21f6a47c7ad4329a8">set <code>bCanBeModified</code> to true</a> (<a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/c04256963dfbf3453389ac47df02d77c9f0e5ff8#diff-07bfd581c61e635f2e4452efdb75249eeba607c77a7c400003e37ad8751f33e2">additional change</a>) for cooked packages. The reason for this change is so that in certain asset types, you can temporarily make changes to the asset in that editor session, for example:</p>
+<ul>
+<li>Experimenting with assigning different materials on a mesh (so modder does not need to spend the time testing it at runtime)</li>
+<li>Experimenting with assigning different skeletons or physics assets to skeletal meshes</li>
+<li>Assigning a skeletal mesh to an animation or vice versa - as sometimes this link is not set by default, depending on how the original project had it setup</li>
+</ul>
+<p>It is important to note that any changes to the cooked assets are still temporary to that editor session - no data is written back to the cooked package - so all changes to them are lost on editor shutdown.</p>
+<p>Once the changes have been made, the majority of asset tyes should be openable (with a caveat) without crashing, sound waves should be playable and overall the usefulness of the modkit has skyrocketed. The caveat is that most asset types that might have a graph view or viewport will open into a fallback asset editor that only lets you view and edit properties (it looks like a data asset view). </p>
+<h3 id="loading-cooked-levels"><a class="header" href="#loading-cooked-levels">Loading cooked levels</a></h3>
+<p>Once all blueprints and other instancable actors are all opening without crashing the editor, you should now be able to open cooked levels <em>that do not contain any landscape data</em>. </p>
+<p>But if you have any levels that do, you should fix the ability to open levels that contain landscape data. This is something some thought wasn't easy with cooked editor, as even in UEFN you cannot open cooked levels.</p>
+<p>I spent time looking into it as it is extremely beneficial to allow the cooked levels to be openable:</p>
+<ul>
+<li>Modders can use them as references of where to spawn their mod actors at runtime (such as adding a new area in a level)</li>
+<li>They can be used to see existing actor instances - where they are, how they're configured etc.</li>
+<li>They can show actors that weren't previously noticed due to being invisible in-game, such as splines</li>
+<li>They can be copied to create entirely new levels based on existing game ones, as of course mods can load levels from blueprint</li>
+</ul>
+<p>As it turns out, at least in 5.6, there are only <a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/e2bf066d9218976e0c79bc9b2d7dea678c56f60d">two small changes</a> necessary! Disabling world partition streaming and avoiding hash creation for weight maps as that data is stripped from the cooked asset.</p>
+<p>Once these changes are done, all levels should be openable. However, as above, there is a major caveat: if a level is using world partition streaming, none of the partition regions will be loaded when you open it - you will only be able to view the persistent objects.</p>
+<p>Something for you to experiment with (which I can't do as a modder) is to try copying in your uncooked levels as loose files and seeing if they all work fine? In theory, I think this should work perfectly without any of the above fixes required, as ultimately levels are either self-contained (landscape data) or contain references to assets in the project.</p>
+<h3 id="fixing-world-partition-streaming"><a class="header" href="#fixing-world-partition-streaming">Fixing world partition streaming</a></h3>
+<p>Fixing world partition streaming for cooked levels is not a straightforward problem, because the engine code paths are not built for streaming in cooked landscape and packages - I don't think you can open levels that use world partition in UEFN, so Epic haven't coded this.</p>
+<p>A cooked WP map doesnt't ship the editor's <code>ActorDesc</code> data that the normal editor loading path relies on. Instead it ships the runtime cells inside its RuntimeHash, each already carrying a pre created <code>UWorldPartitionLevelStreamingDynamic</code> that points at its generated cell package - you can check this in the FModel JSON output of a map's <code>_Generated_/&lt;hash&gt;.umap</code> file:</p>
+<pre><code class="language-json">&quot;Properties&quot;: {
+  &quot;Model&quot;: {
+    &quot;ObjectName&quot;: &quot;Model'L_Main:PersistentLevel.Model_0'&quot;,
+    &quot;ObjectPath&quot;: &quot;/Game/Maps/Main/L_Main/_Generated_/00066UYU9N5IX2X34WNEUW1CF.1&quot;
+  },
+  &quot;LevelBuildDataId&quot;: &quot;39A3D9D7-47E8360C-71D1029A-E2A29ABA&quot;,
+  &quot;WorldSettings&quot;: {
+    &quot;ObjectName&quot;: &quot;WorldSettings'L_Main:PersistentLevel.WorldSettings'&quot;,
+    &quot;ObjectPath&quot;: &quot;/Game/Maps/Main/L_Main/_Generated_/00066UYU9N5IX2X34WNEUW1CF.6&quot;
+  },
+  &quot;WorldPartitionRuntimeCell&quot;: {
+    &quot;AssetPathName&quot;: &quot;/Game/Maps/Main/L_Main.L_Main&quot;,
+    &quot;SubPathString&quot;: &quot;PersistentLevel.WorldSettings.WorldPartition_0.WorldPartitionRuntimeHashSet_0.00066UYU9N5IX2X34WNEUW1CF&quot;
+  }
+},
+</code></pre>
+<p>It took a lot of work, but the change is to add in a new WP cooked cell streaming manager when the level is a cooked one. This watches the editor's WP region loader adapters (e.g. the &quot;Load Region&quot; boxes the WP minimap creates) and loads/unloads the intersecting runtime cells as streaming levels. It reuses each cell's pre cooked <code>LevelStreaming</code> and forces its standard loading path instead of the editor's <code>ActorDesc</code> assembly path. Honestly, most of the code is similar to how the existing engine's WP cell streaming works.</p>
+<p>I only went as far as supporting the &quot;Load Region&quot; selection box adapter in the WP minimap, but you could also try to implement other streaming features that the engine also has. I find that manual selection is fine, because it takes a solid amount of time (20-30s) to load in a section of the Subnautica 2 map, so I didn't bother adding others.</p>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/85411c6ca2b7aa48059e7a751af4424346fbaa54">Main engine change commit</a></p>
+<p>There are also some additional fixes in the landscape code paths that do not typically expect to load cooked data that do not contain all information. Some of these issues are in the serialization override of the class, which assumes the package contains data it does not when cooked. This leads to serialization issues, and eventually crashing.</p>
+<p>Here are the changes I had to make to get it to work for Subnautica 2:</p>
+<ul>
+<li>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/85411c6ca2b7aa48059e7a751af4424346fbaa54#diff-55f6b10ea040f74155306b7fa66df4f743ce0c5c979678a064a0704c56222239R367">Remove an assertion</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/fbcd93cdf788cd9cf9544ceae0d9ecc88e0033a3#diff-10a8fd79377cbe765d86917a7bdb0ed28aa326545193d69d299f16124d827e75">Fix for missing mips</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/fbcd93cdf788cd9cf9544ceae0d9ecc88e0033a3#diff-a2b213ac50682f116f79b8ed2d69c92d91ad4c1c9804d2f2736267738e46aefb">Serialization fix for missing EdgeSnapshot TextureSourceID</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/fbcd93cdf788cd9cf9544ceae0d9ecc88e0033a3#diff-ed6da7454f08abc41a120587020729eeb0b4335131f15c00a17682f10d0601dc">Fix to cooked packed level actors missing level instance data</a> (this one is probably not fixing the root cause of the issue, which is likely again serialization)</p>
+</li>
+</ul>
+<p>And the result:</p>
+<p><img src="../../../Images/CookedWPLevel.png" alt="Cooked WP Level Result" /></p>
+<h3 id="loading-the-compiled-shaders"><a class="header" href="#loading-the-compiled-shaders">Loading the compiled shaders</a></h3>
+<p>During project cook, shader code from materials are compiled into shader archive files, which are stored in the cooked containers at the root directory.</p>
+<p>This means that the cooked materials themselves do not contain any of their shader information, which explains why all the cooked materials look just black or white or grainy in the editor. </p>
+<p>This is not great because it doesn't actually show the modder what the material looks like if they are inheriting from a game material when writing their own shader code/playing with game material parameters - they would have to package their mod and load into the game to test - making iteration painfully slow.</p>
+<p>So, it is possible to load in the compiled shader files from the mounted container, because the game already does that.</p>
+<p>Due to the ordering of engine init, the shader library init is done before mounting the game containers. Therfore, the shader library is populated only with the engine information by the time mounting is done. </p>
+<p>To workaround this, after the container mounting is done, the code <em>opens</em> the shader library, ready to receive the compiled shaders from the game - both the global shader map and the game ones. Note that since Subnautica 2 uses shader sharing (<code>bShareMaterialShaderCode=true</code>), all shaders not in global are in one file. If your game uses <code>bShareMaterialShaderCode=false</code>, compiled shader code is stored within each cooked material package. I'm not sure how this would work when populating the shader library - so you'll be on your own there.</p>
+<p>Another thing important to note is that for mods to contain custom materials/shaders, the editor <strong>must</strong> have the setting <code>bShareMaterialShaderCode=false</code> - this is so that the mod's materials will contain the shader code to be loaded by the engine seperately from the game's central shader file, if the game itself uses <code>bShareMaterialShaderCode=true</code>. However, (again, if the game has it set to true), the shader loading code needs to know to load it from the central file - so in the engine patch, we disconnect the CVar value from that code, so the CVar is <em>only</em> used to determine the method of shader code storage during cook.</p>
+<p>On post engine init, the shader library will read in the shader maps from the compiled shaders. </p>
+<p>And as usual, I made it enabled by default but with the ability to be disabled with a startup flag <code>-DisableCookedShaderLibrary</code>.</p>
+<p>I worked on this in groups for subnautica 2, as I found that it contains a large number of shader changes in the engine.</p>
+<ul>
+<li>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/b8f86017a3b1ede0fd239b78ad3b85895278251a">First set of changes</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/8c4d8cbef8d8c3039bbbe37e8cf325161d22a1ff">Matching the game's engine changes</a> for your awareness. As a developer, you should not need to worry about this part</p>
+</li>
+<li>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/402998d68219d3c804dfa0e6463350203a1cfdda">Many changes related to the game using both nanite and lumen shaders</a>. I didn't write 90% of this engine patch, so I'm not really sure how it works.</p>
+</li>
+<li>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/7fb18068f87012d3a0c73a4e7ad356075d197a0d">Final patch</a> is the correct time to load the compiled shaders into the shader library. You may notice that in my first set of changes, I thought that the best option would be to load the compiled shaders in when you first load a package that requires them. This caused a timing issue where the engine would push invalid shader code to the DDC, and then whenever the DDC was pulled from (could be when closing an asset view or loading another package), the editor would crash due to reading in garbage data.</p>
+</li>
+</ul>
+<h3 id="miscellaneous-small-changes"><a class="header" href="#miscellaneous-small-changes">Miscellaneous small changes</a></h3>
+<p>There are a bunch of additional small changes that need to be done to fix code paths that are not expecting cooked data - but please review all changes to check if they will apply to you, as well as any changes that may be different on older/newer engine versions than UE5.6.1.</p>
+<ul>
+<li>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/c04256963dfbf3453389ac47df02d77c9f0e5ff8">This commit</a>, <a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/4b22845b5a3b4097b771223330b0480d9a6aaebc#diff-d14d6896f5ac468270d335cae351fbffa1367a3d3620c6421896f6e24035e808">this commit</a>, <a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/7ce5c682939abe4dce328ec2a0a9b1b2959b621c">this commit</a> contains a few small changes (please ignore all the header changes, I was unprofessional here and committed unrelated changes together). I also apologise that I'm showing some changes that were later reverted, moved about and stuff, as this was active in development. It might be best to just check the diffs from <a href="https://github.com/EpicGames/UnrealEngine/compare/5.6...Buckminsterfullerene02:UnrealEngine:sn2">here</a></p>
+<ul>
+<li>Allow cooked packages to be duplicated</li>
+<li>Allow user defined structs to load</li>
+<li>Fixes various issues loading animation based assets</li>
+<li>Downgrades some checks and fatal errors to ensures and non-fatal/warnings so that editor does not crash on serialization changes. Note: some of these changes should not be necessary as long as you are supplying your custom engine with all your engine patches for the game. Some other changes may still be necessary due to some code paths where serialization is done on the assumption that it is only looking through source packages, not cooked ones.</li>
+<li>Fixes to issues related to the limitations of Suzie, the tool I was using to generate the UHT class schemas in the project. If you are including source binaries, you should not have these problems either.</li>
+</ul>
+</li>
+<li>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/2baf50f1800c0457b8c7d36aa9216be0fe31b230">Reflect</a> the <code>GameInstance.ReferencedObjects</code> property to blueprint to allow modifications to default objects to persist across level changes. See more <a href="./ExtraFeatures.html#give-access-to-referenced-objects-in-blueprint">here</a>.</p>
+</li>
+<li>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/6e8d2b8622e40f3b9337dafd2ef95d3112e815fa">Fixes</a> opening sparse volume texture assets crashing the editor.</p>
+</li>
+<li>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/5a2a1a05b65cf918fa6fffff4431a6381261530f">Fixes</a> making a material instance of a cooked material wasn't populating the parameters. </p>
+</li>
+<li>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/7ea7a03b98286a628c24c0acfa32ba1f90b630c4">Fixes</a> bink plugin crashing when loading a cooked bink movie player</p>
+</li>
+<li>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/2fdb4aaffd8dfac6b98ec9b4a970c343c27ff097">This commit</a> removes the annoying &quot;Do you want to apply LOD changes to this mesh?&quot; prompt when closing a cooked static mesh asset viewer</p>
+</li>
+<li>
+<p><a href="github.com/Buckminsterfullerene02/UnrealEngine/commit/20c629c06d870065deaa0c696c1d20ddd0f4d1ed">Fixes</a> bone weights recalculation causing a crash</p>
+</li>
+</ul>
+<h3 id="extra-utilities"><a class="header" href="#extra-utilities">Extra utilities</a></h3>
+<p>Since you are making engine changes anyway, it might be worth to add useful little utilities to help facilitate working with cooked content even better:</p>
+<ul>
+<li>Cooked niagara asset viewer</li>
+<li>Duplicate cooked widget to uncooked widget</li>
+<li>Duplicate cooked blueprint to uncooked blueprint</li>
+<li>Copy properties button in simple asset editor</li>
+</ul>
+<p>Technically all of these can be implemented in editor plugins using the engine API, (aside from a couple of tiny engine patches to make them work properly) but I think that its much easier to implement them in the engine directly to avoid being limited by engine API without big changes required. That said, you may choose to still have them as plugins, as if there is a bug in the engine code, you will have to distribute a new engine version to push those, while a project plugin could be much quicker to iterate and distribute.</p>
+<h4 id="cooked-niagara-asset-viewer"><a class="header" href="#cooked-niagara-asset-viewer">Cooked niagara asset viewer</a></h4>
+<p>While the engine already provides relatively solid code paths for viewing cooked content for most asset types, one type that (as of 5.6) has no read-only viewer is niagara effect. Like blueprints and materials, the editor-only metadata (such as kismet node graph) is stripped from cooked assets. So when you try to open this asset, it will just crash, as the editor only has code paths for trying to directly load its metadata as if its uncooked.</p>
+<p>Therefore, I decided to take a page out of the read-only blueprint code by implementing my own read-only viewer for niagara assets. This viewer shows all of the properties of the asset as well of each effect created inside of it. This is useful for providing more easily obtainable info about the asset in the editor rather than having to rely on third party tools like FModel (which is also much harder to read/understand than in the editor) - for stuff like copying the effect's behaviours or to modify at runtime.</p>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/7454f17f665b570fe9a76aefe77b512e998f3e3a">Engine change</a></p>
+<p><img src="../../../Images/CookedNiagaraViewer.png" alt="Cooked Niagara Viewer" /></p>
+<h4 id="create-uncooked-widget-from-cooked-widget"><a class="header" href="#create-uncooked-widget-from-cooked-widget">Create uncooked widget from cooked widget</a></h4>
+<p>When working with cooked widgets, you need to create a child to open it up to see what's inside (which is also uncooked), as otherwise opening it directly just shows the fallback asset editor view. In the case of widgets, since it's a child, you cannot see the original widget tree nor modify it. </p>
+<p>So what would be nice, is to have an option to create a copy of it as an uncooked widget. This allows for much easier widget modding because:</p>
+<ul>
+<li>Mods can make their own widget using the basis or the styling of an existing game widget, without having to create and modify a copy of the game widget at runtime</li>
+<li>It's way, way easier to know <em>how</em> to modify a game widget at runtime if you can actually see the widget tree in the editor, as the alternative is to use UE4SS live viewer or SDK dumps which are not easy to read at all!</li>
+</ul>
+<p><a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/5ef0cfdae34149e9837103c278b7b7ae11df2632">This engine change</a> adds a button to the right click menu on a cooked widget in the content browser. At the top of the context menu, there is a &quot;Make Uncooked Widget Copy&quot; button which asks for destination folder and deep copies the full cooked widget tree and animations into an uncooked widget. Notice that I also needed to make a small engine patch to fix a bug relating to BindWidget properties - but you can ignore this as this is another limitation of Suzie which you will not be using. </p>
+<p><img src="../../../Images/UncookedWidget1.png" alt="Uncooked Widget Button" /></p>
+<p><img src="../../../Images/UncookedWidget2.png" alt="Uncooked Widget" /></p>
+<h4 id="create-uncooked-blueprint-from-cooked-blueprint"><a class="header" href="#create-uncooked-blueprint-from-cooked-blueprint">Create uncooked blueprint from cooked blueprint</a></h4>
+<p>Similarly to widgets above, you can already create a child BP to see inside of it and you can at least see the component tree as that is copied across into the child. While this is technically enough information to &quot;see&quot; the blueprint (without just dragging it into the editor), the child BP method actually copies the component tree slightly inaccurately, in that I found some volume components are sized incorrectly.</p>
+<p>The benefits of creating an uncooked blueprint are:</p>
+<ul>
+<li>The modder can directly view, in their &quot;correct&quot; positions, the components, interfaces, function bodies, events and variables that the blueprint uses. With this view, it's much easier to know what options they have when wanting to use or modify stuff in the game's blueprint</li>
+<li>For blueprints with no or very little code, a mod can copy a blueprint as a base to modify (rather than doing it at runtime) or even use it to implement their own logic in it, for example if they want to add a new buildable that's similar in design to an existing game's one, and has its own custom logic inside</li>
+</ul>
+<p><a href="github.com/Buckminsterfullerene02/UnrealEngine/commit/b1c6da407aaaf30cf4bc62d572c7290b8a880150">This engine change</a> adds a button to the right click menu on a cooked blueprint in the content browser. At the top of the context menu, there is a &quot;Make Uncooked Blueprint Copy&quot; button which asks for destination folder.</p>
+<p><img src="../../../Images/UncookedBlueprint1.png" alt="Uncooked BLueprint Button" /></p>
+<p><img src="../../../Images/UncookedBlueprint2.png" alt="Uncooked Blueprint" /></p>
+<p>It could even be possible to reconstruct the kismet graph code from the script bytecode, though many have tried in the past to do it from script bytecode JSON produced by FModel, but as its a lot of work it has not been achieved <em>accurately</em> before (I say accurately, because there is <a href="https://github.com/tabby0x/fnaf9/blob/master/Plugins/BlueprintUncooker/Source/BlueprintUncooker/GraphBuilder.cpp">a plugin</a> that does reconstruct some code, but it's horrendously inaccurate and not worth using). If you want to include blueprint code, you may as well just keep the source blueprint assets in your modkit project, or use editor only data.</p>
+<h4 id="copy-properties-button"><a class="header" href="#copy-properties-button">Copy properties button</a></h4>
+<p>This isn't really necessary, but when I was trying to figure out how to mod something in the game, I felt that I really needed a way to copy properties in the simple asset editor to my clipboard for easier viewing of the data (without expanding all dropdowns for example) would be useful. <a href="https://github.com/Buckminsterfullerene02/UnrealEngine/commit/39a9f030911483b1b8f8d0807020a3e90bb384f7">So I built one</a>.</p>
+<p>For example:</p>
+<p><img src="../../../Images/CopyProperties.png" alt="Copy Properties" /></p>
+<p>Copies to this:</p>
+<pre><code>Begin Object Class=/Script/CommonUI.CommonMappingContextMetadata Name=&quot;DA_UI_IA_GenericMetadata&quot; ExportPath=&quot;/Script/CommonUI.CommonMappingContextMetadata'/Game/Data/DA_UI_IA_GenericMetadata.DA_UI_IA_GenericMetadata'&quot;
+   Begin Object Class=/Script/CommonUI.CommonInputMetadata Name=&quot;CommonInputMetadata_0&quot; ExportPath=&quot;/Script/CommonUI.CommonInputMetadata'/Game/Data/DA_UI_IA_GenericMetadata.DA_UI_IA_GenericMetadata:CommonInputMetadata_0'&quot;
+   End Object
+   Begin Object Class=/Script/CommonUI.CommonInputMetadata Name=&quot;CommonInputMetadata_1&quot; ExportPath=&quot;/Script/CommonUI.CommonInputMetadata'/Game/Data/DA_UI_IA_GenericMetadata.DA_UI_IA_GenericMetadata:CommonInputMetadata_1'&quot;
+   End Object
+   Begin Object Class=/Script/CommonUI.CommonInputMetadata Name=&quot;CommonInputMetadata_2&quot; ExportPath=&quot;/Script/CommonUI.CommonInputMetadata'/Game/Data/DA_UI_IA_GenericMetadata.DA_UI_IA_GenericMetadata:CommonInputMetadata_2'&quot;
+   End Object
+   Begin Object Class=/Script/CommonUI.CommonInputMetadata Name=&quot;CommonInputMetadata_3&quot; ExportPath=&quot;/Script/CommonUI.CommonInputMetadata'/Game/Data/DA_UI_IA_GenericMetadata.DA_UI_IA_GenericMetadata:CommonInputMetadata_3'&quot;
+   End Object
+   Begin Object Name=&quot;CommonInputMetadata_0&quot; ExportPath=&quot;/Script/CommonUI.CommonInputMetadata'/Game/Data/DA_UI_IA_GenericMetadata.DA_UI_IA_GenericMetadata:CommonInputMetadata_0'&quot;
+      NavBarPriority=10
+   End Object
+   Begin Object Name=&quot;CommonInputMetadata_1&quot; ExportPath=&quot;/Script/CommonUI.CommonInputMetadata'/Game/Data/DA_UI_IA_GenericMetadata.DA_UI_IA_GenericMetadata:CommonInputMetadata_1'&quot;
+   End Object
+   Begin Object Name=&quot;CommonInputMetadata_2&quot; ExportPath=&quot;/Script/CommonUI.CommonInputMetadata'/Game/Data/DA_UI_IA_GenericMetadata.DA_UI_IA_GenericMetadata:CommonInputMetadata_2'&quot;
+   End Object
+   Begin Object Name=&quot;CommonInputMetadata_3&quot; ExportPath=&quot;/Script/CommonUI.CommonInputMetadata'/Game/Data/DA_UI_IA_GenericMetadata.DA_UI_IA_GenericMetadata:CommonInputMetadata_3'&quot;
+   End Object
+   EnhancedInputMetadata=&quot;/Script/CommonUI.CommonInputMetadata'CommonInputMetadata_0'&quot;
+   PerActionEnhancedInputMetadata=((&quot;/Script/EnhancedInput.InputAction'/Game/Gameplay/Input/IA_Back.IA_Back'&quot;, &quot;/Script/CommonUI.CommonInputMetadata'CommonInputMetadata_1'&quot;),(&quot;/Script/EnhancedInput.InputAction'/Game/Gameplay/Input/IA_OpenConsole.IA_OpenConsole'&quot;, &quot;/Script/CommonUI.CommonInputMetadata'CommonInputMetadata_2'&quot;),(&quot;/Script/EnhancedInput.InputAction'/Game/Gameplay/Input/IA_Pause.IA_Pause'&quot;, &quot;/Script/CommonUI.CommonInputMetadata'CommonInputMetadata_3'&quot;))
+End Object
+</code></pre>
+<h2 id="monolithic-editor"><a class="header" href="#monolithic-editor">Monolithic editor</a></h2>
+<p>A monolithic editor is when the entire engine and project are built into a single executable. This is what UEFN uses as it is then much easier to distribute - with the downside that every time the game updates, the entire executable needs rebuilding and updating, whereas with a standalone editor and engine, the engine may not need to be redistributed if it has not changed since the last version.</p>
+<p>That being said I have not tried it and know nothing about how it works or is created, so I am just mentioning it as a potential research point. I have also heard that a modder once created a monolithic build for a UE4 cooked editor project but they deleted the code so I can't verify if that was really the case.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../ModSupport/ModKits/DeveloperModkits/How.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../../../ModSupport/ModKits/DeveloperModkits/ExtraFeatures.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../ModSupport/ModKits/DeveloperModkits/How.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../../../ModSupport/ModKits/DeveloperModkits/ExtraFeatures.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>How? - A Comprehensive Introduction to Unreal Engine Modding</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../highlight.css">
+        <link rel="stylesheet" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../../css/custom.css">
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../index.html">Home</a></li><li class="chapter-item expanded "><a href="../../../Overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../../../Basis.html"><strong aria-hidden="true">2.</strong> The Basis of all modding</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../Basis/PakPatching.html"><strong aria-hidden="true">2.1.</strong> Pak patching</a></li><li class="chapter-item expanded "><a href="../../../Basis/AssetEditing.html"><strong aria-hidden="true">2.2.</strong> Asset editing</a></li><li class="chapter-item expanded "><a href="../../../Basis/Audio.html"><strong aria-hidden="true">2.3.</strong> Audio</a></li><li class="chapter-item expanded "><a href="../../../Basis/Visual.html"><strong aria-hidden="true">2.4.</strong> Visual</a></li><li class="chapter-item expanded "><a href="../../../Basis/Blueprints.html"><strong aria-hidden="true">2.5.</strong> Blueprints</a></li><li class="chapter-item expanded "><a href="../../../Basis/C++.html"><strong aria-hidden="true">2.6.</strong> C++</a></li><li class="chapter-item expanded "><a href="../../../Basis/DLLInjection.html"><strong aria-hidden="true">2.7.</strong> DLL injection</a></li></ol></li><li class="chapter-item expanded "><a href="../../../ModSupport.html"><strong aria-hidden="true">3.</strong> Mod Support</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../ModSupport/NativeLoading.html"><strong aria-hidden="true">3.1.</strong> Natively loading mods</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../ModSupport/NativeLoading/PakLoader.html"><strong aria-hidden="true">3.1.1.</strong> Pak loader plugin</a></li><li class="chapter-item expanded "><a href="../../../ModSupport/NativeLoading/SimpleUGC.html"><strong aria-hidden="true">3.1.2.</strong> SimpleUGC plugin</a></li><li class="chapter-item expanded "><a href="../../../ModSupport/NativeLoading/DIY.html"><strong aria-hidden="true">3.1.3.</strong> Do it yourself</a></li></ol></li><li class="chapter-item expanded "><a href="../../../ModSupport/ModFeatures.html"><strong aria-hidden="true">3.2.</strong> Making a better ecosystem</a></li><li class="chapter-item expanded "><a href="../../../ModSupport/ModManagers.html"><strong aria-hidden="true">3.3.</strong> Mod managers</a></li><li class="chapter-item expanded "><a href="../../../ModSupport/ModKits.html"><strong aria-hidden="true">3.4.</strong> Mod kits/SDKs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../ModSupport/ModKits/DeveloperModkits.html"><strong aria-hidden="true">3.4.1.</strong> Developer Modkits</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../ModSupport/ModKits/DeveloperModkits/Why.html"><strong aria-hidden="true">3.4.1.1.</strong> Why?</a></li><li class="chapter-item expanded "><a href="../../../ModSupport/ModKits/DeveloperModkits/How.html" class="active"><strong aria-hidden="true">3.4.1.2.</strong> How?</a></li><li class="chapter-item expanded "><a href="../../../ModSupport/ModKits/DeveloperModkits/CookedEngine.html"><strong aria-hidden="true">3.4.1.3.</strong> Cooked Editor</a></li><li class="chapter-item expanded "><a href="../../../ModSupport/ModKits/DeveloperModkits/ExtraFeatures.html"><strong aria-hidden="true">3.4.1.4.</strong> Extra features</a></li></ol></li><li class="chapter-item expanded "><a href="../../../ModSupport/ModKits/CommunityModkits.html"><strong aria-hidden="true">3.4.2.</strong> Community Modkits</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../../CaseStudies.html"><strong aria-hidden="true">4.</strong> Case Studies</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../CaseStudies/Satisfactory.html"><strong aria-hidden="true">4.1.</strong> Satisfactory</a></li><li class="chapter-item expanded "><a href="../../../CaseStudies/ContractorsVR.html"><strong aria-hidden="true">4.2.</strong> ContractorsVR</a></li><li class="chapter-item expanded "><a href="../../../CaseStudies/AstroColony.html"><strong aria-hidden="true">4.3.</strong> Astro Colony</a></li><li class="chapter-item expanded "><a href="../../../CaseStudies/ARK.html"><strong aria-hidden="true">4.4.</strong> ARK: Survival Evolved</a></li><li class="chapter-item expanded "><a href="../../../CaseStudies/DRG.html"><strong aria-hidden="true">4.5.</strong> Deep Rock Galactic</a></li><li class="chapter-item expanded "><a href="../../../CaseStudies/cyubeVR.html"><strong aria-hidden="true">4.6.</strong> cyubeVR</a></li><li class="chapter-item expanded "><a href="../../../CaseStudies/Whiskerwood.html"><strong aria-hidden="true">4.7.</strong> Whiskerwood</a></li><li class="chapter-item expanded "><a href="../../../CaseStudies/COI.html"><strong aria-hidden="true">4.8.</strong> Captain of Industry</a></li></ol></li><li class="chapter-item expanded "><a href="../../../FinalNotes.html"><strong aria-hidden="true">5.</strong> Final notes</a></li><li class="chapter-item expanded "><a href="../../../Archives.html"><strong aria-hidden="true">6.</strong> Archived Pages</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../Archived/DealingWithPaks.html"><strong aria-hidden="true">6.1.</strong> Dealing With Paks</a></li><li class="chapter-item expanded "><a href="../../../Archived/CommunityModkits.html"><strong aria-hidden="true">6.2.</strong> Community Modkits (old)</a></li><li class="chapter-item expanded "><a href="../../../Archived/Why.html"><strong aria-hidden="true">6.3.</strong> Why? (old)</a></li><li class="chapter-item expanded "><a href="../../../Archived/FolderHierarchy.html"><strong aria-hidden="true">6.4.</strong> Folder Hierarchy</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">A Comprehensive Introduction to Unreal Engine Modding</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="how-to-create-an-editor-modkit"><a class="header" href="#how-to-create-an-editor-modkit">How to create an editor modkit</a></h1>
+<p><strong>Before reading this page, please read up on the page for explaining engine changes necessary for enabling cooked editor.</strong></p>
+<p><a href="CookedEngine.html">Cooked editor engine changes</a></p>
+<h2 id="building-editor-and-engine-if-applicable-for-distribution"><a class="header" href="#building-editor-and-engine-if-applicable-for-distribution">Building editor and engine (if applicable) for distribution</a></h2>
+<p>Everything I describe here can be automated fairly easily using a wrapper batch script, or BuildGraph, in order to make making new modkits simple for minor or major updates. I also recommend that you experiment with build flags to see what might work better for you.</p>
+<h3 id="building-the-editor"><a class="header" href="#building-the-editor">Building the editor</a></h3>
+<p>The process of building your editor differs depending on whether or not you are planning on building modularly and allowing modders to link against your game's modules, or if you are planning on shipping a custom engine build.</p>
+<ol>
+<li>
+<p>First, you will likely need to make a copy of your game's project, as you will be making changes to configs and content (only partial content if cooked editor, methods to keep file size down if uncooked editor)</p>
+</li>
+<li>
+<p>Next, inside of your <code>.uproject</code> file, you must make sure that the engine version set inside it is your version (i.e. custom engine if you have one)</p>
+</li>
+<li>
+<p>Build your project solution. This will make your binaries. Development and shipping configurations are fine - you can decide on the pros and cons for size and QoL (crash reporting etc). You can also build the binaries for your server targets if you're looking at server mod support too (which I won't cover here, as I don't have experience with it)</p>
+</li>
+<li>
+<p>After you build the editor project, you can look at keeping the file size down, which is discussed <a href="#keeping-file-size-down">in detail</a></p>
+</li>
+<li>
+<p>Get the files and folders for your project and prepare them for distribution, according to the following table:</p>
+</li>
+</ol>
+<table><thead><tr><th>Project file/folder</th><th>Do you need it?</th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>Binaries</code></td><td>Yes</td><td>Plus PDBs if you want them</td></tr>
+<tr><td><code>Build</code></td><td>No</td><td>If you have any automation modules that are needed for the build</td></tr>
+<tr><td><code>Config</code></td><td>Yes</td><td>Make sure to not ship crypto/private API keys accidentally</td></tr>
+<tr><td><code>Content</code></td><td>Yes</td><td>Base game content (uncooked editor) or selected loose files (cooked editor)</td></tr>
+<tr><td><code>DerivedDataCache/Compressed.ddp</code></td><td>No, only required for uncooked editor and you want to include it</td><td>Discussed <a href="#compressed-ddc">here</a></td></tr>
+<tr><td><code>Source/&lt;ModuleNames&gt;/&lt;ProjectName&gt;.Build.cs</code></td><td>No, only if you are shipping with C++ mod support</td><td>Allows the C++ mods to link to the modules</td></tr>
+<tr><td><code>Source/&lt;ModuleNames&gt;/Public</code></td><td>No, only if you are shipping with C++ mod support</td><td>Allows the C++ mods to link to the modules</td></tr>
+<tr><td><code>Plugins/&lt;PluginNames&gt;</code></td><td>Yes</td><td><code>.uplugin</code> file, content &amp; binaries</td></tr>
+<tr><td><code>Plugins/&lt;PluginNames&gt;/Source</code></td><td>No, only if you are shipping with C++ mod support</td><td>Allows the C++ mods to link to the modules</td></tr>
+<tr><td><code>&lt;ProjectName&gt;.uproject</code></td><td>Yes</td><td></td></tr>
+</tbody></table>
+<h3 id="building-your-custom-engine"><a class="header" href="#building-your-custom-engine">Building your custom engine</a></h3>
+<p>If you need to ship your own custom engine, you must <strong>additionally</strong> perform the following steps:</p>
+<ol>
+<li>
+<p>Compile Binaries for all relevant tools (UBT, UHT, UAT, UnrealPak, ShaderCompileWorker, UnrealInsights, LiveCodingConsole, etc)</p>
+</li>
+<li>
+<p>Create an installed engine build. Get the files and folders for your engine and prepare them for distribution. This one is a bit more complicated, and requires a bit more of thoughtful includes - for a decent list you can look into <code>Engine/Build/BuildGraph/InstalledBuild.xml</code> and related files, you need a roughly similar list of files. </p>
+</li>
+</ol>
+<table><thead><tr><th>Engine file/folder</th><th>Do you need it?</th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>Binaries</code></td><td>Yes</td><td>Binaries for the relevant tools (UBT, UHT, UAT, UnrealPak etc.), the editor and the game. Weigh up if you want to keep or strip PDBs - they inflate engine size, but provide valuable information when debugging engine crashes</td></tr>
+<tr><td><code>Build</code></td><td>Yes</td><td>Batch scripts and other things necessary for working with the engine distribution</td></tr>
+<tr><td><code>Config</code></td><td>Yes</td><td>Default engine config files</td></tr>
+<tr><td><code>Content</code></td><td>Yes</td><td>All of it</td></tr>
+<tr><td><code>Source</code></td><td>Yes</td><td>Engine sources, target files etc.</td></tr>
+<tr><td><code>Sources</code></td><td>Yes</td><td>Engine shader source files</td></tr>
+<tr><td><code>Plugins</code></td><td>Yes</td><td>Only the plugins that your project uses - can rack up a lot of space savings</td></tr>
+<tr><td><code>Templates</code></td><td>No</td><td>Remove to save space</td></tr>
+<tr><td><code>Samples</code></td><td>No</td><td>Remove to save space</td></tr>
+<tr><td><code>GenerateProjectFiles scripts</code></td><td>No</td><td>Installed engine build is not designed to be built from source</td></tr>
+</tbody></table>
+<p>You should build the engine for all platforms you would like to support mods on - at minimum for Win64. If you have a cross platform game and you wish to allow mods to be packaged for consoles, then you will need to allow modders to do cloud cooking on your own servers. </p>
+<p>With some of these changes (view my <code>InstalledEngineFilters.xml</code> <a href="https://github.com/Buckminsterfullerene02/UnrealEngine/blob/sn2/Engine/Build/InstalledEngineFilters.xml">here</a> as an example), I was able to reduce the UE5.6.1 installed engine build from the stock 26GB to 18GB - which also compressed to <code>.zip</code> to 7GB for distribution. The command I use for this is</p>
+<p><code>F:\UnrealEngine\Engine\Build\BatchFiles\RunUAT.bat BuildGraph -script=Engine/Build/InstalledEngineBuild.xml -target=&quot;Make Installed Build Win64&quot; -nosign -set:HostPlatformOnly=true -set:WithDDC=false -set:GameConfigurations=Shipping</code></p>
+<h2 id="where-mods-go-in-the-project"><a class="header" href="#where-mods-go-in-the-project">Where mods go (in the project)</a></h2>
+<p>Ideally, when a new mod is created in a modkit, it is created as a content only plugin (or a C++ plugin with content if you are supporting C++ modding). </p>
+<p>If you are using gameplay feature plugins, consider making mods as those plugins for even more flexibility.</p>
+<p>If you are using data driven gameplay and are using the asset registry scanning techniques, mods as plugins can then place their own data assets into the directories matching the game's. The engine will automatically mount the plugin's asset registry and merge it into the game's one, meaning that any asset registry scans of directories or assets of parent class will automatically pick up those from mods without any extra work from the game.</p>
+<p>This offers the most flexible way of managing mods within the editor, as you can easily package them seperately from the main game content. Additionally, when distributing updated versions of the modkit's content, you won't have to worry about overwriting any mod content.</p>
+<p>Then, inside each mod, you have any required files responsible for loading the mod, such as the initialization blueprint that the mod loader checks for and spawns, or the mod config file, which will be further discussed in the <a href="ExtraFeatures.html#mod-configuration-files">extra features</a> section.</p>
+<h2 id="editor-configs"><a class="header" href="#editor-configs">Editor configs</a></h2>
+<p>Aside from copying over your project configs (minus those contianing sensitive info), there are some additional configs you need to know about when setting up the editor.</p>
+<h3 id="packaging-configs"><a class="header" href="#packaging-configs">Packaging configs</a></h3>
+<p>When the mod is cooked and packaged, UE will automatically also try to cook any game assets that the mod references, all the way up the dependency tree. Since game content should never be cooked, you need to add all game and game's plugins content folders to the <code>DirectoriesToNeverCook</code> config. In UE5+, you need to set <code>CookContentMissingSeverity</code> to <code>Warning</code> so that the cook does not fail due to not being able to cook dependencies.</p>
+<h3 id="cooked-editor-configs"><a class="header" href="#cooked-editor-configs">Cooked editor configs</a></h3>
+<p>If using cooked editor, you additionally need to set <code>ZeroEngineVersionWarning=False</code>, <code>cook.AllowCookedDataInEditorBuilds=True</code> &amp; <code>s.AllowUnversionedContentInEditor=1</code>.</p>
+<h2 id="stripping-pdbs"><a class="header" href="#stripping-pdbs">Stripping PDBs</a></h2>
+<p>If you're intending to ship the engine or editor with PDB files, it's generally a good idea to strip them using PDBSTRIP first. This is a tool that comes with Windows, and it's usually located in <code>C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\srcsrv\pdbstr.exe</code>.</p>
+<p>It reduces the size of the PDB files by a magnitude of 100, making them as small as the resulting binaries.</p>
+<p>However, some information from the PDB files, like private symbol names, are lost, but you can't really distribute the non-stripped PDBs because take so much space for multiple targets in multiple configurations.</p>
+<h2 id="reducing-editor-size--qol-uncooked-editor-only"><a class="header" href="#reducing-editor-size--qol-uncooked-editor-only">Reducing editor size &amp; QoL (uncooked editor only)</a></h2>
+<p>If your uncooked modkit is huge (i.e. you have massive amounts of content), you can look at trying a few different ways to keep your filesize down:</p>
+<ul>
+<li>Reducing texture quality</li>
+<li>Removing all mesh LODs except LOD 0 from meshes</li>
+</ul>
+<p>Also, just like you (probably) have in your team's build systems, you should consider priming the DDC with a compressed DDC file and distribute that alongside the editor.</p>
+<h3 id="removing-lods"><a class="header" href="#removing-lods">Removing LODs</a></h3>
+<p>Modders do not typically need multiple LODs on meshes, unless you forsee them doing map modding, in which case it may be beneficial to have these to keep the editor map performant. </p>
+<p>In the editor, you can remove all LODs except LOD 0 (the base LOD) from static meshes and skeletal meshes; this can be done using an asset editor utility script or similar, for example:</p>
+<p><img src="../../../Images/StripMeshLODs.png" alt="Strip Mesh LODs" /></p>
+<h3 id="reducing-texture-quality"><a class="header" href="#reducing-texture-quality">Reducing texture quality</a></h3>
+<p>In the editor, you can increase the LOD bias of a texture in order to reduce the quality of it, thus its filesize. In order to do this in bulk, you can use the bulk editor matrix asset action, or some automation script of your own, or use the pre-existing plugin <a href="https://www.unrealengine.com/marketplace/en-US/product/rdtextools">rdTexTools</a>.</p>
+<h3 id="compressed-ddc"><a class="header" href="#compressed-ddc">Compressed DDC</a></h3>
+<p>When a user first opens the modkit project, they will likely have tens of thousands of shaders to compile. For some with lower end PCs, this can take many hours. However, you can get around this by providing a compressed <a href="https://docs.unrealengine.com/4.26/en-US/ProductionPipelines/DerivedDataCache/">derived data cache</a> file that contains all of the data for precompiled shaders, and additionally makes cooking the content way faster. </p>
+<p>The following command can be used to create a compressed DDC file:
+<code>UE4Editor.exe ProjectName -run=DerivedDataCache -fill -DDC=CreateInstalledProjectPak</code></p>
+<p>It is recommended that you use <code>CreateInstalledProjectPak</code> instead of the default <code>CreatePak</code> as it is a &quot;compressed&quot; version of the normal DDC pak and is roughly half the size.</p>
+<p>The editor will automatically pick up your <code>Compressed.ddp</code> file if it is in the directory <code>ProjectName/DerivedDataCache/</code>.</p>
+<p>The default configuration settings under <code>[DerivedDataBackendGraph]</code> in <code>DefaultEngine.ini</code> in the project's config settings are good to use as is.</p>
+<h2 id="gameplay-tags"><a class="header" href="#gameplay-tags">Gameplay tags</a></h2>
+<p>If your project uses gameplay tags, you'll likely have tags defined in <code>Config/DefaultTags.ini</code> or in specific <code>ini</code> files in <code>Config/Tags</code> - but you may also have tags defined natively (in C++) or in assets.</p>
+<p>If you are distributing with your compiled source, the natively defined tags are handled - the editor will pick these up automatically.</p>
+<p>If you are using uncooked editor, the gameplay tags defined in your content will also be picked up automatically when it loads all the packages at startup.</p>
+<p>However, if you are using cooked editor, the gameplay tags defined in your content will <em>not</em> be picked up automatically, as it cannot read the tags from the cooked files when they are loaded in. This will cause a significant problem if you are using gameplay tags extensively, as those defined in content simply will not be available for use/viewing by mods.</p>
+<p>The solution to this will be up to you - perhaps you already have a spreadsheet or document listing all gameplay tags that you can add to your project via config files (it's fine to have duplicate entries from different sources, the engine handles this fine). </p>
+<p>For Subnautica 2 cooked editor, I wrote an extension to the tooling that <a href="https://github.com/Subnautica2Modding/Subnautica2-Project/blob/sn2-engine-v0.10.3/Plugins/Suzie/Source/Suzie/Private/SuzieGameplayTags.cpp">generates the UHT class schema</a> at startup to <a href="https://github.com/Buckminsterfullerene02/meatloaf/blob/5bc964b498c801c4b40bc484721ef10a4a1761b5/jmap_dumper/src/lib.rs#L1019">harvest all gameplay tags from the game content</a> and then register those gameplay tags as part of the same startup process.</p>
+<h2 id="distributing-custom-engine"><a class="header" href="#distributing-custom-engine">Distributing custom engine</a></h2>
+<p>By default, the only legal way to distribute your custom engine is through a fork of the Unreal Engine Github repository. You have to upload your installed build using multi-part zip parts. Unfortunately, Github releases only supports zip parts in the format of <code>&lt;filename&gt;.zip.00x</code> up to the size of 2GB each. For creating the zip files, I use NanaZip (a fork of 7z) CLI tool with the following commands:</p>
+<pre><code>7z a -tzip Engine.zip Engine/
+7z t Engine.zip
+7z a -v1900m SN2-Engine.zip Engine.zip
+</code></pre>
+<p>The first command zips up the <code>Engine</code> folder. The second command verifies it. The third command splits it up into a multi-part zip of 1900MB blocks. Do not try to verify the zip parts - some of them may fail verification. This is fine, you can ignore it and upload anyway. If Github fails to upload a file, simply try again, there may have been some network error. It takes me about an hour to upload ~7GB of files to the release - not fast! This is what it looks like by the end:</p>
+<p><img src="../../../Images/EngineDist.png" alt="Engine dist release" /></p>
+<p>The extraction for the user is easy - download the zip parts to a folder and extract them to a folder.</p>
+<p>Note that you do not need to push your engine source code changes to the engine fork that you are distributing on.</p>
+<h3 id="a-better-way"><a class="header" href="#a-better-way">A better way</a></h3>
+<p>If you have one, contact your Epic rep and ask for permission to distribute your engine on another platform. This could be via the Epic Games store, on a branch of your game on steam, or elsewhere. Some games have done this, so it's doable!</p>
+<h2 id="updating-modkit-versions"><a class="header" href="#updating-modkit-versions">Updating modkit versions</a></h2>
+<p>There are a few solutions you may consider when it comes to updating your modkit versions:</p>
+<ul>
+<li>
+<p>Provide a whole new modkit download every version. This isn't optimal due to the size on disk, and modders having to always migrate their mod content to a new project, which in some cases can be somewhat painful</p>
+</li>
+<li>
+<p>If your modkit is project only, then using a seperate Steam/EGS install could work best as they already contain the utilities needed to patch only the modkit files that have changed </p>
+</li>
+<li>
+<p>If your modkit is project + engine, then you may have to come up with your own solution that combines the engine source being on your custom engine Github fork, the engine dependencies being pulled from your servers using the git dependencies file, and the project files being pulled from git, which is able to deal with project files fine, except for game content (if using uncooked editor) which may have to be downloaded seperately. Or use lotus, Epic Games' answer to perforce? Since it's open source, it could be interesting to use.</p>
+</li>
+<li>
+<p>If you can, negotiate with Epic to allow engine distribution to happen on Steam and/or EGS as a seperate app</p>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../ModSupport/ModKits/DeveloperModkits/Why.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../../../ModSupport/ModKits/DeveloperModkits/CookedEngine.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../ModSupport/ModKits/DeveloperModkits/Why.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../../../ModSupport/ModKits/DeveloperModkits/CookedEngine.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>
